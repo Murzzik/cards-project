@@ -1,0 +1,31 @@
+.container {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.elementContainer {
+    border-radius: 5px;
+    margin-top: 25px;
+}
+
+.element {
+    display: inline-block;
+    width: 200px;
+    text-align: center;
+    background-color: #989191;
+    color: #eaf3fa;
+    text-decoration: none;
+    font-size: 21px;
+    border-radius: 0 20px 20px 0;
+    padding: 5px;
+    font-weight: 500;
+    transition: .3s;
+}
+
+.element:hover {
+    background-color: #f5f5f5;
+    color: #152c15;
+}
