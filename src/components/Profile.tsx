@@ -7,7 +7,13 @@ export const Profile = () => {
             <a href="/">
                 <button className={s.default}>Back</button>
             </a>
-            Profile
+            Testing for new page
+            <div>
+                brass
+                <div>
+                    Brass2
+                </div>
+            </div>
         </div>
     );
 };
