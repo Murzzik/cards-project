@@ -2,10 +2,10 @@ import React from 'react';
 import {useFormik} from 'formik';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, IconButton, Input, InputAdornment, InputLabel, TextField} from '@material-ui/core';
 import style from './authorization.module.css';
-import {NavLink} from 'react-router-dom';
+import {Navigate, NavLink} from 'react-router-dom';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import {useAppDispatch} from '../../store/store';
+import {useAppDispatch, useAppSelector} from '../../store/store';
 import {login} from '../../store/reducers/authorization-reducer';
 
 type FormikErrorType = {
@@ -21,6 +21,7 @@ interface State {
 
 export const Authorization = () => {
     const dispatch = useAppDispatch();
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
     const [values, setValues] = React.useState<State>({
         password: '',
         showPassword: false,
@@ -65,7 +66,7 @@ export const Authorization = () => {
         }
     });
 
-
+    if (isLoggedIn) return <Navigate to={"/profile"}/>
     return <div className={style.loginBlock}>
 
         <h2>It-incubator</h2>
