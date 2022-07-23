@@ -1,0 +1,77 @@
+.loginBlock {
+    width: 100%;
+    max-width: 413px;
+    margin: 60px auto;
+    border-radius: 8px;
+    border: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 30px;
+    background-color: #F9F9FE;
+}
+
+.formBlock {
+    width: 100%;
+}
+.controlGroup {
+    width: 100%;
+}
+
+.loginBlock h2 {
+    font-size: 26px;
+    color: #2D2E46;
+}
+
+.loginBlock h3 {
+    font-size: 22px;
+    color: #2D2E46
+}
+
+a {
+    text-decoration: none;
+    color: #21268F;
+}
+
+ .textField input {
+    margin-top: 25px;
+    width: 100%;
+    max-width: 350px;
+}
+
+.visibilityIcon {
+    margin-top: 15px;
+    color: black;
+}
+
+.forgotPass {
+    text-align: right;
+}
+
+.errors {
+    height: 15px;
+    color: red;
+}
+
+.loginBlock .loginBtn {
+    margin-top: 90px;
+    border-radius: 30px;
+    background-color: #21268F;
+}
+
+.loginBlock p {
+    margin-top: 30px;
+    text-align: center;
+    color: #2D2E46;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.signUpLink {
+    font-weight: bold;
+    text-align: center;
+    color: #21268F;
+}
+

@@ -1,18 +1,19 @@
 import React from 'react';
 import './App.css';
-import { configureStore } from './store/store';
-import { Provider } from 'react-redux';
-import { HashRouter, Route, Routes } from 'react-router-dom';
-import { Authorization } from './components/Authorization';
-import { Profile } from './components/Profile';
-import { Registration } from './components/Registration';
-import { ErrorPage } from './components/ErrorPage';
-import { PassRecovery } from './components/PassRecovery';
-import { ApplyNewPass } from './components/ApplyNewPass';
-import { ComponentsTest } from './components/ComponentsTest';
-import { NavigateDemo } from './components/NavigateDemo';
 
-const store = configureStore();
+import {Provider} from 'react-redux';
+import {HashRouter, Route, Routes} from 'react-router-dom';
+import {Authorization} from './components/authorization/Authorization';
+import {Profile} from './components/Profile';
+import {Registration} from './components/Registration';
+import {ErrorPage} from './components/ErrorPage';
+import {PassRecovery} from './components/PassRecovery';
+import {ApplyNewPass} from './components/ApplyNewPass';
+import {ComponentsTest} from './components/ComponentsTest';
+import {NavigateDemo} from './components/NavigateDemo';
+import {store} from './store/store';
+
+
 
 export const Cards: React.FC = () => (
     <Provider store={store}>
