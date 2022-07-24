@@ -11,6 +11,7 @@
     box-sizing: border-box;
     padding: 30px;
     background-color: #F9F9FE;
+    position: relative;
 }
 
 .loginBlock h2 {
@@ -35,7 +36,9 @@ a {
     width: 100%;
     max-width: 350px;
 }
-
+/*.textField label {*/
+/*   margin: 0;*/
+/*}*/
 .visibilityIcon {
     margin-top: 10px;
     color: black;

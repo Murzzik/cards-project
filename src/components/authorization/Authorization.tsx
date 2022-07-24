@@ -7,6 +7,7 @@ import {Visibility} from '@material-ui/icons/';
 import {VisibilityOff} from '@material-ui/icons/';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {login} from '../../store/reducers/authorization-reducer';
+import Preloader from '../common/Preloader/Preloader';
 
 type FormikErrorType = {
     email?: string
@@ -68,7 +69,7 @@ export const Authorization = () => {
 
     if (isLoggedIn) return <Navigate to={'/profile'}/>;
     return <div className={style.loginBlock}>
-
+        <Preloader/>
         <h2>Sign in</h2>
 
         <form onSubmit={formik.handleSubmit} className={style.formBlock}>
