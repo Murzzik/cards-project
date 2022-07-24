@@ -1,6 +1,6 @@
 import {AppThunk} from '../store';
 import {authAPI} from '../../api/cardsApi';
-import {setPreloaderStatus} from './app-reducer';
+import {setError, setPreloaderStatus} from './app-reducer';
 
 const initialState: initialStateType = {
     isLoggedIn: false
@@ -23,7 +23,14 @@ export const login = (data: any): AppThunk => (dispatch) => {
     dispatch(setPreloaderStatus('loading'));
     authAPI.login(data).then(res => {
         dispatch(setIsLoggedIn(true));
-        dispatch(setPreloaderStatus('succeeded'))
+        dispatch(setPreloaderStatus('succeeded'));
+    }).catch(e => {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+
+        dispatch(setError(error));
+        dispatch(setPreloaderStatus('failed'));
     });
 };
 

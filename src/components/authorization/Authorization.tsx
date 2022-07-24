@@ -67,9 +67,11 @@ export const Authorization = () => {
         }
     });
 
+    const isLoad = useAppSelector(state => state.app.status);
+
     if (isLoggedIn) return <Navigate to={'/profile'}/>;
     return <div className={style.loginBlock}>
-        <Preloader/>
+        {isLoad === 'loading' && <Preloader/>}
         <h2>Sign in</h2>
 
         <form onSubmit={formik.handleSubmit} className={style.formBlock}>
@@ -82,7 +84,7 @@ export const Authorization = () => {
                         {formik.touched.email && formik.errors.email && <span>{formik.errors.email}</span>}
                     </div>
 
-                    <FormControl variant="standard">
+                    <FormControl variant="standard"  className={style.textField}>
                         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                         <Input
                             id="standard-adornment-password"
@@ -90,7 +92,6 @@ export const Authorization = () => {
                             // value={values.password}
                             // onChange={handleChange('password')}
                             {...formik.getFieldProps('password')}
-                            className={style.textField}
                             endAdornment={
                                 <InputAdornment position="end" className={style.visibilityIcon}>
                                     <IconButton

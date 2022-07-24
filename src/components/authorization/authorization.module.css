@@ -31,16 +31,16 @@ a {
     text-decoration: none;
 }
 
-.textField input {
-    margin-top: 25px;
-    width: 100%;
-    max-width: 350px;
-}
-/*.textField label {*/
-/*   margin: 0;*/
+/*.textField input {*/
+/*    margin-top: 25px;*/
+/*    width: 100%;*/
+/*    max-width: 350px;*/
 /*}*/
+.textField label {
+   margin: 0;
+}
 .visibilityIcon {
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     color: black;
 }
 
