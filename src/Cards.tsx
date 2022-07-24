@@ -4,7 +4,7 @@ import { configureStore } from './store/store';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Authorization } from './components/Authorization';
-import { Profile } from './components/Profile';
+import { Profile } from './components/Profile/Profile';
 import { Registration } from './components/Registration';
 import { ErrorPage } from './components/ErrorPage';
 import { PassRecovery } from './components/PassRecovery';
