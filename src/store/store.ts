@@ -6,6 +6,7 @@ import {profileReducer} from './reducers/profile-reducer';
 import {ActionTypeFoAuthReducer, authorizationReducer} from './reducers/authorization-reducer';
 import {registrationReducer} from './reducers/registration-reducer';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
+import {appReducer} from './reducers/app-reducer';
 
 const reducers = {
     authorizationReducer,
@@ -37,7 +38,8 @@ const rootReducer = combineReducers({
     auth: authorizationReducer,
     password: passwordReducer,
     profile: profileReducer,
-    registration: registrationReducer
+    registration: registrationReducer,
+    app: appReducer,
 });
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
