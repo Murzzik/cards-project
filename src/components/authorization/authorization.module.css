@@ -13,41 +13,41 @@
     background-color: #F9F9FE;
 }
 
-.formBlock {
-    width: 100%;
-}
-.controlGroup {
-    width: 100%;
-}
-
 .loginBlock h2 {
     font-size: 26px;
     color: #2D2E46;
 }
 
-.loginBlock h3 {
-    font-size: 22px;
-    color: #2D2E46
+.formBlock {
+    width: 100%;
+}
+
+.controlGroup {
+    width: 100%;
 }
 
 a {
     text-decoration: none;
-    color: #21268F;
 }
 
- .textField input {
+.textField input {
     margin-top: 25px;
     width: 100%;
     max-width: 350px;
 }
 
 .visibilityIcon {
-    margin-top: 15px;
+    margin-top: 10px;
     color: black;
 }
 
 .forgotPass {
     text-align: right;
+    color: black;
+}
+
+.forgotPass a {
+    color: black;
 }
 
 .errors {
@@ -58,7 +58,11 @@ a {
 .loginBlock .loginBtn {
     margin-top: 90px;
     border-radius: 30px;
-    background-color: #21268F;
+    background-color: #366EFF;
+}
+
+.loginBlock .loginBtn:hover {
+    background-color: rgba(6, 13, 30, 0.79);
 }
 
 .loginBlock p {
@@ -67,11 +71,16 @@ a {
     color: #2D2E46;
     font-size: 14px;
     font-weight: 600;
+    opacity: 0.5;
 }
 
 .signUpLink {
+    text-align: center;
+}
+
+.signUpLink a {
     font-weight: bold;
     text-align: center;
-    color: #21268F;
+    color: #366EFF;
 }
 

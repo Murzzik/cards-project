@@ -3,8 +3,8 @@ import {useFormik} from 'formik';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, IconButton, Input, InputAdornment, InputLabel, TextField} from '@material-ui/core';
 import style from './authorization.module.css';
 import {Navigate, NavLink} from 'react-router-dom';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import {Visibility} from '@material-ui/icons/';
+import {VisibilityOff} from '@material-ui/icons/';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {login} from '../../store/reducers/authorization-reducer';
 
@@ -66,11 +66,10 @@ export const Authorization = () => {
         }
     });
 
-    if (isLoggedIn) return <Navigate to={"/profile"}/>
+    if (isLoggedIn) return <Navigate to={'/profile'}/>;
     return <div className={style.loginBlock}>
 
-        <h2>It-incubator</h2>
-        <h3>Sign in</h3>
+        <h2>Sign in</h2>
 
         <form onSubmit={formik.handleSubmit} className={style.formBlock}>
             <FormControl className={style.controlGroup}>
@@ -97,6 +96,8 @@ export const Authorization = () => {
                                         aria-label="toggle password visibility"
                                         onClick={handleClickShowPassword}
                                         onMouseDown={handleMouseDownPassword}
+                                        style={{backgroundColor: 'transparent'}}
+                                        disableRipple={true}
                                     >
                                         {values.showPassword ? <VisibilityOff className={style.visibilityIcon}/> : <Visibility className={style.visibilityIcon}/>}
                                     </IconButton>
@@ -118,14 +119,15 @@ export const Authorization = () => {
                     <FormControlLabel
                         label={'Remember me'}
                         control={<Checkbox
-                            color={'primary'}
+                            className={style.checkRememberMe}
+                            style={{color: '#366EFF'}}
                             {...formik.getFieldProps('rememberMe')}
                             checked={formik.values.rememberMe}
                         />}/>
 
 
-                    <Button className={style.loginBtn} type={'submit'} variant={'contained'} color={'primary'}>
-                        Login
+                    <Button className={style.loginBtn} type={'submit'} variant={'contained'} color={'primary'} disabled={Object.keys(formik.errors).length !== 0}>
+                        SIGN IN
                     </Button>
 
                     <p>Don’t have an account?</p>

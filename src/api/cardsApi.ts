@@ -7,7 +7,23 @@ export const instance = axios.create({
 
 export const authAPI = {
     login(data: any) {
-        return instance.post('auth/login', data)
+        return instance.post<LoginResponse>('auth/login', data);
     }
 };
 
+type LoginResponse = {
+    _id: string;
+    email: string;
+    name: string;
+    avatar?: string;
+    publicCardPacksCount: number;
+
+    created: Date;
+    updated: Date;
+    isAdmin: boolean;
+    verified: boolean;
+    rememberMe: boolean;
+
+    error?: string;
+
+}
