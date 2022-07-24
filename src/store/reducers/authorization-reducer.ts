@@ -1,5 +1,6 @@
 import {AppThunk} from '../store';
 import {authAPI} from '../../api/cardsApi';
+import {setPreloaderStatus} from './app-reducer';
 
 const initialState: initialStateType = {
     isLoggedIn: false
@@ -19,8 +20,10 @@ export const authorizationReducer = (state = initialState, action: ActionTypeFoA
 export const setIsLoggedIn = (value: boolean) => ({type: 'auth-setIsLoggedIn', value} as const);
 
 export const login = (data: any): AppThunk => (dispatch) => {
+    dispatch(setPreloaderStatus('loading'));
     authAPI.login(data).then(res => {
         dispatch(setIsLoggedIn(true));
+        dispatch(setPreloaderStatus('succeeded'))
     });
 };
 

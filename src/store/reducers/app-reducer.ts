@@ -6,13 +6,25 @@ const initialState: initialStateType = {
     isInitialized: false,
 };
 
-export const appReducer = (state = initialState, action: any) => {
+export const appReducer = (state = initialState, action: ActionTypeForAppReducer) => {
     switch (action.type) {
+        case 'app-setPreloaderStatus': {
+            return {...state, status: action.status};
+        }
         default : {
             return state;
         }
     }
 };
+
+export const setPreloaderStatus = (status: RequestStatusType) => {
+    return {
+        type: 'app-setPreloaderStatus',
+        status
+    } as const;
+};
+
+export type ActionTypeForAppReducer = ReturnType<typeof setPreloaderStatus>
 
 type initialStateType = {
     status: RequestStatusType,

@@ -6,7 +6,7 @@ import {profileReducer} from './reducers/profile-reducer';
 import {ActionTypeFoAuthReducer, authorizationReducer} from './reducers/authorization-reducer';
 import {registrationReducer} from './reducers/registration-reducer';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
-import {appReducer} from './reducers/app-reducer';
+import {ActionTypeForAppReducer, appReducer} from './reducers/app-reducer';
 
 const reducers = {
     authorizationReducer,
@@ -43,7 +43,7 @@ const rootReducer = combineReducers({
 });
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
-type AppActionsType = ActionTypeFoAuthReducer
+type AppActionsType = ActionTypeFoAuthReducer | ActionTypeForAppReducer
 
 export type AppRootStateType = ReturnType<typeof store.getState>
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AppActionsType>
@@ -51,6 +51,9 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateTy
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector;
+
+// @ts-ignore
+window.store = store;
 
 
 
