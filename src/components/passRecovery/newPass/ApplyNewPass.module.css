@@ -12,9 +12,11 @@
     padding: 30px;
     background-color: #F9F9FE;
     position: relative;
+    text-align: center;
 }
 
 .textField {
+    margin-top: 20px;
     width: 100%;
 }
 
@@ -29,8 +31,21 @@
     color: red;
 }
 
+.newPasswordBlock p {
+    font-size: 14px;
+    opacity: 0.5;
+    font-weight: 600;
+}
 .newPasswordBlock a {
     width: 100%;
     text-decoration: 0;
     color: #fff;
 }
+
+.newPasswordBlock .newPasswordBtn {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 30px;
+    background-color: #366EFF;
+}
+

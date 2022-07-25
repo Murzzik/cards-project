@@ -41,9 +41,14 @@ export const ApplyNewPass = () => {
                 <span>{error}</span>
             </div>
             <p> Create new password and we will send you further instructions to email </p>
-            <Button className={style.loginBtn} variant={'contained'} color={'primary'} onClick={onClickHandler} disabled={blockBtn}>
-                <NavLink to={'/authorization'}> Create new password</NavLink>
-            </Button>
+            {/*<Button className={style.loginBtn} variant={'contained'} color={'primary'} onClick={onClickHandler} disabled={blockBtn}>*/}
+            {/*    <NavLink to={'/authorization'}> Create new password</NavLink>*/}
+            {/*</Button>*/}
+
+            <NavLink to={'/authorization'}>
+                <Button className={style.newPasswordBtn} variant={'contained'} color={'primary'} onClick={onClickHandler} disabled={blockBtn}>
+                    Create new password
+                </Button></NavLink>
         </div>
     );
 };
