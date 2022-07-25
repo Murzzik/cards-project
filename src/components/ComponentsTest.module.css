@@ -29,3 +29,7 @@
     background: #46f1e2;
     cursor: pointer;
 }
+
+.superPass label {
+    margin: 0;
+}

@@ -10,7 +10,7 @@
     margin-right: -50%;
     transform: translate(-50%, -50%);
     width: 413px;
-    height: 360px;
+    height: 380px;
     text-align: center;
     background: #FFFFFF;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
@@ -33,17 +33,20 @@
     align-items: center;
 }
 
-.editUserPhoto {
-    width: 34px;
-    height: 34px;
-    cursor: pointer;
+.textField label {
+   margin: 0;
+}
+
+.textField div {
+    margin-bottom: 10px;
 }
 
 .editUserName {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 15px;
+    height: 50px;
+    margin-top: 10px;
     white-space: nowrap;
 }
 
@@ -55,10 +58,19 @@
     transition: .3s;
 }
 
-.editIcon:hover {
-    background: #dadada;
-    border-radius: 50%;
-    opacity: 0.8;
+.submitBtn {
+    border: none;
+    width: 60px;
+    height: 28px;
+    background: #FCFCFC;
+    box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.submitBtn:hover {
+    background: #e3e3e3;
 }
 
 .userProfileName {

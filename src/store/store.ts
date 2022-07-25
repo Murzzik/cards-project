@@ -1,32 +1,28 @@
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
-import thunk from 'redux-thunk';
+import { applyMiddleware, combineReducers, legacy_createStore as createStore } from 'redux';
+import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { passwordReducer } from './reducers/password-reducer';
-import { profileReducer } from './reducers/profile-reducer';
+import { ProfileActionType, profileReducer } from './reducers/profile-reducer';
 import { authorizationReducer } from './reducers/authorization-reducer';
 import { registrationReducer } from './reducers/registration-reducer';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-const reducers = {
-    authorizationReducer,
-    registrationReducer,
-    profileReducer,
-    passwordReducer,
-};
+const rootReducer = combineReducers({
+    auth: authorizationReducer,
+    password: passwordReducer,
+    profile: profileReducer,
+    registration: registrationReducer,
 
-export const configureStore = () => {
-    const composeEnhancers =
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-                // Specify extension’s options like name, actionsDenylist, actionsCreators, serialize...
-            })
-            : compose;
+});
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
-    const enhancer = composeEnhancers(applyMiddleware(thunk));
+type AppActionsType = ProfileActionType
 
-    // Stub
+export type AppRootStateType = ReturnType<typeof store.getState>
+export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AppActionsType>
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppActionsType>
 
-    return createStore(combineReducers(reducers), enhancer);
-};
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector;
+
+// @ts-ignore
+window.store = store;
