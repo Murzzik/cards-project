@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import {NavLink, useParams} from 'react-router-dom';
-import {TextField, Button} from '@material-ui/core';
+import {Button, TextField} from '@material-ui/core';
 import style from './ApplyNewPass.module.css';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {createNewPassword} from '../../../store/reducers/authorization-reducer';

@@ -20,6 +20,7 @@
 }
 
 .textField {
+    width: 100%;
     margin-top: 30px;
 }
 
@@ -28,11 +29,14 @@
 }
 
 .errors {
+    width: 100%;
+    text-align: left;
     height: 15px;
     color: red;
 }
 
 .recoveryBlock .loginBtn {
+    width: 100%;
     margin-top: 50px;
     border-radius: 30px;
     background-color: #366EFF;
