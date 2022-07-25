@@ -1,0 +1,49 @@
+.recoveryBlock {
+    width: 100%;
+    max-width: 413px;
+    margin: 60px auto;
+    border-radius: 8px;
+    border: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 30px;
+    background-color: #F9F9FE;
+    position: relative;
+}
+
+.recoveryBlock p {
+    font-size: 14px;
+    opacity: 0.5;
+}
+
+.textField {
+    margin-top: 30px;
+}
+
+.textField label {
+    margin: 0;
+}
+
+.errors {
+    height: 15px;
+    color: red;
+}
+
+.recoveryBlock .loginBtn {
+    margin-top: 50px;
+    border-radius: 30px;
+    background-color: #366EFF;
+}
+
+.recoveryBlock .loginBtn:hover {
+    background-color: rgba(6, 13, 30, 0.79);
+}
+
+.signInLink a {
+    font-weight: 600;
+    text-align: center;
+    color: #366EFF;
+}

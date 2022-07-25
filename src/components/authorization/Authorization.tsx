@@ -1,12 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useFormik} from 'formik';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, IconButton, Input, InputAdornment, InputLabel, TextField} from '@material-ui/core';
 import style from './authorization.module.css';
 import {Navigate, NavLink} from 'react-router-dom';
-import {Visibility} from '@material-ui/icons/';
-import {VisibilityOff} from '@material-ui/icons/';
+import {Visibility, VisibilityOff} from '@material-ui/icons/';
 import {useAppDispatch, useAppSelector} from '../../store/store';
-import {login} from '../../store/reducers/authorization-reducer';
+import {login, setIsAutoRedirect} from '../../store/reducers/authorization-reducer';
 import Preloader from '../common/Preloader/Preloader';
 
 type FormikErrorType = {
@@ -69,6 +68,10 @@ export const Authorization = () => {
 
     const isLoad = useAppSelector(state => state.app.status);
 
+    useEffect(() => {
+        dispatch(setIsAutoRedirect(false));
+    }, [dispatch]);
+
     if (isLoggedIn) return <Navigate to={'/profile'}/>;
     return <div className={style.loginBlock}>
         {isLoad === 'loading' && <Preloader/>}
@@ -84,7 +87,7 @@ export const Authorization = () => {
                         {formik.touched.email && formik.errors.email && <span>{formik.errors.email}</span>}
                     </div>
 
-                    <FormControl variant="standard"  className={style.textField}>
+                    <FormControl variant="standard" className={style.textField}>
                         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                         <Input
                             id="standard-adornment-password"
@@ -128,7 +131,9 @@ export const Authorization = () => {
                         />}/>
 
 
-                    <Button className={style.loginBtn} type={'submit'} variant={'contained'} color={'primary'} disabled={Object.keys(formik.errors).length !== 0}>
+                    <Button className={style.loginBtn} type={'submit'} variant={'contained'} color={'primary'}
+                        // disabled={Object.keys(formik.errors).length !== 0}
+                    >
                         SIGN IN
                     </Button>
 

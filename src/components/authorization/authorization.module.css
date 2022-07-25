@@ -37,8 +37,9 @@ a {
 /*    max-width: 350px;*/
 /*}*/
 .textField label {
-   margin: 0;
+    margin: 0;
 }
+
 .visibilityIcon {
     /*margin-top: 10px;*/
     color: black;

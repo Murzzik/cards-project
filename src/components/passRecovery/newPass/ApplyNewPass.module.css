@@ -1,0 +1,36 @@
+.newPasswordBlock {
+    width: 100%;
+    max-width: 413px;
+    margin: 60px auto;
+    border-radius: 8px;
+    border: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 30px;
+    background-color: #F9F9FE;
+    position: relative;
+}
+
+.textField {
+    width: 100%;
+}
+
+.textField label {
+    margin: 0;
+}
+
+.errors {
+    width: 100%;
+    text-align: left;
+    height: 15px;
+    color: red;
+}
+
+.newPasswordBlock a {
+    width: 100%;
+    text-decoration: 0;
+    color: #fff;
+}

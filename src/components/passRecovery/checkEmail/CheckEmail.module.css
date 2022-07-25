@@ -1,0 +1,28 @@
+.checkEmailBlock {
+    width: 100%;
+    max-width: 413px;
+    margin: 60px auto;
+    border-radius: 8px;
+    border: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 30px;
+    background-color: #F9F9FE;
+    position: relative;
+    text-align: center;
+}
+
+.checkEmailBlock button {
+    width: 300px;
+    border-radius: 30px;
+    background-color: #366EFF;
+}
+
+.checkEmailBlock a {
+    color: #FFF;
+    text-decoration: none;
+    width: 100%;
+}
