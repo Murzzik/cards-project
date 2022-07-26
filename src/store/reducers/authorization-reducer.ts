@@ -50,6 +50,7 @@ export const forgotPassword = (email: any): AppThunk => (dispatch) => {
             ? e.response.data.error
             : (e.message + ', more details in the console');
         dispatch(setError(error));
+        alert(error)
         dispatch(setPreloaderStatus('failed'));
     });
 };

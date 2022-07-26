@@ -1,4 +1,4 @@
-.recoveryBlock {
+.main_block {
     width: 100%;
     max-width: 413px;
     margin: 60px auto;
@@ -11,43 +11,51 @@
     box-sizing: border-box;
     padding: 30px;
     background-color: #F9F9FE;
+    row-gap: 20px;
     position: relative;
 }
 
-.recoveryBlock p {
-    font-size: 14px;
-    opacity: 0.5;
+.main_block h2 {
+    font-size: 26px;
+    color: #2D2E46;
 }
 
-.textField {
+.form_block, .control_group, .input_field {
     width: 100%;
-    margin-top: 30px;
 }
 
-.textField label {
+.input_field label {
     margin: 0;
 }
 
 .errors {
     width: 100%;
-    text-align: left;
-    height: 15px;
+    height: 20px;
     color: red;
 }
 
-.recoveryBlock .loginBtn {
+.forgot_password {
+    text-align: right;
+    color: black;
+}
+
+.main_block .auth_button {
+    margin-top: 20px;
     width: 100%;
-    margin-top: 50px;
     border-radius: 30px;
     background-color: #366EFF;
 }
 
-.recoveryBlock .loginBtn:hover {
-    background-color: rgba(6, 13, 30, 0.79);
-}
-
-.signInLink a {
-    font-weight: 600;
+.sign_auth_link {
+    font-weight: bold;
     text-align: center;
     color: #366EFF;
+    text-decoration: none;
 }
+
+.opacity_text {
+    text-align: center;
+    opacity: 0.5;
+}
+
+
