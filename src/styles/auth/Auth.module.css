@@ -1,0 +1,70 @@
+.main_block {
+    width: 100%;
+    max-width: 413px;
+    margin: 60px auto;
+    border-radius: 8px;
+    border: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 30px;
+    background-color: #F9F9FE;
+    row-gap: 20px;
+    position: relative;
+}
+
+.main_block h2 {
+    font-size: 26px;
+    color: #2D2E46;
+}
+
+.form_block, .control_group, .input_field {
+    width: 100%;
+}
+
+.input_field label {
+    margin: 0;
+}
+
+.errors {
+    width: 100%;
+    height: 20px;
+    color: red;
+}
+
+.forgot_password {
+    text-align: right;
+    color: black;
+}
+
+.main_block .auth_button {
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 30px;
+    background-color: #366EFF;
+}
+
+.sign_auth_link {
+    font-weight: bold;
+    text-align: center;
+    color: #366EFF;
+    text-decoration: none;
+}
+
+.opacity_text {
+    text-align: center;
+    opacity: 0.5;
+}
+
+.email_link {
+    width: 100%;
+}
+.email_link a {
+    text-decoration: none;
+}
+
+
+
+

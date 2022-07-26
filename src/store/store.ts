@@ -2,7 +2,7 @@ import { applyMiddleware, combineReducers, legacy_createStore as createStore } f
 import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { passwordReducer } from './reducers/password-reducer';
 import { ProfileActionType, profileReducer } from './reducers/profile-reducer';
-import { authorizationReducer } from './reducers/authorization-reducer';
+import { ActionTypeFoAuthReducer, authorizationReducer } from './reducers/authorization-reducer';
 import { registrationReducer } from './reducers/registration-reducer';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { ActionTypeForAppReducer, appReducer } from './reducers/app-reducer';
@@ -12,12 +12,12 @@ const rootReducer = combineReducers({
     password: passwordReducer,
     profile: profileReducer,
     registration: registrationReducer,
-    app: appReducer
+    app: appReducer,
 
 });
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
-type AppActionsType = ProfileActionType | ActionTypeForAppReducer
+type AppActionsType = ProfileActionType | ActionTypeForAppReducer | ActionTypeFoAuthReducer
 
 export type AppRootStateType = ReturnType<typeof store.getState>
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AppActionsType>
