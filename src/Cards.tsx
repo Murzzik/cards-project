@@ -9,7 +9,7 @@ import {PassRecovery} from './components/passRecovery/PassRecovery';
 import {ApplyNewPass} from './components/passRecovery/newPass/ApplyNewPass';
 import {ComponentsTest} from './components/ComponentsTest';
 import {NavigateDemo} from './components/NavigateDemo';
-import CheckEmail from './components/passRecovery/checkEmail/CheckEmail';
+import CheckEmailContainer from './components/passRecovery/checkEmail/CheckEmailContainer';
 
 const Cards: React.FC = () => {
     return (
@@ -21,7 +21,7 @@ const Cards: React.FC = () => {
                 <Route path="/set-new-password/:token" element={<ApplyNewPass/>}/>
                 <Route path="/profile" element={<Profile/>}/>
                 <Route path="/error404" element={<ErrorPage/>}/>
-                <Route path="/check-email" element={<CheckEmail/>}/>
+                <Route path="/check-email" element={<CheckEmailContainer/>}/>
                 <Route path="/passrecovery" element={<PassRecovery/>}/>
                 <Route path="/applynewpass" element={<ApplyNewPass/>}/>
                 <Route path="/components" element={<ComponentsTest/>}/>
