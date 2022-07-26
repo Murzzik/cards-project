@@ -1,6 +1,6 @@
-import {AppThunk} from '../store';
-import {authAPI} from '../../api/cardsApi';
-import {setError, setPreloaderStatus} from './app-reducer';
+import { AppThunk } from '../store';
+import { authAPI } from '../../api/cardsApi';
+import { setError, setPreloaderStatus } from './app-reducer';
 
 const initialState: initialStateType = {
     isLoggedIn: false,
@@ -9,12 +9,12 @@ const initialState: initialStateType = {
 };
 
 export const authorizationReducer = (state = initialState, action: ActionTypeFoAuthReducer) => {
-    switch (action.type) {
+    switch(action.type) {
         case 'auth-setIsLoggedIn': {
             return {...state, isLoggedIn: action.value};
         }
         case 'auth-setRecoveryEmail': {
-            return {...state, recoveryEmail: action.email}
+            return {...state, recoveryEmail: action.email};
         }
         case 'auth-setIsAutoRedirect': {
             return {...state, isAutoRedirect: action.isAutoRedirect};
@@ -27,7 +27,10 @@ export const authorizationReducer = (state = initialState, action: ActionTypeFoA
 
 export const setIsLoggedIn = (value: boolean) => ({type: 'auth-setIsLoggedIn', value} as const);
 export const setRecoveryEmail = (email: string) => ({type: 'auth-setRecoveryEmail', email} as const);
-export const setIsAutoRedirect = (isAutoRedirect: boolean) => ({type: 'auth-setIsAutoRedirect', isAutoRedirect} as const);
+export const setIsAutoRedirect = (isAutoRedirect: boolean) => ({
+    type: 'auth-setIsAutoRedirect',
+    isAutoRedirect,
+} as const);
 
 export const login = (data: any): AppThunk => (dispatch) => {
     dispatch(setPreloaderStatus('loading'));
@@ -70,7 +73,10 @@ export const createNewPassword = (password: string, resetPasswordToken: string |
         });
 };
 
-export type ActionTypeFoAuthReducer = ReturnType<typeof setIsLoggedIn> | ReturnType<typeof setIsAutoRedirect> | ReturnType<typeof setRecoveryEmail>;
+export type ActionTypeFoAuthReducer =
+    ReturnType<typeof setIsLoggedIn>
+    | ReturnType<typeof setIsAutoRedirect>
+    | ReturnType<typeof setRecoveryEmail>;
 
 type initialStateType = {
     isLoggedIn: boolean,

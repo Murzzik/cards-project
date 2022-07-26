@@ -1,8 +1,8 @@
 import React from 'react';
-import {useParams} from 'react-router-dom';
-import {ApplyNewPass} from './ApplyNewPass';
-import {useAppDispatch} from '../../../store/store';
-import {createNewPassword} from '../../../store/reducers/authorization-reducer';
+import { useParams } from 'react-router-dom';
+import { ApplyNewPass } from './ApplyNewPass';
+import { useAppDispatch } from '../../../store/store';
+import { createNewPassword } from '../../../store/reducers/authorization-reducer';
 
 const ApplyNewPasswordContainer: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ const ApplyNewPasswordContainer: React.FC = () => {
 
     window.history.replaceState('', '', '/new-password');
     return (
-        <ApplyNewPass token={token} createPasswords={createPasswords}/>
+        <ApplyNewPass token={token} createPasswords={createPasswords} />
     );
 };
 

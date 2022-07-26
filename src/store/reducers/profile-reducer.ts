@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import { cardsAPI } from '../../api/cards-api';
+import { authAPI } from '../../api/cardsApi';
 import { AppThunk } from '../store';
 
 const UPDATE_USER_NAME = 'UPDATE-USER-NAME';
@@ -38,8 +38,8 @@ export const setUserNameAC = () =>
 
 export const updateUserNameTC = (name: string): AppThunk =>
     (dispatch: Dispatch<ProfileActionType>) => {
-        cardsAPI.updateUserName(name).then((res) => {
-            cardsAPI.getUserInfo().then((res) => {
+        authAPI.updateUserName(name).then((res) => {
+            authAPI.getUserInfo().then((res) => {
                 dispatch(updateUserNameAC(res.data.name))
                 console.log(res.data.name)
             })

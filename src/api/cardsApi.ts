@@ -12,13 +12,19 @@ export const authAPI = {
     forgot(email: string) {
         const data = {
             email,
-            message: `<div style="background-color: lime; padding: 15px">password recovery link: <a href='http://localhost:3000/#/set-new-password/$token$'>link</a></div>`
+            message: `<div style="background-color: lime; padding: 15px">password recovery link: <a href='http://localhost:3000/#/set-new-password/$token$'>link</a></div>`,
         };
         return axios.post('https://neko-back.herokuapp.com/2.0/auth/forgot', data);
     },
     setNewPassword(password: string, resetPasswordToken: string | undefined) {
         return instance.post('auth/set-new-password', {password, resetPasswordToken});
-    }
+    },
+    updateUserName(name: string) {
+        return instance.put<{name: string}>('/auth/me', {name});
+    },
+    getUserInfo() {
+        return instance.post('/auth/me', {});
+    },
 
 };
 

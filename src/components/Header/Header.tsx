@@ -1,21 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import s from '../Header/Header.module.css';
 import projectLogo from '../../assets/images/project-logo.png';
 import userPhoto from '../../assets/images/userPhoto.png';
 import { useAppSelector } from '../../store/store';
-import { cardsAPI } from '../../api/cards-api';
-import { useDispatch } from 'react-redux';
-import { updateUserNameAC } from '../../store/reducers/profile-reducer';
 
 export const Header = () => {
-    const dispatch = useDispatch()
     const userName = useAppSelector(state => state.profile.name)
-
-    useEffect(() => {
-        cardsAPI.getUserInfo().then((res) =>{
-            dispatch(updateUserNameAC(res.data.name))
-        })
-    })
 
     console.log('error')
 
