@@ -1,14 +1,13 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useFormik} from 'formik';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, IconButton, Input, InputAdornment, InputLabel, TextField} from '@material-ui/core';
 import {Navigate, NavLink} from 'react-router-dom';
 import {Visibility, VisibilityOff} from '@material-ui/icons/';
-import {useAppDispatch, useAppSelector} from '../../store/store';
-import {login, setIsAutoRedirect} from '../../store/reducers/authorization-reducer';
+import {useAppSelector} from '../../store/store';
 import Preloader from '../common/Preloader/Preloader';
 import style from '../../styles/auth/Auth.module.css';
 
-type FormikErrorType = {
+export type FormikErrorType = {
     email?: string
     password?: string
     rememberMe?: boolean
@@ -19,9 +18,13 @@ interface State {
     showPassword: boolean;
 }
 
-export const Authorization = () => {
-    const dispatch = useAppDispatch();
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
+type AuthorizationPropsType = {
+    isLoggedIn: boolean,
+    authorization: (values: FormikErrorType) => void,
+}
+
+export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, authorization}) => {
+
     const [values, setValues] = React.useState<State>({
         password: '',
         showPassword: false,
@@ -57,20 +60,16 @@ export const Authorization = () => {
                 errors.password = 'Should be 7 symbol minimum';
             }
             return errors;
-
         },
         onSubmit: values => {
-            // alert(JSON.stringify(values));
-            dispatch(login(values));
+            authorization(values);
             formik.resetForm();
         }
     });
 
-    const isLoad = useAppSelector(state => state.app.status);
+    const isDisabled = Object.keys(formik.errors).length !== 0;
 
-    useEffect(() => {
-        dispatch(setIsAutoRedirect(false));
-    }, [dispatch]);
+    const isLoad = useAppSelector(state => state.app.status);
 
     if (isLoggedIn) return <Navigate to={'/profile'}/>;
     return <div className={style.main_block}>
@@ -92,8 +91,6 @@ export const Authorization = () => {
                         <Input
                             id="standard-adornment-password"
                             type={values.showPassword ? 'text' : 'password'}
-                            // value={values.password}
-                            // onChange={handleChange('password')}
                             {...formik.getFieldProps('password')}
                             endAdornment={
                                 <InputAdornment position="end">
@@ -111,34 +108,27 @@ export const Authorization = () => {
                         />
                     </FormControl>
 
-
                     <div className={style.errors}>
                         {formik.touched.password && formik.errors.password && <span>{formik.errors.password}</span>}
                     </div>
 
-
-                    {/*<div className={style.forgotPass}>*/}
                     <NavLink className={style.forgot_password} to={'/passrecovery'}>Forgot password</NavLink>
-                    {/*</div>*/}
 
                     <FormControlLabel
                         label={'Remember me'}
                         control={<Checkbox
-                            // className={style.checkRememberMe}
                             style={{color: '#366EFF'}}
                             {...formik.getFieldProps('rememberMe')}
                             checked={formik.values.rememberMe}
                         />}/>
 
-
                     <Button className={style.auth_button} type={'submit'} variant={'contained'} color={'primary'}
-                        disabled={Object.keys(formik.errors).length !== 0}
+                            disabled={isDisabled}
                     >
                         SIGN IN
                     </Button>
 
                     <p className={style.opacity_text}>Don’t have an account?</p>
-
 
                     <NavLink className={style.sign_auth_link} to={'/registration'}>SING UP</NavLink>
 
