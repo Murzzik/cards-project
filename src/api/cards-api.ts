@@ -9,4 +9,12 @@ export const cardsAPI = {
     updateUserName(name: string) {
         return instance.put<{name: string}, AxiosResponse<ResponseType>>('/auth/me', {name});
     },
+    getUserInfo() {
+        return instance.post('/auth/me', {});
+    },
+    userAuthorization(email: string, password: string, rememberMe: boolean) {
+        return instance.post<{email: string, password: string, rememberMe: boolean},
+            AxiosResponse<ResponseType>>('/auth/login', {email, password, rememberMe});
+    },
+
 };

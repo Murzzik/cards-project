@@ -1,18 +1,22 @@
 import React, { ChangeEvent, useState } from 'react';
 import s from './Profile.module.css';
-import { Header } from '../Header/Header';
 import editUserName from '../../assets/images/Edit.png';
 import logout from '../../assets/images/logout.png';
 import { BadgeAvatars } from '../../common/utils/BadgeAvatars';
 import { TextField } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { updateUserNameTC } from '../../store/reducers/profile-reducer';
+import { userLoginTC } from '../../store/reducers/authorization-reducer';
+import { Header } from '../Header/Header';
 
 export const Profile = () => {
     const userProfileName = useAppSelector<string>(state => state.profile.name);
+    const userEmail = useAppSelector(state => state.auth.email)
+    const userLogin = useAppSelector(state => state.auth)
 
     const [editMode, setEditMode] = useState(false);
     const [userName, setUserName] = useState(userProfileName);
+
 
     const dispatch = useAppDispatch();
 
@@ -26,8 +30,12 @@ export const Profile = () => {
         setEditMode(false);
     };
 
+    const login = () => {
+        dispatch(userLoginTC(userLogin.email, userLogin.password, userLogin.rememberMe))
+    }
+
     const changeUserName = (e: ChangeEvent<HTMLInputElement>) => {
-        let userName = e.currentTarget.value;
+        const userName = e.currentTarget.value
         setUserName(userName);
     };
 
@@ -36,7 +44,7 @@ export const Profile = () => {
             <TextField className={s.textField} id="standard-basic" label="Nickname" variant="standard" autoFocus
                        onChange={changeUserName} />
             :
-            <span className={s.userProfileName}>{userName}</span>
+            <span className={s.userProfileName}>{userProfileName}</span>
     );
 
     const editModeBtn = (
@@ -50,7 +58,7 @@ export const Profile = () => {
 
     return (
         <div className={s.container}>
-            <Header name={userName} />
+            <Header />
             <div className={s.profileEdit}>
                 <span className={s.profileHeader}>
                     Personal Information
@@ -65,10 +73,10 @@ export const Profile = () => {
                     </div>
                 </div>
                 <span className={s.userEmail}>
-                    mcalexstar@gmail.com
+                    {userEmail}
                 </span>
                 <div className={s.logoutContainer}>
-                    <button className={s.logoutButton}>
+                    <button className={s.logoutButton} onClick={login}>
                         <img src={logout} alt="Logout button" />
                         <span className={s.buttonTitle}>
                             Log out
