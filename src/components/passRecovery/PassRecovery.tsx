@@ -4,7 +4,7 @@ import style from '../../styles/auth/Auth.module.css';
 import {Navigate, NavLink} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import Preloader from '../common/Preloader/Preloader';
-import {forgotPassword} from '../../store/reducers/authorization-reducer';
+import {forgotPassword, setRecoveryEmail} from '../../store/reducers/authorization-reducer';
 
 export const PassRecovery = () => {
     const isLoad = useAppSelector(state => state.app.status);
@@ -24,6 +24,7 @@ export const PassRecovery = () => {
     };
     const onClickHandler = () => {
         dispatch(forgotPassword(email));
+        dispatch(setRecoveryEmail(email));
     };
 
     function correctEmail(value: string) {

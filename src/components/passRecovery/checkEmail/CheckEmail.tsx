@@ -7,13 +7,14 @@ import Preloader from '../../common/Preloader/Preloader';
 import {useAppSelector} from '../../../store/store';
 
 const CheckEmail: React.FC = () => {
+    const recoveryEmail = useAppSelector(state => state.auth.recoveryEmail);
     const isLoad = useAppSelector(state => state.app.status);
     return (
         <div className={style.main_block}>
             {isLoad === 'loading' && <Preloader/>}
             <h2>Check Email</h2>
             <img src={checkEmail} alt=""/>
-            <p className={style.opacity_text}>We’ve sent an Email with instructions to example@mail.com</p>
+            <p className={style.opacity_text}>We’ve sent an Email with instructions to {recoveryEmail}</p>
 
             <NavLink to={'/authorization'} style={{width: '100%', textDecoration: 'none'}}>
                 <Button variant={'contained'} color={'primary'} className={style.auth_button}>

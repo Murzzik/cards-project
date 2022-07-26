@@ -5,12 +5,16 @@ import {setError, setPreloaderStatus} from './app-reducer';
 const initialState: initialStateType = {
     isLoggedIn: false,
     isAutoRedirect: false,
+    recoveryEmail: '',
 };
 
 export const authorizationReducer = (state = initialState, action: ActionTypeFoAuthReducer) => {
     switch (action.type) {
         case 'auth-setIsLoggedIn': {
             return {...state, isLoggedIn: action.value};
+        }
+        case 'auth-setRecoveryEmail': {
+            return {...state, recoveryEmail: action.email}
         }
         case 'auth-setIsAutoRedirect': {
             return {...state, isAutoRedirect: action.isAutoRedirect};
@@ -22,6 +26,7 @@ export const authorizationReducer = (state = initialState, action: ActionTypeFoA
 };
 
 export const setIsLoggedIn = (value: boolean) => ({type: 'auth-setIsLoggedIn', value} as const);
+export const setRecoveryEmail = (email: string) => ({type: 'auth-setRecoveryEmail', email} as const);
 export const setIsAutoRedirect = (isAutoRedirect: boolean) => ({type: 'auth-setIsAutoRedirect', isAutoRedirect} as const);
 
 export const login = (data: any): AppThunk => (dispatch) => {
@@ -50,7 +55,7 @@ export const forgotPassword = (email: any): AppThunk => (dispatch) => {
             ? e.response.data.error
             : (e.message + ', more details in the console');
         dispatch(setError(error));
-        alert(error)
+        alert(error);
         dispatch(setPreloaderStatus('failed'));
     });
 };
@@ -65,9 +70,10 @@ export const createNewPassword = (password: string, resetPasswordToken: string |
         });
 };
 
-export type ActionTypeFoAuthReducer = ReturnType<typeof setIsLoggedIn> | ReturnType<typeof setIsAutoRedirect>;
+export type ActionTypeFoAuthReducer = ReturnType<typeof setIsLoggedIn> | ReturnType<typeof setIsAutoRedirect> | ReturnType<typeof setRecoveryEmail>;
 
 type initialStateType = {
     isLoggedIn: boolean,
     isAutoRedirect: boolean,
+    recoveryEmail: string
 }
