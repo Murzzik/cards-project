@@ -58,7 +58,6 @@ export const Profile = () => {
 
     return (
         <div className={s.container}>
-            <Header />
             <div className={s.profileEdit}>
                 <span className={s.profileHeader}>
                     Personal Information

@@ -1,3 +1,7 @@
+.headerContainer {
+    height: 65px;
+}
+
 .header {
     display: flex;
     align-items: center;

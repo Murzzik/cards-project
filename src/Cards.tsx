@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import s from '../src/components/Header/Header.module.css'
 import { store } from './store/store';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Routes } from 'react-router-dom';
@@ -11,9 +12,13 @@ import { PassRecovery } from './components/PassRecovery';
 import { ApplyNewPass } from './components/ApplyNewPass';
 import { ComponentsTest } from './components/ComponentsTest';
 import { NavigateDemo } from './components/NavigateDemo';
+import { Header } from './components/Header/Header';
 
 export const Cards: React.FC = () => (
     <Provider store={store}>
+        <div className={s.headerContainer}>
+            <Header />
+        </div>
         <HashRouter>
             <Routes>
                 <Route path="/" element={<NavigateDemo />} />
