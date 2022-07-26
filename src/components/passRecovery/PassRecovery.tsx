@@ -1,15 +1,17 @@
 import React, {ChangeEvent, useState} from 'react';
 import {Button, TextField} from '@material-ui/core';
 import style from '../../styles/auth/Auth.module.css';
-import {Navigate, NavLink} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '../../store/store';
+import {NavLink} from 'react-router-dom';
 import Preloader from '../common/Preloader/Preloader';
-import {forgotPassword, setRecoveryEmail} from '../../store/reducers/authorization-reducer';
+import {RequestStatusType} from '../../store/reducers/app-reducer';
 
-export const PassRecovery = () => {
-    const isLoad = useAppSelector(state => state.app.status);
-    const dispatch = useAppDispatch();
-    const isAutoRedirect = useAppSelector(state => state.auth.isAutoRedirect);
+type PassRecoveryPropsType = {
+    isLoad: RequestStatusType,
+    repairPassword: (email: string) => void,
+}
+
+export const PassRecovery: React.FC<PassRecoveryPropsType> = ({isLoad, repairPassword}) => {
+
     const [error, setError] = useState('');
     const [email, setEmail] = useState('');
 
@@ -23,16 +25,11 @@ export const PassRecovery = () => {
         }
     };
     const onClickHandler = () => {
-        dispatch(forgotPassword(email));
-        dispatch(setRecoveryEmail(email));
+        repairPassword(email);
     };
 
     function correctEmail(value: string) {
         return (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value));
-    }
-
-    if (isAutoRedirect) {
-        return <Navigate to={'/check-email'}/>;
     }
 
     const blockBtn = correctEmail(email);

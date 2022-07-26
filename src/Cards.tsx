@@ -5,11 +5,11 @@ import {Authorization} from './components/authorization/Authorization';
 import {Profile} from './components/Profile';
 import {Registration} from './components/Registration';
 import {ErrorPage} from './components/ErrorPage';
-import {PassRecovery} from './components/passRecovery/PassRecovery';
 import {ComponentsTest} from './components/ComponentsTest';
 import {NavigateDemo} from './components/NavigateDemo';
 import CheckEmailContainer from './components/passRecovery/checkEmail/CheckEmailContainer';
 import ApplyNewPasswordContainer from './components/passRecovery/newPass/ApplyNewPasswordContainer';
+import PassRecoveryContainer from './components/passRecovery/PassRecoveryContainer';
 
 const Cards: React.FC = () => {
     return (
@@ -22,7 +22,7 @@ const Cards: React.FC = () => {
                 <Route path="/profile" element={<Profile/>}/>
                 <Route path="/error404" element={<ErrorPage/>}/>
                 <Route path="/check-email" element={<CheckEmailContainer/>}/>
-                <Route path="/passrecovery" element={<PassRecovery/>}/>
+                <Route path="/passrecovery" element={<PassRecoveryContainer/>}/>
                 {/*<Route path="/applynewpass" element={<ApplyNewPasswordContainer/>}/>*/}
                 <Route path="/components" element={<ComponentsTest/>}/>
             </Routes>
