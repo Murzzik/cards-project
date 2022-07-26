@@ -58,4 +58,13 @@
     opacity: 0.5;
 }
 
+.email_link {
+    width: 100%;
+}
+.email_link a {
+    text-decoration: none;
+}
+
+
+
 
