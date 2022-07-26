@@ -1,5 +1,5 @@
 import React from 'react';
-import checkEmail from '../../../assets/img/checkEmail.svg';
+import checkEmail from '../../../assets/images/checkEmail.svg';
 import {Button} from '@material-ui/core';
 import {NavLink} from 'react-router-dom';
 import style from '../../../styles/auth/Auth.module.css';
