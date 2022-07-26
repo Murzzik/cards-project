@@ -3,15 +3,12 @@ import checkEmail from '../../../assets/img/checkEmail.svg';
 import {Button} from '@material-ui/core';
 import {NavLink} from 'react-router-dom';
 import style from '../../../styles/auth/Auth.module.css';
-import Preloader from '../../common/Preloader/Preloader';
 import {useAppSelector} from '../../../store/store';
 
 const CheckEmail: React.FC = () => {
     const recoveryEmail = useAppSelector(state => state.auth.recoveryEmail);
-    const isLoad = useAppSelector(state => state.app.status);
     return (
         <div className={style.main_block}>
-            {isLoad === 'loading' && <Preloader/>}
             <h2>Check Email</h2>
             <img src={checkEmail} alt=""/>
             <p className={style.opacity_text}>We’ve sent an Email with instructions to {recoveryEmail}</p>
