@@ -1,22 +1,24 @@
 import React, {ChangeEvent, useState} from 'react';
-import {NavLink, useParams} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import {Button, FormControl, IconButton, Input, InputAdornment, InputLabel} from '@material-ui/core';
 import style from '../../../styles/auth/Auth.module.css';
-import {useAppDispatch, useAppSelector} from '../../../store/store';
-import {createNewPassword} from '../../../store/reducers/authorization-reducer';
+import {useAppSelector} from '../../../store/store';
 import Preloader from '../../common/Preloader/Preloader';
 import {Visibility, VisibilityOff} from '@material-ui/icons';
 
 interface State {
-    password: string;
+    password: string | undefined;
     showPassword: boolean;
 }
 
-export const ApplyNewPass = () => {
+type ApplyNewPassPropsType = {
+    token: string | undefined,
+    createPasswords(password: string, token: string | undefined): void
+}
+
+export const ApplyNewPass: React.FC<ApplyNewPassPropsType> = ({token, createPasswords}) => {
     const [error, setError] = useState('');
     const [password, setPassword] = useState('');
-    const dispatch = useAppDispatch();
-    let {token} = useParams();
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let password = e.currentTarget.value;
@@ -32,10 +34,8 @@ export const ApplyNewPass = () => {
         return name.length < 7;
     }
 
-    window.history.replaceState('', '', '/new-password');
-    console.log(token);
     const onClickHandler = () => {
-        dispatch(createNewPassword(password, token));
+        createPasswords(password, token);
         setPassword('');
     };
     const isLoad = useAppSelector(state => state.app.status);
