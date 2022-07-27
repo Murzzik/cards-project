@@ -3,9 +3,9 @@ import {useFormik} from 'formik';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, IconButton, Input, InputAdornment, InputLabel, TextField} from '@material-ui/core';
 import {Navigate, NavLink} from 'react-router-dom';
 import {Visibility, VisibilityOff} from '@material-ui/icons/';
-import {useAppSelector} from '../../store/store';
 import Preloader from '../common/Preloader/Preloader';
 import style from '../../styles/auth/Auth.module.css';
+import {RequestStatusType} from '../../store/reducers/app-reducer';
 
 export type FormikErrorType = {
     email?: string
@@ -21,9 +21,10 @@ interface State {
 type AuthorizationPropsType = {
     isLoggedIn: boolean,
     authorization: (values: FormikErrorType) => void,
+    isLoad: RequestStatusType,
 }
 
-export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, authorization}) => {
+export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, authorization, isLoad}) => {
 
     const [values, setValues] = React.useState<State>({
         password: '',
@@ -68,8 +69,6 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
     });
 
     const isDisabled = Object.keys(formik.errors).length !== 0;
-
-    const isLoad = useAppSelector(state => state.app.status);
 
     if (isLoggedIn) return <Navigate to={'/profile'}/>;
     return <div className={style.main_block}>

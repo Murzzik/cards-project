@@ -6,7 +6,9 @@ import {login, setIsAutoRedirect} from '../../store/reducers/authorization-reduc
 const AuthorizationContainer: React.FC = () => {
     const dispatch = useAppDispatch();
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
+    const isLoad = useAppSelector(state => state.app.status);
 
+    console.log(isLoggedIn);
     useEffect(() => {
         dispatch(setIsAutoRedirect(false));
     }, [dispatch]);
@@ -15,7 +17,7 @@ const AuthorizationContainer: React.FC = () => {
         dispatch(login(values));
     };
     return (
-        <Authorization isLoggedIn={isLoggedIn} authorization={authorization}/>
+        <Authorization isLoggedIn={isLoggedIn} authorization={authorization} isLoad={isLoad}/>
     );
 };
 
