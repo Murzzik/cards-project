@@ -9,6 +9,8 @@ const initialState: initialStateType = {
 };
 
 export const authorizationReducer = (state = initialState, action: ActionTypeFoAuthReducer) => {
+
+    console.log('--render auth--')
     switch(action.type) {
         case 'auth-setIsLoggedIn': {
             return {...state, isLoggedIn: action.value};
@@ -46,6 +48,12 @@ export const login = (data: any): AppThunk => (dispatch) => {
         dispatch(setPreloaderStatus('failed'));
     });
 };
+
+export const logoutTC = (): AppThunk => (dispatch) => {
+    authAPI.logout().then((res) => {
+        dispatch(setIsLoggedIn(false))
+    })
+}
 
 export const forgotPassword = (email: any): AppThunk => (dispatch) => {
     dispatch(setPreloaderStatus('loading'));

@@ -3,6 +3,8 @@
 }
 
 .header {
+    position: fixed;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -19,6 +21,22 @@
     display: flex;
     align-items: center;
     margin-right: 200px;
+}
+
+.loginBtn {
+    border: none;
+    width: 80px;
+    height: 34px;
+    color: #fff;
+    background: #366EFF;
+    box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+    border-radius: 30px;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.loginBtn:hover {
+    background: #3f51b5;
 }
 
 .userName {

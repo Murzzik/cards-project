@@ -1,9 +1,20 @@
 import React from 'react';
-import {useFormik} from 'formik';
-import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, IconButton, Input, InputAdornment, InputLabel, TextField} from '@material-ui/core';
-import {Navigate, NavLink} from 'react-router-dom';
-import {Visibility, VisibilityOff} from '@material-ui/icons/';
-import {useAppSelector} from '../../store/store';
+import { useFormik } from 'formik';
+import {
+    Button,
+    Checkbox,
+    FormControl,
+    FormControlLabel,
+    FormGroup,
+    IconButton,
+    Input,
+    InputAdornment,
+    InputLabel,
+    TextField,
+} from '@material-ui/core';
+import { Navigate, NavLink } from 'react-router-dom';
+import { Visibility, VisibilityOff } from '@material-ui/icons/';
+import { useAppSelector } from '../../store/store';
 import Preloader from '../common/Preloader/Preloader';
 import style from '../../styles/auth/Auth.module.css';
 
@@ -23,7 +34,7 @@ type AuthorizationPropsType = {
     authorization: (values: FormikErrorType) => void,
 }
 
-export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, authorization}) => {
+export const Authorization: React.FC<AuthorizationPropsType> = ({ isLoggedIn, authorization }) => {
 
     const [values, setValues] = React.useState<State>({
         password: '',
@@ -45,18 +56,18 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
         initialValues: {
             email: '',
             password: '',
-            rememberMe: true
+            rememberMe: true,
         },
         validate: values => {
             const errors: FormikErrorType = {};
-            if (!values.email) {
+            if(!values.email) {
                 errors.email = 'Required';
-            } else if ((!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))) {
+            } else if((!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))) {
                 errors.email = 'Invalid email address';
             }
-            if (!values.password) {
+            if(!values.password) {
                 errors.password = 'Required';
-            } else if (values.password.length < 7) {
+            } else if(values.password.length < 7) {
                 errors.password = 'Should be 7 symbol minimum';
             }
             return errors;
@@ -64,16 +75,16 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
         onSubmit: values => {
             authorization(values);
             formik.resetForm();
-        }
+        },
     });
 
     const isDisabled = Object.keys(formik.errors).length !== 0;
 
     const isLoad = useAppSelector(state => state.app.status);
 
-    if (isLoggedIn) return <Navigate to={'/profile'}/>;
+    if(isLoggedIn) return <Navigate to={'/profile'} />;
     return <div className={style.main_block}>
-        {isLoad === 'loading' && <Preloader/>}
+        {isLoad === 'loading' && <Preloader />}
         <h2>Sign in</h2>
 
         <form onSubmit={formik.handleSubmit} className={style.form_block}>
@@ -98,10 +109,10 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
                                         aria-label="toggle password visibility"
                                         onClick={handleClickShowPassword}
                                         onMouseDown={handleMouseDownPassword}
-                                        style={{backgroundColor: 'transparent'}}
+                                        style={{ backgroundColor: 'transparent' }}
                                         disableRipple={true}
                                     >
-                                        {values.showPassword ? <VisibilityOff/> : <Visibility/>}
+                                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 </InputAdornment>
                             }
@@ -117,10 +128,10 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
                     <FormControlLabel
                         label={'Remember me'}
                         control={<Checkbox
-                            style={{color: '#366EFF'}}
+                            style={{ color: '#366EFF' }}
                             {...formik.getFieldProps('rememberMe')}
                             checked={formik.values.rememberMe}
-                        />}/>
+                        />} />
 
                     <Button className={style.auth_button} type={'submit'} variant={'contained'} color={'primary'}
                             disabled={isDisabled}

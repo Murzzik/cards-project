@@ -1,10 +1,10 @@
-import React, {ChangeEvent, useState} from 'react';
-import {NavLink} from 'react-router-dom';
-import {Button, FormControl, IconButton, Input, InputAdornment, InputLabel} from '@material-ui/core';
+import React, { ChangeEvent, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel } from '@material-ui/core';
 import style from '../../../styles/auth/Auth.module.css';
-import {useAppSelector} from '../../../store/store';
+import { useAppSelector } from '../../../store/store';
 import Preloader from '../../common/Preloader/Preloader';
-import {Visibility, VisibilityOff} from '@material-ui/icons';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 interface State {
     password: string | undefined;
@@ -16,14 +16,14 @@ type ApplyNewPassPropsType = {
     createPasswords(password: string, token: string | undefined): void
 }
 
-export const ApplyNewPass: React.FC<ApplyNewPassPropsType> = ({token, createPasswords}) => {
+export const ApplyNewPass: React.FC<ApplyNewPassPropsType> = ({ token, createPasswords }) => {
     const [error, setError] = useState('');
     const [password, setPassword] = useState('');
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let password = e.currentTarget.value;
         setPassword(password);
-        if (correctPassword(password)) {
+        if(correctPassword(password)) {
             setError('Minimum 7 symbols');
         } else {
             setError('');
@@ -57,7 +57,7 @@ export const ApplyNewPass: React.FC<ApplyNewPassPropsType> = ({token, createPass
     };
     return (
         <div className={style.main_block}>
-            {isLoad === 'loading' && <Preloader/>}
+            {isLoad === 'loading' && <Preloader />}
             <h2>Create new Password</h2>
             <FormControl variant="standard" className={style.input_field}>
                 <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
@@ -71,10 +71,10 @@ export const ApplyNewPass: React.FC<ApplyNewPassPropsType> = ({token, createPass
                                 aria-label="toggle password visibility"
                                 onClick={handleClickShowPassword}
                                 onMouseDown={handleMouseDownPassword}
-                                style={{backgroundColor: 'transparent'}}
+                                style={{ backgroundColor: 'transparent' }}
                                 disableRipple={true}
                             >
-                                {values.showPassword ? <VisibilityOff/> : <Visibility/>}
+                                {values.showPassword ? <VisibilityOff /> : <Visibility />}
                             </IconButton>
                         </InputAdornment>
                     }
@@ -83,11 +83,14 @@ export const ApplyNewPass: React.FC<ApplyNewPassPropsType> = ({token, createPass
             <div className={style.errors}>
                 <span>{error}</span>
             </div>
-            <p className={style.opacity_text} style={{textAlign: 'left'}}> Create new password and we will send you further instructions to email </p>
+            <p className={style.opacity_text} style={{ textAlign: 'left' }}> Create new password and we will send you
+                further instructions to email </p>
 
 
-            <Button className={style.auth_button} variant={'contained'} color={'primary'} onClick={onClickHandler} disabled={blockBtn}>
-                <NavLink style={{color: '#fff', textDecoration: 'none', width: '100%'}} to={'/authorization'}>Create new Password</NavLink>
+            <Button className={style.auth_button} variant={'contained'} color={'primary'} onClick={onClickHandler}
+                    disabled={blockBtn}>
+                <NavLink style={{ color: '#fff', textDecoration: 'none', width: '100%' }} to={'/authorization'}>Create
+                    new Password</NavLink>
             </Button>
         </div>
     );

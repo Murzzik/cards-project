@@ -14,6 +14,7 @@ import PassRecoveryContainer from './components/passRecovery/PassRecoveryContain
 import AuthorizationContainer from './components/authorization/AuthorizationContainer';
 
 const Cards: React.FC = () => {
+
     return (
         <div>
             <div className={s.headerContainer}>

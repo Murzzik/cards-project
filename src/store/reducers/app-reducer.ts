@@ -27,6 +27,8 @@ export const setPreloaderStatus = (status: RequestStatusType) => {
     } as const;
 };
 
+
+
 export const setError = (error: null | string) => {
     return {
         type: 'app-setError',

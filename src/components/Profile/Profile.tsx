@@ -5,28 +5,31 @@ import logout from '../../assets/images/logout.png';
 import { BadgeAvatars } from '../../common/utils/BadgeAvatars';
 import { TextField } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../store/store';
-import { updateUserNameAC, updateUserNameTC } from '../../store/reducers/profile-reducer';
-import { authAPI } from '../../api/cardsApi';
+import { getUserInformationTC, updateUserNameTC } from '../../store/reducers/profile-reducer';
+import { logoutTC } from '../../store/reducers/authorization-reducer';
+import { Navigate } from 'react-router-dom';
 
 export const Profile = () => {
 
-    useEffect(() => {
-        authAPI.getUserInfo().then((res) =>{
-            dispatch(updateUserNameAC(res.data.name))
-        })
-    }, [])
+    const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn);
+    const userProfileName = useAppSelector(state => state.profile.name);
+    const userProfileEmail = useAppSelector(state => state.profile.email);
 
-    const userProfileName = useAppSelector<string>(state => state.profile.name);
-    const userEmail = useAppSelector(state => state.auth)
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(getUserInformationTC());
+    }, [dispatch]);
 
     const [editMode, setEditMode] = useState(false);
     const [userName, setUserName] = useState(userProfileName);
 
-
-    const dispatch = useAppDispatch();
-
     const activateEditMode = () => {
         setEditMode(true);
+    };
+
+    const logoutHandler = () => {
+        dispatch(logoutTC());
     };
 
     // Submit
@@ -36,7 +39,7 @@ export const Profile = () => {
     };
 
     const changeUserName = (e: ChangeEvent<HTMLInputElement>) => {
-        const userName = e.currentTarget.value
+        const userName = e.currentTarget.value;
         setUserName(userName);
     };
 
@@ -57,6 +60,7 @@ export const Profile = () => {
             </div>
     );
 
+    if(!isLoggedIn) return <Navigate to={'/authorization'} />;
     return (
         <div className={s.container}>
             <div className={s.profileEdit}>
@@ -73,10 +77,10 @@ export const Profile = () => {
                     </div>
                 </div>
                 <span className={s.userEmail}>
-                    mcalexstar@gmail.com
+                    {userProfileEmail}
                 </span>
                 <div className={s.logoutContainer}>
-                    <button className={s.logoutButton} >
+                    <button className={s.logoutButton} onClick={logoutHandler}>
                         <img src={logout} alt="Logout button" />
                         <span className={s.buttonTitle}>
                             Log out

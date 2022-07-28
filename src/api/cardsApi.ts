@@ -17,13 +17,16 @@ export const authAPI = {
         return axios.post('https://neko-back.herokuapp.com/2.0/auth/forgot', data);
     },
     setNewPassword(password: string, resetPasswordToken: string | undefined) {
-        return instance.post('auth/set-new-password', {password, resetPasswordToken});
+        return instance.post('auth/set-new-password', { password, resetPasswordToken });
     },
     updateUserName(name: string) {
-        return instance.put<{name: string}>('/auth/me', {name});
+        return instance.put('/auth/me', { name });
     },
     getUserInfo() {
         return instance.post('/auth/me', {});
+    },
+    logout() {
+        return instance.delete('/auth/me', {});
     },
 
 };
