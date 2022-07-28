@@ -43,7 +43,7 @@ export const login = (data: any): AppThunk => (dispatch) => {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
-
+         alert(error)
         dispatch(setError(error));
         dispatch(setPreloaderStatus('failed'));
     });
