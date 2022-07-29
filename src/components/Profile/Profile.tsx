@@ -6,23 +6,27 @@ import { BadgeAvatars } from '../../common/utils/BadgeAvatars';
 import { TextField } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { getUserInformationTC, updateUserNameTC } from '../../store/reducers/profile-reducer';
-import { logoutTC } from '../../store/reducers/authorization-reducer';
+import {logoutTC, setIsLoggedIn} from '../../store/reducers/authorization-reducer';
 import { Navigate } from 'react-router-dom';
+import Preloader from '../common/Preloader/Preloader';
 
 export const Profile = () => {
 
     const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn);
-    const userProfileName = useAppSelector(state => state.profile.name);
-    const userProfileEmail = useAppSelector(state => state.profile.email);
+    const userProfileName = useAppSelector(state => state.auth.user.name);
+    const userProfileEmail = useAppSelector(state => state.auth.user.email);
+    const isInitialized = useAppSelector(state => state.app.isInitialized);
+
 
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        dispatch(getUserInformationTC());
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(getUserInformationTC());
+    // }, [dispatch]);
 
     const [editMode, setEditMode] = useState(false);
     const [userName, setUserName] = useState(userProfileName);
+
 
     const activateEditMode = () => {
         setEditMode(true);
@@ -59,6 +63,11 @@ export const Profile = () => {
                 <img src={editUserName} alt="Edit user name" onClick={activateEditMode} />
             </div>
     );
+
+
+    if (!isInitialized) {
+        return <Preloader/>;
+    }
 
     if(!isLoggedIn) return <Navigate to={'/authorization'} />;
     return (

@@ -1,17 +1,33 @@
-import { AppThunk } from '../store';
-import { authAPI } from '../../api/cardsApi';
-import { setError, setPreloaderStatus } from './app-reducer';
+import {AppThunk} from '../store';
+import {authAPI} from '../../api/cardsApi';
+import {setError, setInitialized, setPreloaderStatus} from './app-reducer';
 
-const initialState: initialStateType = {
+export type User = {
+    _id: string;
+    email: string;
+    name: string;
+    avatar?: string;
+    publicCardPacksCount: number;
+// количество колод
+
+    created: Date;
+    updated: Date;
+    isAdmin: boolean;
+    verified: boolean; // подтвердил ли почту
+    rememberMe: boolean;
+}
+
+const initialState: InitialStateType = {
     isLoggedIn: false,
     isAutoRedirect: false,
     recoveryEmail: '',
+    user: {} as User
 };
 
 export const authorizationReducer = (state = initialState, action: ActionTypeFoAuthReducer) => {
 
-    console.log('--render auth--')
-    switch(action.type) {
+    console.log('--render auth--');
+    switch (action.type) {
         case 'auth-setIsLoggedIn': {
             return {...state, isLoggedIn: action.value};
         }
@@ -20,6 +36,9 @@ export const authorizationReducer = (state = initialState, action: ActionTypeFoA
         }
         case 'auth-setIsAutoRedirect': {
             return {...state, isAutoRedirect: action.isAutoRedirect};
+        }
+        case 'auth-setUser': {
+            return {...state, user: action.user};
         }
         default: {
             return state;
@@ -33,17 +52,22 @@ export const setIsAutoRedirect = (isAutoRedirect: boolean) => ({
     type: 'auth-setIsAutoRedirect',
     isAutoRedirect,
 } as const);
+export const setUser = (user: User) => ({
+    type: 'auth-setUser',
+    user,
+} as const);
 
 export const login = (data: any): AppThunk => (dispatch) => {
     dispatch(setPreloaderStatus('loading'));
     authAPI.login(data).then(res => {
         dispatch(setIsLoggedIn(true));
         dispatch(setPreloaderStatus('succeeded'));
+        dispatch(setUser(res.data))
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
-         alert(error)
+        alert(error);
         dispatch(setError(error));
         dispatch(setPreloaderStatus('failed'));
     });
@@ -51,9 +75,9 @@ export const login = (data: any): AppThunk => (dispatch) => {
 
 export const logoutTC = (): AppThunk => (dispatch) => {
     authAPI.logout().then((res) => {
-        dispatch(setIsLoggedIn(false))
-    })
-}
+        dispatch(setIsLoggedIn(false));
+    });
+};
 
 export const forgotPassword = (email: any): AppThunk => (dispatch) => {
     dispatch(setPreloaderStatus('loading'));
@@ -84,10 +108,12 @@ export const createNewPassword = (password: string, resetPasswordToken: string |
 export type ActionTypeFoAuthReducer =
     ReturnType<typeof setIsLoggedIn>
     | ReturnType<typeof setIsAutoRedirect>
-    | ReturnType<typeof setRecoveryEmail>;
+    | ReturnType<typeof setRecoveryEmail>
+    | ReturnType<typeof setUser>
 
-type initialStateType = {
+type InitialStateType = {
     isLoggedIn: boolean,
     isAutoRedirect: boolean,
     recoveryEmail: string
+    user: User
 }

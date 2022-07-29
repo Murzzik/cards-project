@@ -1,7 +1,8 @@
 import { Dispatch } from 'redux';
 import { authAPI } from '../../api/cardsApi';
 import { AppThunk } from '../store';
-import { setIsLoggedIn } from './authorization-reducer';
+import {setIsLoggedIn, setUser} from './authorization-reducer';
+import {setInitialized} from './app-reducer';
 
 const UPDATE_USER_NAME = 'UPDATE-USER-NAME';
 const SET_USER_NAME = 'SET-USER-NAME';
@@ -56,10 +57,15 @@ export const updateUserNameTC = (name: string): AppThunk =>
     };
 export const getUserInformationTC = (): AppThunk =>
     (dispatch) => {
+
         authAPI.getUserInfo().then((res) => {
             dispatch(setIsLoggedIn(true));
-            dispatch(setUserInfoAC(res.data.name, res.data.email, res.data.avatar));
-            console.log(res.data);
+            dispatch(setUser(res.data));
+            // dispatch(setUserInfoAC(res.data.name, res.data.email, res.data.avatar));
+        }).catch(res=>{
+
+        }).finally( ()=>{
+            dispatch(setInitialized(true))
         });
     };
 

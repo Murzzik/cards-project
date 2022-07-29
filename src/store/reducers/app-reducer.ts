@@ -14,6 +14,9 @@ export const appReducer = (state = initialState, action: ActionTypeForAppReducer
         case 'app-setError': {
             return {...state, error: action.error};
         }
+        case 'app-setInitialized': {
+            return  {...state, isInitialized: action.isInitialized}
+        }
         default : {
             return state;
         }
@@ -27,6 +30,13 @@ export const setPreloaderStatus = (status: RequestStatusType) => {
     } as const;
 };
 
+export const setInitialized = (isInitialized: boolean) => {
+    return {
+        type: 'app-setInitialized',
+        isInitialized
+    } as const;
+};
+
 
 
 export const setError = (error: null | string) => {
@@ -36,7 +46,7 @@ export const setError = (error: null | string) => {
     } as const;
 };
 
-export type ActionTypeForAppReducer = ReturnType<typeof setPreloaderStatus> | ReturnType<typeof setError>
+export type ActionTypeForAppReducer = ReturnType<typeof setPreloaderStatus> | ReturnType<typeof setError> | ReturnType<typeof setInitialized>
 
 type initialStateType = {
     status: RequestStatusType,
