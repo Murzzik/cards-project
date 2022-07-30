@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {RegistrationData} from '../components/registration/RegistrationContainer';
 
 export const instance = axios.create({
     baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
@@ -27,6 +28,9 @@ export const authAPI = {
     },
     logout() {
         return instance.delete('/auth/me', {});
+    },
+    registerNewUser(newUser: RegistrationData) {
+        return instance.post('/auth/register', newUser)
     },
 
 };

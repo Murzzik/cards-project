@@ -4,7 +4,6 @@ import s from '../src/components/Header/Header.module.css';
 import {Route, Routes} from 'react-router-dom';
 import {Header} from './components/Header/Header';
 import {Profile} from './components/Profile/Profile';
-import {Registration} from './components/Registration';
 import {ErrorPage} from './components/ErrorPage';
 import {ComponentsTest} from './components/ComponentsTest';
 import {NavigateDemo} from './components/NavigateDemo';
@@ -13,13 +12,14 @@ import ApplyNewPasswordContainer from './components/passRecovery/newPass/ApplyNe
 import PassRecoveryContainer from './components/passRecovery/PassRecoveryContainer';
 import AuthorizationContainer from './components/authorization/AuthorizationContainer';
 import {useAppDispatch} from './store/store';
-import {getUserInformationTC} from './store/reducers/profile-reducer';
+import {authorizationUser} from './store/reducers/authorization-reducer';
+import {RegistrationContainer} from './components/registration/RegistrationContainer';
 
 const Cards: React.FC = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(getUserInformationTC());
+        dispatch(authorizationUser());
     }, [dispatch]);
     return (
         <div>
@@ -29,7 +29,7 @@ const Cards: React.FC = () => {
             <Routes>
                 <Route path="/" element={<NavigateDemo/>}/>
                 <Route path="/authorization" element={<AuthorizationContainer/>}/>
-                <Route path="/registration" element={<Registration/>}/>
+                <Route path="/registration" element={<RegistrationContainer/>}/>
                 <Route path="/set-new-password/:token" element={<ApplyNewPasswordContainer/>}/>
                 <Route path="/profile" element={<Profile/>}/>
                 <Route path="/error404" element={<ErrorPage/>}/>
