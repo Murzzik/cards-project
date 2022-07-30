@@ -1,10 +1,13 @@
 import { Badge } from '@mui/material';
 import editPhoto from '../../assets/images/changePhoto.png';
 import s from './BadgeAvatars.module.css';
-import userPhoto from '../../assets/images/userPhoto.png';
 import React from 'react';
+import { useAppSelector } from '../../store/store';
 
 export const BadgeAvatars = () => {
+
+    const userProfileAvatar = useAppSelector(state => state.profile.avatar)
+
     return (
         <Badge
             overlap="circular"
@@ -13,7 +16,7 @@ export const BadgeAvatars = () => {
                 <img alt="Edit user photo" src={editPhoto} className={s.editUserPhoto} />
             }
         >
-            <img src={userPhoto} alt="User Photo" />
+            <img src={userProfileAvatar} alt="User Photo" className={s.userPhoto} />
         </Badge>
     );
 };

@@ -46,7 +46,7 @@ export const Profile = () => {
     const editModeForm = (
         editMode ?
             <TextField className={s.textField} id="standard-basic" label="Nickname" variant="standard" autoFocus
-                       onChange={changeUserName} />
+                       onChange={changeUserName} autoComplete='off' color='info'/>
             :
             <span className={s.userProfileName}>{userProfileName}</span>
     );
