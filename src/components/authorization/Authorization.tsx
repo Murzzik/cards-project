@@ -22,9 +22,10 @@ type AuthorizationPropsType = {
     isLoggedIn: boolean,
     authorization: (values: FormikErrorType) => void,
     isLoad: RequestStatusType,
+    isDisabled: boolean
 }
 
-export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, authorization, isLoad}) => {
+export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, authorization, isLoad, isDisabled}) => {
 
     const [values, setValues] = React.useState<State>({
         password: '',
@@ -41,7 +42,6 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
-
 
     const formik = useFormik({
         initialValues: {
@@ -69,7 +69,7 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
         }
     });
 
-    const isDisabled = Object.keys(formik.errors).length !== 0;
+    const isBlockButton = Object.keys(formik.errors).length !== 0;
 
     return <div className={style.main_block}>
         {isLoad === 'loading' && <Preloader/>}
@@ -78,7 +78,7 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
         <form onSubmit={formik.handleSubmit} className={style.form_block}>
             <FormControl className={style.form_block}>
                 <FormGroup className={style.control_group}>
-                    <TextField label="Email" className={style.input_field}
+                    <TextField label="Email" className={style.input_field} disabled={isDisabled}
                                {...formik.getFieldProps('email')}
                     />
                     <div className={style.errors}>
@@ -89,6 +89,7 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
                         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                         <Input
                             id="standard-adornment-password"
+                            disabled={isDisabled}
                             type={values.showPassword ? 'text' : 'password'}
                             {...formik.getFieldProps('password')}
                             endAdornment={
@@ -122,7 +123,7 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
                         />}/>
 
                     <Button className={style.auth_button} type={'submit'} variant={'contained'} color={'primary'}
-                            disabled={isDisabled}
+                            disabled={isDisabled || isBlockButton}
                     >
                         SIGN IN
                     </Button>

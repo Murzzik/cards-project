@@ -46,6 +46,7 @@ export const registration = (newUser: RegistrationData): AppThunk => (dispatch) 
     authAPI.registerNewUser(newUser).then(res => {
         dispatch(setRegisteredUser(true));
         dispatch(setPreloaderStatus('succeeded'));
+        alert(' You are autorized');
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -73,6 +74,7 @@ export const login = (data: any): AppThunk => (dispatch) => {
 };
 
 export const logOut = (): AppThunk => (dispatch) => {
+    dispatch(setPreloaderStatus('loading'));
     authAPI.logout().then(res => {
         dispatch(setIsLoggedIn(false));
         dispatch(setPreloaderStatus('succeeded'));
@@ -81,9 +83,11 @@ export const logOut = (): AppThunk => (dispatch) => {
 
 export const updateUserData = (name: string): AppThunk =>
     (dispatch) => {
+        dispatch(setPreloaderStatus('loading'));
         authAPI.updateUserName(name).then((res) => {
             dispatch(setUserInfo(res.data.updatedUser));
-        }).finally(()=>{
+            dispatch(setPreloaderStatus('succeeded'));
+        }).finally(() => {
         });
     };
 

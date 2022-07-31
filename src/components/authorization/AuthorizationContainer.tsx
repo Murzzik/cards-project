@@ -18,9 +18,11 @@ const AuthorizationContainer: React.FC = () => {
         dispatch(login(values));
     };
 
+    const isDisabled = isLoad === 'loading';
+
     if (isLoggedIn) return <Navigate to={'/profile'}/>;
     return (
-        <Authorization isLoggedIn={isLoggedIn} authorization={authorization} isLoad={isLoad}/>
+        <Authorization isLoggedIn={isLoggedIn} authorization={authorization} isLoad={isLoad} isDisabled={isDisabled}/>
     );
 };
 
