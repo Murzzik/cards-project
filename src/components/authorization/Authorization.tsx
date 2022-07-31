@@ -65,7 +65,7 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
         },
         onSubmit: values => {
             authorization(values);
-            formik.resetForm();
+            // formik.resetForm(); Предотвращение дублирования параметров входа.
         }
     });
 
