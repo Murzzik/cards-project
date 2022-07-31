@@ -1,11 +1,20 @@
 import React from 'react';
-import {useFormik} from 'formik';
-import {Button, FormControl, FormGroup, IconButton, Input, InputAdornment, InputLabel, TextField} from '@material-ui/core';
-import {Navigate, NavLink} from 'react-router-dom';
-import {Visibility, VisibilityOff} from '@material-ui/icons/';
+import { useFormik } from 'formik';
+import {
+    Button,
+    FormControl,
+    FormGroup,
+    IconButton,
+    Input,
+    InputAdornment,
+    InputLabel,
+    TextField,
+} from '@material-ui/core';
+import { Navigate, NavLink } from 'react-router-dom';
+import { Visibility, VisibilityOff } from '@material-ui/icons/';
 import Preloader from '../common/Preloader/Preloader';
 import style from '../../styles/auth/Auth.module.css';
-import {RequestStatusType} from '../../store/reducers/app-reducer';
+import { RequestStatusType } from '../../store/reducers/app-reducer';
 
 export type FormikErrorType = {
     email?: string
@@ -26,12 +35,17 @@ type AuthorizationPropsType = {
     isDisabled: boolean,
 }
 
-export const Registration: React.FC<AuthorizationPropsType> = ({isLoggedIn, onRegistrationSubmit, isLoad, isDisabled}) => {
+export const Registration: React.FC<AuthorizationPropsType> = ({
+                                                                   isLoggedIn,
+                                                                   onRegistrationSubmit,
+                                                                   isLoad,
+                                                                   isDisabled,
+                                                               }) => {
 
     const [values, setValues] = React.useState<State>({
         password: '',
         showPassword: false,
-        showConfirmPassword: false
+        showConfirmPassword: false,
     });
 
     const handleClickShowPassword = () => {
@@ -52,36 +66,36 @@ export const Registration: React.FC<AuthorizationPropsType> = ({isLoggedIn, onRe
         initialValues: {
             email: '',
             password: '',
-            confirmPassword: ''
+            confirmPassword: '',
         },
         validate: values => {
             const errors: FormikErrorType = {};
-            if (!values.email) {
+            if(!values.email) {
                 errors.email = 'Required';
-            } else if ((!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))) {
+            } else if((!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))) {
                 errors.email = 'Invalid email address';
             }
-            if (!values.password) {
+            if(!values.password) {
                 errors.password = 'Required';
-            } else if (values.password.length < 7) {
+            } else if(values.password.length < 7) {
                 errors.password = 'Should be 7 symbol minimum';
             }
-            if (values.password !== values.confirmPassword || !values.confirmPassword) {
+            if(values.password !== values.confirmPassword || !values.confirmPassword) {
                 errors.confirmPassword = 'Passwords do not match';
             }
             return errors;
         },
         onSubmit: values => {
-            onRegistrationSubmit({email: values.email, password: values.password});
-        }
+            onRegistrationSubmit({ email: values.email, password: values.password });
+        },
     });
 
     const isBlockButton = Object.keys(formik.errors).length !== 0;
 
-    if (isLoggedIn) return <Navigate to={'/profile'}/>;
+    if(isLoggedIn) return <Navigate to={'/profile'} />;
 
     return <div className={style.main_block}>
-        {isLoad === 'loading' && <Preloader/>}
+        {isLoad === 'loading' && <Preloader />}
         <h2>Sign up</h2>
 
         <form onSubmit={formik.handleSubmit} className={style.form_block}>
@@ -106,10 +120,10 @@ export const Registration: React.FC<AuthorizationPropsType> = ({isLoggedIn, onRe
                                     <IconButton
                                         aria-label="toggle password visibility"
                                         onClick={handleClickShowPassword}
-                                        style={{backgroundColor: 'transparent'}}
+                                        style={{ backgroundColor: 'transparent' }}
                                         disableRipple={true}
                                     >
-                                        {values.showPassword ? <VisibilityOff/> : <Visibility/>}
+                                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 </InputAdornment>
                             }
@@ -133,10 +147,10 @@ export const Registration: React.FC<AuthorizationPropsType> = ({isLoggedIn, onRe
                                         aria-label="toggle password visibility"
                                         onClick={handleClickShowConfirmPassword}
                                         // onMouseDown={handleClickShowConfirmPassword}
-                                        style={{backgroundColor: 'transparent'}}
+                                        style={{ backgroundColor: 'transparent' }}
                                         disableRipple={true}
                                     >
-                                        {values.showConfirmPassword ? <VisibilityOff/> : <Visibility/>}
+                                        {values.showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 </InputAdornment>
                             }
