@@ -15,7 +15,7 @@ export const RegistrationContainer: React.FC = () => {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
     const isRegistered = useAppSelector(state => state.auth.isRegistered);
     const isLoad = useAppSelector(state => state.app.status);
-
+    const isDisabled = isLoad === 'loading';
     const onRegistrationSubmit = (values: RegistrationData) => {
         dispatch(registration(values));
     };
@@ -27,6 +27,6 @@ export const RegistrationContainer: React.FC = () => {
         return <Navigate to="/authorization"/>;
     }
     return (
-        <Registration isLoggedIn={isLoggedIn} onRegistrationSubmit={onRegistrationSubmit} isLoad={isLoad}/>
+        <Registration isLoggedIn={isLoggedIn} onRegistrationSubmit={onRegistrationSubmit} isLoad={isLoad} isDisabled={isDisabled}/>
     );
 };

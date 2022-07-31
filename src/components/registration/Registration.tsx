@@ -23,9 +23,10 @@ type AuthorizationPropsType = {
     isLoggedIn: boolean,
     onRegistrationSubmit: (values: any) => void,
     isLoad: RequestStatusType,
+    isDisabled: boolean,
 }
 
-export const Registration: React.FC<AuthorizationPropsType> = ({isLoggedIn, onRegistrationSubmit, isLoad}) => {
+export const Registration: React.FC<AuthorizationPropsType> = ({isLoggedIn, onRegistrationSubmit, isLoad, isDisabled}) => {
 
     const [values, setValues] = React.useState<State>({
         password: '',
@@ -75,7 +76,7 @@ export const Registration: React.FC<AuthorizationPropsType> = ({isLoggedIn, onRe
         }
     });
 
-    const isDisabled = Object.keys(formik.errors).length !== 0;
+    const isBlockButton = Object.keys(formik.errors).length !== 0;
 
     if (isLoggedIn) return <Navigate to={'/profile'}/>;
 
@@ -86,7 +87,7 @@ export const Registration: React.FC<AuthorizationPropsType> = ({isLoggedIn, onRe
         <form onSubmit={formik.handleSubmit} className={style.form_block}>
             <FormControl className={style.form_block}>
                 <FormGroup className={style.control_group}>
-                    <TextField label="Email" className={style.input_field}
+                    <TextField label="Email" className={style.input_field} disabled={isDisabled}
                                {...formik.getFieldProps('email')}
                     />
                     <div className={style.errors}>
@@ -97,6 +98,7 @@ export const Registration: React.FC<AuthorizationPropsType> = ({isLoggedIn, onRe
                         <InputLabel htmlFor="standard-adornment-password">Password1</InputLabel>
                         <Input
                             id="standard-adornment-password1"
+                            disabled={isDisabled}
                             type={values.showPassword ? 'text' : 'password'}
                             {...formik.getFieldProps('password')}
                             endAdornment={
@@ -122,6 +124,7 @@ export const Registration: React.FC<AuthorizationPropsType> = ({isLoggedIn, onRe
                         <InputLabel htmlFor="standard-adornment-password2">Confirm password</InputLabel>
                         <Input
                             id="standard-adornment-password"
+                            disabled={isDisabled}
                             type={values.showConfirmPassword ? 'text' : 'password'}
                             {...formik.getFieldProps('confirmPassword')}
                             endAdornment={
@@ -150,7 +153,7 @@ export const Registration: React.FC<AuthorizationPropsType> = ({isLoggedIn, onRe
                         type={'submit'}
                         variant={'contained'}
                         color={'primary'}
-                        disabled={isDisabled}
+                        disabled={isBlockButton || isDisabled}
                         children={'Register'}
                     />
                 </FormGroup>
