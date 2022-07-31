@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import s from './Profile.module.css';
 import editUserName from '../../assets/images/Edit.png';
 import logout from '../../assets/images/logout.png';
@@ -10,17 +10,12 @@ import Preloader from '../common/Preloader/Preloader';
 import {logOut, updateUserData} from '../../store/reducers/authorization-reducer';
 
 export const Profile = () => {
-
     const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn);
     const userProfileName = useAppSelector(state => state.auth.user.name);
     const userProfileEmail = useAppSelector(state => state.auth.user.email);
     const isInitialized = useAppSelector(state => state.app.isInitialized);
 
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        dispatch(getUserInformationTC());
-    }, [dispatch]);
 
     const [editMode, setEditMode] = useState(false);
     const [userName, setUserName] = useState(userProfileName);

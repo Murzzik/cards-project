@@ -6,7 +6,7 @@ import { useAppSelector } from '../../store/store';
 
 export const BadgeAvatars = () => {
 
-    const userProfileAvatar = useAppSelector(state => state.profile.avatar)
+    const userProfileAvatar = useAppSelector(state => state.auth.user.avatar)
 
     return (
         <Badge

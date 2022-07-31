@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import s from '../Header/Header.module.css';
 import projectLogo from '../../assets/images/project-logo.png';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { NavLink } from 'react-router-dom';
-import { logoutTC } from '../../store/reducers/authorization-reducer';
 import logout from '../../assets/images/logout.png';
+import { logOut } from '../../store/reducers/authorization-reducer';
 
 export const Header = () => {
     const userName = useAppSelector(state => state.auth.user.name);
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
-    const userProfileAvatar = useAppSelector(state => state.profile.avatar);
+    const userProfileAvatar = useAppSelector(state => state.auth.user.avatar);
 
     const dispatch = useAppDispatch();
 
@@ -17,7 +17,7 @@ export const Header = () => {
     const [isActiveProfile, setIsActiveProfile] = useState(true);
 
     const logoutHandler = () => {
-        dispatch(logoutTC());
+        dispatch(logOut());
         setIsActiveProfile(true)
     };
 

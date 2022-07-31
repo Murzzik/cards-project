@@ -95,7 +95,7 @@ export const Registration: React.FC<AuthorizationPropsType> = ({isLoggedIn, onRe
                     </div>
 
                     <FormControl variant="standard" className={style.input_field}>
-                        <InputLabel htmlFor="standard-adornment-password">Password1</InputLabel>
+                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                         <Input
                             id="standard-adornment-password1"
                             disabled={isDisabled}
