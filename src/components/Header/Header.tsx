@@ -1,38 +1,52 @@
 import React, { useState } from 'react';
 import s from '../Header/Header.module.css';
 import projectLogo from '../../assets/images/project-logo.png';
-import { useAppSelector } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 import { NavLink } from 'react-router-dom';
+import { logoutTC } from '../../store/reducers/authorization-reducer';
+import logout from '../../assets/images/logout.png';
 
 export const Header = () => {
     const userName = useAppSelector(state => state.profile.name);
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
     const userProfileAvatar = useAppSelector(state => state.profile.avatar);
 
-    const [isActive, setIsActive] = useState(false);
+    const dispatch = useAppDispatch();
 
-    const handleClick = () => {
-        setIsActive(!isActive);
-        console.log(isActive)
+    const [isActiveNavigate, setIsActiveNavigate] = useState(true);
+    const [isActiveProfile, setIsActiveProfile] = useState(true);
+
+    const logoutHandler = () => {
+        dispatch(logoutTC());
+        setIsActiveProfile(true)
     };
 
-    const dropdownMenu = isActive ? s.dropdownMenu : s.dropdownMenuActive
+    const dropdownNavigateHandler = () => {
+        setIsActiveNavigate(!isActiveNavigate);
+    };
+
+    const dropdownProfileHandler = () => {
+        setIsActiveProfile(!isActiveProfile);
+    };
+
+    const dropdownMenu = isActiveNavigate ? s.dropdownMenu : s.dropdownMenuActive;
+    const dropdownProfile = isActiveProfile ? s.dropdownProfile : s.dropdownProfileActive;
 
     const UserAuthStatus = isLoggedIn
         ?
         <>
             <span className={s.userName}>{userName}</span>
-            <img src={userProfileAvatar} alt="USER PHOTO" className={s.userPhoto} />
+            <img src={userProfileAvatar} alt="USER PHOTO" className={s.userPhoto} onClick={dropdownProfileHandler} />
         </>
         :
         <a href="#/authorization">
-            <button className={s.loginBtn}>Log in</button>
+            <button className={s.signInBtn}>Sign in</button>
         </a>;
 
     return (
         <div className={s.header}>
             <div className={s.dropdown}>
-                <button className={s.navigationContainer} onClick={handleClick}>
+                <button className={s.navigationContainer} onClick={dropdownNavigateHandler}>
                     <img src={projectLogo} alt="IT-INCUBATOR" />
                     <div className={dropdownMenu}>
                         <NavLink to="/authorization" className={s.navElement}>Authorization page</NavLink>
@@ -41,10 +55,17 @@ export const Header = () => {
                     </div>
                 </button>
             </div>
-            <div className={s.userInfo}>
-                {
-                    UserAuthStatus
-                }
+            <div className={s.dropdown}>
+                <div className={s.userInfo}>
+                    {UserAuthStatus}
+                    <div className={dropdownProfile}>
+                        <NavLink to="/profile" className={s.navProfileElement}>Profile page</NavLink>
+                        <div className={s.navProfileElement} onClick={logoutHandler}>
+                            <img src={logout} alt="Logout button" className={s.logoutIcon} />
+                            <span>Log out</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

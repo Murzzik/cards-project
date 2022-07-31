@@ -11,8 +11,8 @@
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    width: 413px;
-    height: 380px;
+    width: 446px;
+    height: 413px;
     text-align: center;
     background: #0F2027;
     background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);
@@ -25,7 +25,7 @@
     display: inline-block;
     margin-top: 21px;
     color: #b9d0c4;
-    font-family: 'Montserrat', system-ui ;
+    font-family: 'Montserrat', system-ui;
     font-style: normal;
     font-weight: 700;
     font-size: 23px;
@@ -79,8 +79,8 @@
     cursor: pointer;
 }
 
-.submitBtn:hover {
-    background: #95aca8;
+.submitBtn:hover:enabled {
+    background: #a7f8ce;
 }
 
 .userProfileName {
@@ -89,6 +89,10 @@
     color: #a7f8ce;
     font-size: 21px;
     font-weight: 600;
+}
+
+.errorMessage {
+    color: #ffb0af;
 }
 
 .userEmail {

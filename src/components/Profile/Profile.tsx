@@ -23,6 +23,8 @@ export const Profile = () => {
 
     const [editMode, setEditMode] = useState(false);
     const [userName, setUserName] = useState(userProfileName);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [submitBtnDisabled, setSubmitBtnDisabled] = useState(false);
 
     const activateEditMode = () => {
         setEditMode(true);
@@ -40,20 +42,30 @@ export const Profile = () => {
 
     const changeUserName = (e: ChangeEvent<HTMLInputElement>) => {
         const userName = e.currentTarget.value;
-        setUserName(userName);
+        if(userName.length <= 1) {
+            setErrorMessage('Your nickname should include at least one symbol.');
+            setSubmitBtnDisabled(true);
+        } else if(userName.length > 16) {
+            setErrorMessage('Your nickname must contain no more than 16 characters.');
+            setSubmitBtnDisabled(true);
+        } else {
+            setSubmitBtnDisabled(false);
+            setErrorMessage('');
+            setUserName(userName);
+        }
     };
 
     const editModeForm = (
         editMode ?
             <TextField className={s.textField} id="standard-basic" label="Nickname" variant="standard" autoFocus
-                       onChange={changeUserName} autoComplete='off' color='info'/>
+                       onChange={changeUserName} autoComplete="off" color="info" />
             :
             <span className={s.userProfileName}>{userProfileName}</span>
     );
 
     const editModeBtn = (
         editMode ?
-            <button className={s.submitBtn} onClick={submitUserName}>Submit</button>
+            <button className={s.submitBtn} onClick={submitUserName} disabled={submitBtnDisabled}>Submit</button>
             :
             <div>
                 <img src={editUserName} alt="Edit user name" onClick={activateEditMode} />
@@ -76,6 +88,7 @@ export const Profile = () => {
                         {editModeBtn}
                     </div>
                 </div>
+                <span className={s.errorMessage}>{errorMessage}</span>
                 <span className={s.userEmail}>
                     {userProfileEmail}
                 </span>

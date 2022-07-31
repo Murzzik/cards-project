@@ -9,10 +9,12 @@
     align-items: center;
     justify-content: space-between;
     height: 65px;
-    background: #F0F2F0;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #000C40, #F0F2F0);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #000C40, #F0F2F0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #F0F2F0;
+    background: -webkit-linear-gradient(to right, #000C40, #F0F2F0);
+    background: linear-gradient(to right, #000C40, #F0F2F0);
     box-shadow: 1px 1px 3px 3px rgb(41, 56, 63), -1px -1px 2px rgb(41, 56, 63);
+
+    z-index: 1; /*based on situation*/
 }
 
 .navigationContainer {
@@ -25,6 +27,10 @@
     outline: none;
     background: none;
     cursor: pointer;
+}
+
+.navigationContainer img{
+    width: 200px;
 }
 
 .dropdown {
@@ -58,6 +64,7 @@
     display: block;
     color: #a7f8ce;
     padding: 1rem;
+    border-radius: .25rem;
     font-size: 18px;
     text-decoration: none;
     transition: .3s;
@@ -67,8 +74,54 @@
     background: #2c5263;
 }
 
-.navigationContainer img{
-    width: 200px;
+.dropdownProfile {
+    position: absolute;
+    left: 1.8rem;
+    top: calc(100% + 1rem);
+    border-radius: .25rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .2);
+    pointer-events: none;
+    background: #cfd2d8;
+    font-weight: 600;
+    transform: translateY(-10px);
+    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+    opacity: 0;
+}
+
+.dropdownProfileActive {
+    position: absolute;
+    left: 1.8rem;
+    top: calc(100% + 1rem);
+    text-align: center;
+    pointer-events: auto;
+    border-radius: .25rem;
+    background: #cfd2d8;
+    font-weight: 600;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .2);
+    transform: translateY(0);
+    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+    opacity: 1;
+}
+
+.navProfileElement {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    border-radius: .25rem;
+    padding: 1rem;
+    font-size: 18px;
+    text-decoration: none;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.navProfileElement img {
+    margin: 2px 2px 0 0;
+}
+
+.navProfileElement:hover {
+    background: #d5e0f6;
 }
 
 .userInfo {
@@ -77,26 +130,28 @@
     margin-right: 200px;
 }
 
-.loginBtn {
+.signInBtn {
     border: none;
-    width: 80px;
-    height: 34px;
+    width: 92px;
+    height: 38px;
     color: #fff;
-    background: #366EFF;
-    box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
-    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 700;
+    background: #4f587a;
+    box-shadow: 0 0 2px 2px rgba(109, 109, 109, 0.1);
+    border-radius: 30px 10px;
     transition: .3s;
     cursor: pointer;
 }
 
-.loginBtn:hover {
-    background: #3f51b5;
+.signInBtn:hover {
+    color: #000;
+    background: #a7f8ce;
 }
 
 .userName {
     font-size: 21px;
     font-weight: 600;
-    cursor: pointer;
 }
 
 .userPhoto {
