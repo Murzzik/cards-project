@@ -1,19 +1,20 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from './Profile.module.css';
 import editUserName from '../../assets/images/Edit.png';
 import logout from '../../assets/images/logout.png';
-import { BadgeAvatars } from '../../common/utils/BadgeAvatars';
-import { TextField } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../store/store';
-import { getUserInformationTC, updateUserNameTC } from '../../store/reducers/profile-reducer';
-import { logoutTC } from '../../store/reducers/authorization-reducer';
-import { Navigate } from 'react-router-dom';
+import {BadgeAvatars} from '../../common/utils/BadgeAvatars';
+import {TextField} from '@mui/material';
+import {useAppDispatch, useAppSelector} from '../../store/store';
+import {Navigate} from 'react-router-dom';
+import Preloader from '../common/Preloader/Preloader';
+import {logOut, updateUserData} from '../../store/reducers/authorization-reducer';
 
 export const Profile = () => {
 
     const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn);
-    const userProfileName = useAppSelector(state => state.profile.name);
-    const userProfileEmail = useAppSelector(state => state.profile.email);
+    const userProfileName = useAppSelector(state => state.auth.user.name);
+    const userProfileEmail = useAppSelector(state => state.auth.user.email);
+    const isInitialized = useAppSelector(state => state.app.isInitialized);
 
     const dispatch = useAppDispatch();
 
@@ -31,12 +32,12 @@ export const Profile = () => {
     };
 
     const logoutHandler = () => {
-        dispatch(logoutTC());
+        dispatch(logOut());
     };
 
     // Submit
     const submitUserName = () => {
-        dispatch(updateUserNameTC(userName));
+        dispatch(updateUserData(userName));
         setEditMode(false);
     };
 
@@ -72,7 +73,11 @@ export const Profile = () => {
             </div>
     );
 
-    if(!isLoggedIn) return <Navigate to={'/authorization'} />;
+    if (!isInitialized) {
+        return <Preloader/>;
+    }
+
+    if (!isLoggedIn) return <Navigate to={'/authorization'}/>;
     return (
         <div className={s.container}>
             <div className={s.profileEdit}>

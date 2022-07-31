@@ -1,7 +1,7 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, IconButton, Input, InputAdornment, InputLabel, TextField} from '@material-ui/core';
-import {NavLink} from 'react-router-dom';
+import {Button, FormControl, FormGroup, IconButton, Input, InputAdornment, InputLabel, TextField} from '@material-ui/core';
+import {Navigate, NavLink} from 'react-router-dom';
 import {Visibility, VisibilityOff} from '@material-ui/icons/';
 import Preloader from '../common/Preloader/Preloader';
 import style from '../../styles/auth/Auth.module.css';
@@ -10,26 +10,28 @@ import {RequestStatusType} from '../../store/reducers/app-reducer';
 export type FormikErrorType = {
     email?: string
     password?: string
-    rememberMe?: boolean
+    confirmPassword?: string
 }
 
 interface State {
     password: string;
     showPassword: boolean;
+    showConfirmPassword: boolean;
 }
 
 type AuthorizationPropsType = {
     isLoggedIn: boolean,
-    authorization: (values: FormikErrorType) => void,
+    onRegistrationSubmit: (values: any) => void,
     isLoad: RequestStatusType,
-    isDisabled: boolean
+    isDisabled: boolean,
 }
 
-export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, authorization, isLoad, isDisabled}) => {
+export const Registration: React.FC<AuthorizationPropsType> = ({isLoggedIn, onRegistrationSubmit, isLoad, isDisabled}) => {
 
     const [values, setValues] = React.useState<State>({
         password: '',
         showPassword: false,
+        showConfirmPassword: false
     });
 
     const handleClickShowPassword = () => {
@@ -39,15 +41,18 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
         });
     };
 
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
+    const handleClickShowConfirmPassword = () => {
+        setValues({
+            ...values,
+            showConfirmPassword: !values.showConfirmPassword,
+        });
     };
 
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
-            rememberMe: true
+            confirmPassword: ''
         },
         validate: values => {
             const errors: FormikErrorType = {};
@@ -61,19 +66,23 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
             } else if (values.password.length < 7) {
                 errors.password = 'Should be 7 symbol minimum';
             }
+            if (values.password !== values.confirmPassword || !values.confirmPassword) {
+                errors.confirmPassword = 'Passwords do not match';
+            }
             return errors;
         },
         onSubmit: values => {
-            authorization(values);
-            formik.resetForm();
+            onRegistrationSubmit({email: values.email, password: values.password});
         }
     });
 
     const isBlockButton = Object.keys(formik.errors).length !== 0;
 
+    if (isLoggedIn) return <Navigate to={'/profile'}/>;
+
     return <div className={style.main_block}>
         {isLoad === 'loading' && <Preloader/>}
-        <h2>Sign in</h2>
+        <h2>Sign up</h2>
 
         <form onSubmit={formik.handleSubmit} className={style.form_block}>
             <FormControl className={style.form_block}>
@@ -86,9 +95,9 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
                     </div>
 
                     <FormControl variant="standard" className={style.input_field}>
-                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                        <InputLabel htmlFor="standard-adornment-password">Password1</InputLabel>
                         <Input
-                            id="standard-adornment-password"
+                            id="standard-adornment-password1"
                             disabled={isDisabled}
                             type={values.showPassword ? 'text' : 'password'}
                             {...formik.getFieldProps('password')}
@@ -97,7 +106,6 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
                                     <IconButton
                                         aria-label="toggle password visibility"
                                         onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
                                         style={{backgroundColor: 'transparent'}}
                                         disableRipple={true}
                                     >
@@ -112,28 +120,53 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
                         {formik.touched.password && formik.errors.password && <span>{formik.errors.password}</span>}
                     </div>
 
-                    <NavLink className={style.forgot_password} to={'/passrecovery'}>Forgot password</NavLink>
+                    <FormControl variant="standard" className={style.input_field}>
+                        <InputLabel htmlFor="standard-adornment-password2">Confirm password</InputLabel>
+                        <Input
+                            id="standard-adornment-password"
+                            disabled={isDisabled}
+                            type={values.showConfirmPassword ? 'text' : 'password'}
+                            {...formik.getFieldProps('confirmPassword')}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowConfirmPassword}
+                                        // onMouseDown={handleClickShowConfirmPassword}
+                                        style={{backgroundColor: 'transparent'}}
+                                        disableRipple={true}
+                                    >
+                                        {values.showConfirmPassword ? <VisibilityOff/> : <Visibility/>}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+                    </FormControl>
 
-                    <FormControlLabel
-                        label={'Remember me'}
-                        control={<Checkbox
-                            style={{color: '#366EFF'}}
-                            {...formik.getFieldProps('rememberMe')}
-                            checked={formik.values.rememberMe}
-                        />}/>
+                    <div className={style.errors}>
+                        {formik.touched.password && formik.errors.confirmPassword &&
+                            <span>{formik.errors.confirmPassword}</span>}
+                    </div>
 
-                    <Button className={style.auth_button} type={'submit'} variant={'contained'} color={'primary'}
-                            disabled={isDisabled || isBlockButton}
-                    >
-                        SIGN IN
-                    </Button>
-
-                    <p className={style.opacity_text}>Don’t have an account?</p>
-
-                    <NavLink className={style.sign_auth_link} to={'/registration'}>SING UP</NavLink>
-
+                    <Button
+                        className={style.auth_button}
+                        type={'submit'}
+                        variant={'contained'}
+                        color={'primary'}
+                        disabled={isBlockButton || isDisabled}
+                        children={'Register'}
+                    />
                 </FormGroup>
             </FormControl>
         </form>
+
+        <div className={style.opacity_text}>
+            Already have an account?
+        </div>
+
+        <div>
+            <NavLink className={style.sign_auth_link} to="/authorization">SIGN IN</NavLink>
+        </div>
+
     </div>;
 };

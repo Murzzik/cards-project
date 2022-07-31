@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import s from '../Header/Header.module.css';
 import projectLogo from '../../assets/images/project-logo.png';
 import { useAppDispatch, useAppSelector } from '../../store/store';
@@ -7,7 +7,7 @@ import { logoutTC } from '../../store/reducers/authorization-reducer';
 import logout from '../../assets/images/logout.png';
 
 export const Header = () => {
-    const userName = useAppSelector(state => state.profile.name);
+    const userName = useAppSelector(state => state.auth.user.name);
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
     const userProfileAvatar = useAppSelector(state => state.profile.avatar);
 

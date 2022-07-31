@@ -1,23 +1,17 @@
-import { applyMiddleware, combineReducers, legacy_createStore as createStore } from 'redux';
-import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import { passwordReducer } from './reducers/password-reducer';
-import { ProfileActionType, profileReducer } from './reducers/profile-reducer';
-import { ActionTypeFoAuthReducer, authorizationReducer } from './reducers/authorization-reducer';
-import { registrationReducer } from './reducers/registration-reducer';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { ActionTypeForAppReducer, appReducer } from './reducers/app-reducer';
+import {applyMiddleware, combineReducers, legacy_createStore as createStore} from 'redux';
+import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
+import {ActionTypeFoAuthReducer, authorizationReducer} from './reducers/authorization-reducer';
+import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
+import {ActionTypeForAppReducer, appReducer} from './reducers/app-reducer';
 
 const rootReducer = combineReducers({
     auth: authorizationReducer,
-    password: passwordReducer,
-    profile: profileReducer,
-    registration: registrationReducer,
     app: appReducer,
 
 });
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
-type AppActionsType = ProfileActionType | ActionTypeForAppReducer | ActionTypeFoAuthReducer
+type AppActionsType = ActionTypeForAppReducer | ActionTypeFoAuthReducer
 
 export type AppRootStateType = ReturnType<typeof store.getState>
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AppActionsType>
