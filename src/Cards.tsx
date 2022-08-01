@@ -6,7 +6,6 @@ import {Header} from './components/Header/Header';
 import {Profile} from './components/Profile/Profile';
 import {ErrorPage} from './components/ErrorPage';
 import {ComponentsTest} from './components/ComponentsTest';
-import {NavigateDemo} from './components/NavigateDemo';
 import CheckEmailContainer from './components/passRecovery/checkEmail/CheckEmailContainer';
 import ApplyNewPasswordContainer from './components/passRecovery/newPass/ApplyNewPasswordContainer';
 import PassRecoveryContainer from './components/passRecovery/PassRecoveryContainer';
@@ -14,6 +13,9 @@ import AuthorizationContainer from './components/authorization/AuthorizationCont
 import {useAppDispatch} from './store/store';
 import {authorizationUser} from './store/reducers/authorization-reducer';
 import {RegistrationContainer} from './components/registration/RegistrationContainer';
+import { GreetingPage } from './components/GreetingPage/GreetingPage';
+// @ts-ignore
+import Fade from 'react-reveal/Fade';
 
 const Cards: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -21,13 +23,16 @@ const Cards: React.FC = () => {
     useEffect(() => {
         dispatch(authorizationUser());
     }, [dispatch]);
+
     return (
         <div>
+            <Fade left>
             <div className={s.headerContainer}>
                 <Header/>
             </div>
+            </Fade>
             <Routes>
-                <Route path="/" element={<NavigateDemo/>}/>
+                <Route path="/" element={<GreetingPage/>}/>
                 <Route path="/authorization" element={<AuthorizationContainer/>}/>
                 <Route path="/registration" element={<RegistrationContainer/>}/>
                 <Route path="/set-new-password/:token" element={<ApplyNewPasswordContainer/>}/>

@@ -6,11 +6,6 @@ import { Helmet } from 'react-helmet';
 export const NavigateDemo = () => {
     return (
         <nav className={s.container}>
-            <Helmet>
-                <style>
-                    {'body {background-image: linear-gradient(62deg, #05b8f7 0%, #12dc94 100%);\n}'}
-                </style>
-            </Helmet>
             <div className={s.elementContainer}>
                 <NavLink to="/authorization" className={s.element}>Authorization</NavLink>
             </div>

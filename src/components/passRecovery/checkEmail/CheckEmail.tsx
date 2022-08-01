@@ -1,5 +1,5 @@
 import React from 'react';
-import checkEmail from '../../../assets/images/checkEmail.svg';
+import checkEmail from '../../../assets/images/receiveEmail.png';
 import { Button } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import style from '../../../styles/auth/Auth.module.css';
@@ -14,7 +14,7 @@ const CheckEmail: React.FC<CheckEmailPropsType> = ({ recoveryEmail }) => {
             <h2>Check Email</h2>
             <img src={checkEmail} alt="" />
             <p className={style.opacity_text}>We’ve sent an Email with instructions to {recoveryEmail}</p>
-            <NavLink to={'/authorization'} style={{ width: '100%', textDecoration: 'none' }}>
+            <NavLink to={'/authorization'}>
                 <Button variant={'contained'} color={'primary'} className={style.auth_button}>
                     Back to login
                 </Button>

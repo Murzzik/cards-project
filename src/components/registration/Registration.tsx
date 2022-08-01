@@ -86,7 +86,7 @@ export const Registration: React.FC<AuthorizationPropsType> = ({
             return errors;
         },
         onSubmit: values => {
-            onRegistrationSubmit({ email: values.email, password: values.password });
+            onRegistrationSubmit({email: values.email, password: values.password});
         },
     });
 
@@ -118,9 +118,9 @@ export const Registration: React.FC<AuthorizationPropsType> = ({
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
+                                        className={style.showPasswordBtn}
                                         aria-label="toggle password visibility"
                                         onClick={handleClickShowPassword}
-                                        style={{ backgroundColor: 'transparent' }}
                                         disableRipple={true}
                                     >
                                         {values.showPassword ? <VisibilityOff /> : <Visibility />}
@@ -144,10 +144,10 @@ export const Registration: React.FC<AuthorizationPropsType> = ({
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
+                                        className={style.showPasswordBtn}
                                         aria-label="toggle password visibility"
                                         onClick={handleClickShowConfirmPassword}
                                         // onMouseDown={handleClickShowConfirmPassword}
-                                        style={{ backgroundColor: 'transparent' }}
                                         disableRipple={true}
                                     >
                                         {values.showConfirmPassword ? <VisibilityOff /> : <Visibility />}

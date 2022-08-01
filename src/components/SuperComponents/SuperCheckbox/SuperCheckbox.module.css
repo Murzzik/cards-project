@@ -1,12 +1,11 @@
 label {
     display: flex;
     align-items: center;
-    margin-top: 20px;
 }
 
 input[type="checkbox"] {
     appearance: none;
-    background-color: #F5EEDC;
+    background-color: #2C5364FF;
     font: inherit;
     color: currentColor;
     width: 1.15em;
@@ -28,7 +27,7 @@ input[type="checkbox"]::before {
 
 input[type="checkbox"]:checked::before {
     transform: scale(1);
-    background-color: #622828;
+    background-color: #b9d0c4;
     transform-origin: bottom left;
     clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }

@@ -1,11 +1,23 @@
 import React from 'react';
-import {useFormik} from 'formik';
-import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, IconButton, Input, InputAdornment, InputLabel, TextField} from '@material-ui/core';
-import {NavLink} from 'react-router-dom';
-import {Visibility, VisibilityOff} from '@material-ui/icons/';
+import { useFormik } from 'formik';
+import {
+    Button,
+    Checkbox,
+    FormControl,
+    FormControlLabel,
+    FormGroup,
+    IconButton,
+    Input,
+    InputAdornment,
+    InputLabel,
+    TextField,
+} from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
+import { Visibility, VisibilityOff } from '@material-ui/icons/';
 import Preloader from '../common/Preloader/Preloader';
 import style from '../../styles/auth/Auth.module.css';
-import {RequestStatusType} from '../../store/reducers/app-reducer';
+import { RequestStatusType } from '../../store/reducers/app-reducer';
+import { SuperCheckbox } from '../SuperComponents/SuperCheckbox/SuperCheckbox';
 
 export type FormikErrorType = {
     email?: string
@@ -47,18 +59,18 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
         initialValues: {
             email: '',
             password: '',
-            rememberMe: true
+            rememberMe: true,
         },
         validate: values => {
             const errors: FormikErrorType = {};
-            if (!values.email) {
+            if(!values.email) {
                 errors.email = 'Required';
-            } else if ((!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))) {
+            } else if((!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))) {
                 errors.email = 'Invalid email address';
             }
-            if (!values.password) {
+            if(!values.password) {
                 errors.password = 'Required';
-            } else if (values.password.length < 7) {
+            } else if(values.password.length < 7) {
                 errors.password = 'Should be 7 symbol minimum';
             }
             return errors;
@@ -66,13 +78,13 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
         onSubmit: values => {
             authorization(values);
             // formik.resetForm(); Предотвращение дублирования параметров входа.
-        }
+        },
     });
 
     const isBlockButton = Object.keys(formik.errors).length !== 0;
 
     return <div className={style.main_block}>
-        {isLoad === 'loading' && <Preloader/>}
+        {isLoad === 'loading' && <Preloader />}
         <h2>Sign in</h2>
 
         <form onSubmit={formik.handleSubmit} className={style.form_block}>
@@ -95,13 +107,13 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
+                                        className={style.showPasswordBtn}
                                         aria-label="toggle password visibility"
                                         onClick={handleClickShowPassword}
                                         onMouseDown={handleMouseDownPassword}
-                                        style={{backgroundColor: 'transparent'}}
                                         disableRipple={true}
                                     >
-                                        {values.showPassword ? <VisibilityOff/> : <Visibility/>}
+                                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 </InputAdornment>
                             }
@@ -112,15 +124,18 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
                         {formik.touched.password && formik.errors.password && <span>{formik.errors.password}</span>}
                     </div>
 
-                    <NavLink className={style.forgot_password} to={'/passrecovery'}>Forgot password</NavLink>
+                    <NavLink className={style.forgot_password} to={'/passrecovery'}>
+                        <span className={style.forgot_title}>Forgot password</span>
+                    </NavLink>
 
                     <FormControlLabel
+                        className={style.rememberMe_container}
                         label={'Remember me'}
-                        control={<Checkbox
-                            style={{color: '#366EFF'}}
+                        control={<SuperCheckbox
+                            className={style.rememberMe_checkbox}
                             {...formik.getFieldProps('rememberMe')}
                             checked={formik.values.rememberMe}
-                        />}/>
+                        />} />
 
                     <Button className={style.auth_button} type={'submit'} variant={'contained'} color={'primary'}
                             disabled={isDisabled || isBlockButton}
