@@ -5,6 +5,8 @@ import { Header } from './components/Header/Header';
 import { useAppDispatch } from './store/store';
 import { authorizationUser } from './store/reducers/authorization-reducer';
 import { MyRoutes } from './components/MyRoutes';
+//@ts-ignore
+import Fade from 'react-reveal/Fade';
 
 const Cards: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -15,7 +17,9 @@ const Cards: React.FC = () => {
     return (
         <div>
             <div className={s.headerContainer}>
-                <Header />
+                <Fade left>
+                    <Header />
+                </Fade>
             </div>
             <MyRoutes />
         </div>
