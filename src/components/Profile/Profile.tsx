@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import s from './Profile.module.css';
 import editUserName from '../../assets/images/Edit.png';
 import logout from '../../assets/images/logout.png';
-import { BadgeAvatars } from '../../common/utils/BadgeAvatars';
+import { BadgeAvatars } from '../common/BadgeAvatars/BadgeAvatars';
 import { TextField } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { Navigate } from 'react-router-dom';
@@ -68,11 +68,11 @@ export const Profile = () => {
             </div>
     );
 
-    if(!isInitialized) {
-        return <Preloader />;
+    if (!isInitialized) {
+        return <Preloader/>;
     }
 
-    if(!isLoggedIn) return <Navigate to={'/authorization'} />;
+    if (!isLoggedIn) return <Navigate to={'/authorization'}/>;
     return (
         <div className={s.container}>
             <div className={s.profileEdit}>

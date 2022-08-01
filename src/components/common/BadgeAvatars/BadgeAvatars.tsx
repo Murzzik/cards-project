@@ -1,8 +1,8 @@
 import { Badge } from '@mui/material';
-import editPhoto from '../../assets/images/changePhoto.png';
+import editPhoto from '../../../assets/images/changePhoto.png';
 import s from './BadgeAvatars.module.css';
 import React from 'react';
-import { useAppSelector } from '../../store/store';
+import { useAppSelector } from '../../../store/store';
 
 export const BadgeAvatars = () => {
 

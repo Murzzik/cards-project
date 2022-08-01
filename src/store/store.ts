@@ -3,10 +3,14 @@ import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {ActionTypeFoAuthReducer, authorizationReducer} from './reducers/authorization-reducer';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {ActionTypeForAppReducer, appReducer} from './reducers/app-reducer';
+import { packsReducer } from './reducers/packs-reducer';
+import { cardsReducer } from './reducers/cards-reducer';
 
 const rootReducer = combineReducers({
     auth: authorizationReducer,
     app: appReducer,
+    packs: packsReducer,
+    cards: cardsReducer
 
 });
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
