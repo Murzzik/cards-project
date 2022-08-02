@@ -22,14 +22,13 @@ const QuantityFilter: React.FC<QuantityFilterPropsType> = ({setMin, setMax}) => 
     return (
         <div className={style.quantity_filter}>
             <h3>Number of cards</h3>
-            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                <Slider style={{width: '60%'}}
+            <div>
+                <Slider
                         getAriaLabel={() => 'Temperature range'}
                         value={value}
                         onChange={handleChange}
                         valueLabelDisplay="auto"
                         max={110}
-                    // getAriaValueText={valuetext}
                 />
             </div>
         </div>
