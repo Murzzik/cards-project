@@ -4,10 +4,10 @@ import {Button, ButtonGroup} from '@material-ui/core';
 import {useNavigate} from 'react-router-dom';
 
 const OwnerFilter: React.FC = () => {
-    const ownerPacks = "ownerPacks=my"
+    const ownerPacks = 'ownerPacks=my';
     const navigate = useNavigate();
     const onclickHandler = () => {
-            navigate(`?${ownerPacks}`)
+        navigate(`?${ownerPacks}`);
     };
     return (
         <div className={style.owner_filter}>
