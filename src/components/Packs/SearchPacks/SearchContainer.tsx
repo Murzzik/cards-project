@@ -1,20 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import style from './SearchParameters.module.css';
 import {Button} from '@material-ui/core';
 import NameFilter from './NameFilter/NameFilter';
 import OwnerFilter from './OwnerFilter/OwnerFilter';
 import QuantityFilter from './QuantityFilter/QuantityFilter';
-import useDebounce from 'usehooks-ts/dist/esm/useDebounce/useDebounce';
-import {useAppDispatch} from '../../../store/store';
-import {initializedPacks} from '../../../store/reducers/packs-reducer';
 
-const SearchContainer = () => {
-    const [namePack, setNamePack] = useState<string>('');
-    const debouncedValue = useDebounce<string>(namePack, 1500);
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-        dispatch(initializedPacks({packName: namePack}));
-    }, [debouncedValue, dispatch]);
+type SearchContainerPropsType = {
+    namePack: string,
+    setNamePack: (namePack: string) => void,
+    setMin: (min: number) => void,
+    setMax: (min: number) => void,
+}
+const SearchContainer: React.FC<SearchContainerPropsType> = ({setNamePack, setMax, setMin, namePack}) => {
     return (
         <div className={style.search_block}>
             <div className={style.search_header}>
@@ -24,7 +21,7 @@ const SearchContainer = () => {
             <div className={style.parameters_block}>
                 <NameFilter namePack={namePack} setNamePack={setNamePack}/>
                 <OwnerFilter/>
-                <QuantityFilter/>
+                <QuantityFilter setMin={setMin} setMax={setMax}/>
             </div>
         </div>
     );

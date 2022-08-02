@@ -14,7 +14,7 @@ const initialState: initialStateType = {
 export const packsReducer = (state = initialState, action: ActionTypeForPacksReducer): initialStateType => {
     switch (action.type) {
         case 'packs-setPacksData': {
-            return action.packsData;
+            return {...action.packsData};
         }
         default:
             return state;
