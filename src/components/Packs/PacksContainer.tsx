@@ -6,11 +6,12 @@ import {initializedPacks} from '../../store/reducers/packs-reducer';
 import {GetCardsType} from '../../api/packAPI';
 
 const PacksContainer = () => {
-    const [namePack, setNamePack] = useState<string>('');
+    const [namePack, setNamePack] = useState<string>();
     const [min, setMin] = useState<number>();
     const [max, setMax] = useState<number>();
-    const [page, setPage] = useState<number>(1);
-    const [pageCount, setPageCount] = useState<number>(10);
+    const [page, setPage] = useState<number>();
+    const [pageCount, setPageCount] = useState<number>();
+    const [userID, setUserID] = useState<string>();
 
     const queryParams: GetCardsType = {
         packName: namePack,
@@ -18,15 +19,16 @@ const PacksContainer = () => {
         max: max,
         pageCount: pageCount,
         page: page,
-        user_id: ''
+        user_id: userID,
+         sortPacks: '0updated'
     };
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(initializedPacks(queryParams));
-    }, [dispatch, min, max, namePack]);
+    }, [queryParams, dispatch]);
     return (
         <div>
-            <SearchContainer setNamePack={setNamePack} setMin={setMin} setMax={setMax}/>
+            <SearchContainer setNamePack={setNamePack} setMin={setMin} setMax={setMax} setUserID={setUserID}/>
             <PacksListContainer/>
         </div>
     );

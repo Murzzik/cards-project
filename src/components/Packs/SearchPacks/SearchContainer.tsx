@@ -9,8 +9,9 @@ type SearchContainerPropsType = {
     setNamePack: (namePack: string) => void,
     setMin: (min: number) => void,
     setMax: (min: number) => void,
+    setUserID: (userID: string) => void,
 }
-const SearchContainer: React.FC<SearchContainerPropsType> = ({setNamePack, setMax, setMin}) => {
+const SearchContainer: React.FC<SearchContainerPropsType> = ({setNamePack, setMax, setMin, setUserID}) => {
     return (
         <div className={style.search_block}>
             <div className={style.search_header}>
@@ -19,7 +20,7 @@ const SearchContainer: React.FC<SearchContainerPropsType> = ({setNamePack, setMa
             </div>
             <div className={style.parameters_block}>
                 <NameFilter setNamePack={setNamePack}/>
-                <OwnerFilter/>
+                <OwnerFilter setUserID={setUserID}/>
                 <QuantityFilter setMin={setMin} setMax={setMax}/>
             </div>
         </div>
