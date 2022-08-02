@@ -16,7 +16,6 @@ export const Profile = () => {
     const isInitialized = useAppSelector(state => state.app.isInitialized);
 
     const dispatch = useAppDispatch();
-
     const [editMode, setEditMode] = useState(false);
     const [userName, setUserName] = useState(userProfileName);
     const [errorMessage, setErrorMessage] = useState('');
