@@ -1,22 +1,28 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import style from '../SearchParameters.module.css';
 import {IconButton, TextField} from '@material-ui/core';
 import {SearchOutlined} from '@material-ui/icons';
+import useDebounce from 'usehooks-ts/dist/esm/useDebounce/useDebounce';
 
 type NameFilterPropsType = {
-    namePack: string,
     setNamePack: (name: string) => void,
 }
 
-const NameFilter: React.FC<NameFilterPropsType> = ({namePack, setNamePack}) => {
+const NameFilter: React.FC<NameFilterPropsType> = ({setNamePack}) => {
+    const [name, setName] = useState<string>('');
+    const debouncedName = useDebounce(name, 1500);
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setNamePack(event.currentTarget.value);
+        setName(event.currentTarget.value);
     };
+
+    useEffect(() => {
+        setNamePack(name);
+    }, [debouncedName]);
     return (
         <div className={style.input_field}>
             <h3>Search</h3>
             <TextField
-                value={namePack}
+                value={name}
                 fullWidth
                 id="standard-bare"
                 variant="outlined"
