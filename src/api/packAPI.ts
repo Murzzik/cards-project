@@ -7,7 +7,7 @@ export const packAPI = {
     },
 };
 
-export type GetCardsType<T={}> = {
+export type GetCardsType = {
     packName?: string
     min?: number
     max?: number

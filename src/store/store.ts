@@ -4,7 +4,7 @@ import {ActionTypeFoAuthReducer, authorizationReducer} from './reducers/authoriz
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {ActionTypeForAppReducer, appReducer} from './reducers/app-reducer';
 import {ActionTypeForPacksReducer, packsReducer} from './reducers/packs-reducer';
-import { cardsReducer } from './reducers/cards-reducer';
+import {cardsReducer} from './reducers/cards-reducer';
 
 const rootReducer = combineReducers({
     auth: authorizationReducer,

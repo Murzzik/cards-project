@@ -1,23 +1,12 @@
 import React from 'react';
-import { useFormik } from 'formik';
-import {
-    Button,
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    FormGroup,
-    IconButton,
-    Input,
-    InputAdornment,
-    InputLabel,
-    TextField,
-} from '@material-ui/core';
-import { NavLink } from 'react-router-dom';
-import { Visibility, VisibilityOff } from '@material-ui/icons/';
+import {useFormik} from 'formik';
+import {Button, FormControl, FormControlLabel, FormGroup, IconButton, Input, InputAdornment, InputLabel, TextField,} from '@material-ui/core';
+import {NavLink} from 'react-router-dom';
+import {Visibility, VisibilityOff} from '@material-ui/icons/';
 import Preloader from '../common/Preloader/Preloader';
 import style from '../../styles/auth/Auth.module.css';
-import { RequestStatusType } from '../../store/reducers/app-reducer';
-import { SuperCheckbox } from '../SuperComponents/SuperCheckbox/SuperCheckbox';
+import {RequestStatusType} from '../../store/reducers/app-reducer';
+import {SuperCheckbox} from '../SuperComponents/SuperCheckbox/SuperCheckbox';
 
 export type FormikErrorType = {
     email?: string

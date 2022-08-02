@@ -25,7 +25,7 @@ export const setPacksData = (packsData: initialStateType) => {
     return {type: 'packs-setPacksData', packsData};
 };
 
-export const initializedPacks = (args: GetCardsType={}): AppThunk => (dispatch) => {
+export const initializedPacks = (args: GetCardsType = {}): AppThunk => (dispatch) => {
     packAPI.getPacks(args).then(res => {
         dispatch(setPacksData(res.data));
     });
