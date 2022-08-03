@@ -3,15 +3,25 @@ import useDebounce from 'usehooks-ts/dist/esm/useDebounce/useDebounce';
 import {useSearchParams} from 'react-router-dom';
 import {Button, IconButton, TextField} from '@material-ui/core';
 import {SearchOutlined} from '@material-ui/icons';
+import style from './CardsHeader.module.css';
+import {useAppSelector} from '../../../../store/store';
 
-const CardsHeader: React.FC = () => {
+type CardsHeaderPropsType = {
+    cardsPack_id: string | undefined
+}
+
+const CardsHeader: React.FC<CardsHeaderPropsType> = ({cardsPack_id}) => {
     const [question, setQuestion] = useState<string>('');
     const debouncedName = useDebounce(question, 1500);
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setQuestion(event.currentTarget.value);
     };
     const [searchParameters, setSearchParameters] = useSearchParams();
-
+    const pack = useAppSelector(state => state.packs.cardPacks.find(p => p._id === cardsPack_id));
+    let packName = '';
+    if (pack) {
+        packName = pack.name;
+    }
     useEffect(() => {
         if (question.length > 0) {
             setSearchParameters({...Object.fromEntries(searchParameters), question});
@@ -22,8 +32,9 @@ const CardsHeader: React.FC = () => {
     }, [debouncedName]);
 
     return (
-        <div style={{display: 'flex', alignItems: 'center'}}>
-            <div>
+        <div className={style.cardsHeader}>
+            <div className={style.inputField}>
+                <h3>{packName}</h3>
                 <h3>Search</h3>
                 <TextField
                     value={question}
@@ -40,7 +51,7 @@ const CardsHeader: React.FC = () => {
                     }}
                 />
             </div>
-            <Button style={{height: '40px'}} variant={'contained'} color={'primary'}>Add new card</Button>
+            <Button variant={'contained'} color={'primary'}>Add new card</Button>
         </div>
     );
 };

@@ -17,7 +17,7 @@ const CardsContainer = () => {
     }, [cardsPack_id, cardQuestion]);
     return (
         <div>
-            <CardsHeader/>
+            <CardsHeader cardsPack_id={cardsPack_id}/>
             Table
             Pagiantion
         </div>

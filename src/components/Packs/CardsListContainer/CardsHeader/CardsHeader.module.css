@@ -1,0 +1,18 @@
+.cardsHeader {
+    display: flex;
+    width: 100%;
+    max-width: 80%;
+    margin: 30px auto;
+    background-color: white;
+    padding: 30px;
+    justify-content: space-between;
+}
+.inputField {
+    width: 100%;
+    max-width: 600px;
+}
+
+.cardsHeader button {
+    height: 40px;
+    border-radius: 30px;
+}
