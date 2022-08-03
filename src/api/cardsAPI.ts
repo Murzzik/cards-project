@@ -8,7 +8,7 @@ export const cardsAPI = {
 
 export type GetCardType = {
     cardAnswer?: string
-    cardQuestion?: string
+    cardQuestion?: string | null
     cardsPack_id: string
     min?: number
     max?: number

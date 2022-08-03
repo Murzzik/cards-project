@@ -46,7 +46,7 @@ const PacksContainer = () => {
                     defaultCurrent={page}
                     showTotal={(total) => `Total ${total} items`}
                 />
-                    <NavLink to="/packs/62e7db8b8d08284360e42db0">navlik</NavLink>
+                <NavLink to="/packs/607fece70857db0004f314d1">navlik</NavLink>
             </div>
         );
     }
