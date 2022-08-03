@@ -1,5 +1,5 @@
 import {AppThunk} from '../store';
-import {authAPI} from '../../api/cardsApi';
+import {authAPI} from '../../api/userAPI';
 import {setError, setInitialized, setPreloaderStatus} from './app-reducer';
 import {RegistrationData} from '../../components/registration/RegistrationContainer';
 

@@ -43,6 +43,7 @@ const PacksContainer = () => {
                     onChange={onChangeHandlerPage}
                     defaultPageSize={pageCount}
                     pageSizeOptions={[4, 10, 20]}
+                    defaultCurrent={page}
                     showTotal={(total) => `Total ${total} items`}
                 />
             </div>
