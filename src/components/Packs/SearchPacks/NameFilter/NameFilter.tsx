@@ -8,12 +8,17 @@ import {useSearchParams} from 'react-router-dom';
 type NameFilterPropsType = {}
 
 const NameFilter: React.FC<NameFilterPropsType> = () => {
-    const [name, setName] = useState<string>('');
+    const [searchParameters, setSearchParameters] = useSearchParams();
+    let startName = searchParameters.get('name');
+    let nameParameter = '';
+    if (startName) {
+        nameParameter = startName;
+    }
+    const [name, setName] = useState(nameParameter);
     const debouncedName = useDebounce(name, 1500);
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setName(event.currentTarget.value);
     };
-    const [searchParameters, setSearchParameters] = useSearchParams();
 
     useEffect(() => {
         if (name.length > 0) {
