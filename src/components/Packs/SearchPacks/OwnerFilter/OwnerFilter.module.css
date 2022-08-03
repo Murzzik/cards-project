@@ -1,0 +1,10 @@
+.owner_filter {
+    max-width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.buttonGroup .activeButton {
+    background-color: #a0e585;
+}

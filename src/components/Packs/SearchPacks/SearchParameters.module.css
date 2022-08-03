@@ -8,7 +8,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding:10px 30px;
+    padding: 10px 30px;
 }
 
 .search_header h2 {
@@ -27,20 +27,3 @@
     flex-wrap: wrap;
 }
 
-.input_field {
-    width: 100%;
-    max-width: 500px;
-}
-
-.owner_filter {
-    width: 100%;
-    max-width: 200px;
-    display: flex;
-    flex-direction: column;
-   align-items: center;
-}
-.quantity_filter {
-    width: 100%;
-    max-width: 300px;
-   text-align: center;
-}

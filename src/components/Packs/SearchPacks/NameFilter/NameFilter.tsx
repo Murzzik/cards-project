@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import style from '../SearchParameters.module.css';
+import style from './NameFilter.module.css';
 import {IconButton, TextField} from '@material-ui/core';
 import {SearchOutlined} from '@material-ui/icons';
 import useDebounce from 'usehooks-ts/dist/esm/useDebounce/useDebounce';
@@ -29,7 +29,7 @@ const NameFilter: React.FC<NameFilterPropsType> = ({setNamePack}) => {
                 onChange={handleChange}
                 InputProps={{
                     endAdornment: (
-                        <IconButton>
+                        <IconButton disabled>
                             <SearchOutlined/>
                         </IconButton>
                     ),

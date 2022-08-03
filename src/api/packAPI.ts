@@ -14,7 +14,7 @@ export type GetCardsType = {
     sortPacks?: string
     page?: number
     pageCount?: number
-    user_id?: string
+    user_id?: string | undefined | null
 }
 export type GetCardsPackResponseType = {
     cardPacks: Pack[]

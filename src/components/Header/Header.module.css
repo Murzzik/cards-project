@@ -45,6 +45,7 @@
     transform: translateY(-10px);
     transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
     opacity: 0;
+    pointer-events: none;
 }
 
 .dropdownMenuActive {
