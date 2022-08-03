@@ -25,7 +25,7 @@ const NameFilter: React.FC<NameFilterPropsType> = () => {
     }, [debouncedName]);
 
     return (
-        <div className={style.input_field}>
+        <div className={style.inputField}>
             <h3>Search</h3>
             <TextField
                 value={name}

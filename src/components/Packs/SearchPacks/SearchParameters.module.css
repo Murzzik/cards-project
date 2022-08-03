@@ -1,26 +1,26 @@
-.search_block {
+.searchBlock {
     background-color: white;
     width: 80%;
     margin: 30px auto;
 }
 
-.search_header {
+.searchHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 30px;
 }
 
-.search_header h2 {
+.searchHeader h2 {
     font-size: 22px;
 }
 
-.search_header button {
+.searchHeader button {
     height: 40px;
     border-radius: 30px;
 }
 
-.parameters_block {
+.parametersBlock {
     padding: 10px 30px;
     display: flex;
     justify-content: space-between;

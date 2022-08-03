@@ -8,12 +8,12 @@ import QuantityFilter from './QuantityFilter/QuantityFilter';
 type SearchContainerPropsType = {}
 const SearchContainer: React.FC<SearchContainerPropsType> = () => {
     return (
-        <div className={style.search_block}>
-            <div className={style.search_header}>
+        <div className={style.searchBlock}>
+            <div className={style.searchHeader}>
                 <h2>Packs list</h2>
                 <Button variant={'contained'} color={'primary'}>Add new pack</Button>
             </div>
-            <div className={style.parameters_block}>
+            <div className={style.parametersBlock}>
                 <NameFilter/>
                 <OwnerFilter/>
                 <QuantityFilter/>

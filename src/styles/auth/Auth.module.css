@@ -22,11 +22,11 @@
     color: #b9d0c4;
 }
 
-.form_block, .control_group, .input_field {
+.form_block, .control_group, .inputField {
     width: 100%;
 }
 
-.input_field label {
+.inputField label {
     margin: 0;
     color: #b9d0c4;
 }
@@ -87,11 +87,11 @@
     cursor: pointer;
 }
 
-.input_field input {
+.inputField input {
     color: #C0D8C0;
 }
 
-.input_field input:-webkit-autofill  {
+.inputField input:-webkit-autofill  {
     -webkit-text-fill-color: #C0D8C0 !important;
     -webkit-background-clip: text;
 }

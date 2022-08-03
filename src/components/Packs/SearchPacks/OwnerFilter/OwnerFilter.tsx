@@ -26,7 +26,7 @@ const OwnerFilter: React.FC<OwnerFilterPropsType> = () => {
     };
 
     return (
-        <div className={style.owner_filter}>
+        <div className={style.ownerFilter}>
             <h3>Show packs cards</h3>
             <ButtonGroup variant="contained" aria-label="outlined primary button group" className={style.buttonGroup}>
                 <Button data-owner="my" className={activeButton === 'my' ? style.activeButton : ''} onClick={onclickHandler}>My</Button>
