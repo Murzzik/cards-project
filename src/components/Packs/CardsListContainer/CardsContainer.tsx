@@ -4,14 +4,14 @@ import {initializedCards} from '../../../store/reducers/cards-reducer';
 import {useAppDispatch} from '../../../store/store';
 
 const CardsContainer = () => {
-    const {packUserId} = useParams();
+    const {cardsPack_id} = useParams();
     const dispatch = useAppDispatch();
     useEffect(() => {
-        if (packUserId) {
-            dispatch(initializedCards({cardsPack_id: packUserId}));
+        if (cardsPack_id) {
+            dispatch(initializedCards({cardsPack_id}));
         }
 
-    }, [packUserId]);
+    }, [cardsPack_id]);
     return (
         <div>
             Header
