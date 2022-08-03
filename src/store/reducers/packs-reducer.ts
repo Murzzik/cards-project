@@ -3,11 +3,11 @@ import {AppThunk} from '../store';
 
 const initialState: initialStateType = {
     cardPacks: [],
-    page: 1,
-    pageCount: 10,
-    cardPacksTotalCount: 5945,
+    page: 0,
+    pageCount: 0,
+    cardPacksTotalCount: 0,
     minCardsCount: 0,
-    maxCardsCount: 110,
+    maxCardsCount: 0,
     isLoading: false
 };
 

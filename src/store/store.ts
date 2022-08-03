@@ -4,7 +4,7 @@ import {ActionTypeFoAuthReducer, authorizationReducer} from './reducers/authoriz
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {ActionTypeForAppReducer, appReducer} from './reducers/app-reducer';
 import {ActionTypeForPacksReducer, packsReducer} from './reducers/packs-reducer';
-import {cardsReducer} from './reducers/cards-reducer';
+import {ActionTypeForCards, cardsReducer} from './reducers/cards-reducer';
 
 const rootReducer = combineReducers({
     auth: authorizationReducer,
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
 });
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
-type AppActionsType = ActionTypeForAppReducer | ActionTypeFoAuthReducer | ActionTypeForPacksReducer
+type AppActionsType = ActionTypeForAppReducer | ActionTypeFoAuthReducer | ActionTypeForPacksReducer | ActionTypeForCards
 
 export type AppRootStateType = ReturnType<typeof store.getState>
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AppActionsType>
