@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from '../../store/store';
 import {initializedPacks} from '../../store/reducers/packs-reducer';
 import 'antd/dist/antd.css';
 import {Pagination} from 'antd';
-import {useSearchParams} from 'react-router-dom';
+import {NavLink, useSearchParams} from 'react-router-dom';
 
 const PacksContainer = () => {
         const totalItems = useAppSelector(state => state.packs.cardPacksTotalCount);
@@ -46,6 +46,7 @@ const PacksContainer = () => {
                     defaultCurrent={page}
                     showTotal={(total) => `Total ${total} items`}
                 />
+                    <NavLink to="/packs/62e7db8b8d08284360e42db0">navlik</NavLink>
             </div>
         );
     }

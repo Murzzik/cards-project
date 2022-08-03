@@ -1,4 +1,4 @@
-import {cardsAPI, CardsType} from '../../api/cardsAPI';
+import {cardsAPI, CardsType, GetCardType} from '../../api/cardsAPI';
 import {AppThunk} from '../store';
 
 const initialState: initialStateType = {
@@ -24,7 +24,7 @@ export const setCardsData = (cardsData: initialStateType) => {
     return {type: 'cards-setCardsData', cardsData} as const;
 };
 
-export const initializedCards = (args: CardsType): AppThunk => (dispatch) => {
+export const initializedCards = (args: GetCardType): AppThunk => (dispatch) => {
     cardsAPI.getCards(args).then(res => {
         dispatch(setCardsData(res.data));
     });

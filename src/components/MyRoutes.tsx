@@ -8,6 +8,7 @@ import PacksContainer from './Packs/PacksContainer';
 import { ErrorPage } from './ErrorPage';
 import CheckEmailContainer from './passRecovery/checkEmail/CheckEmailContainer';
 import PassRecoveryContainer from './passRecovery/PassRecoveryContainer';
+import CardsContainer from './Packs/CardsListContainer/CardsContainer';
 
 export const MyRoutes = () => {
     return (
@@ -17,6 +18,7 @@ export const MyRoutes = () => {
             <Route path="/set-new-password/:token" element={<ApplyNewPasswordContainer />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/packs" element={<PacksContainer />} />
+            <Route path="/packs/:packUserId" element={<CardsContainer />} />
             <Route path="/error404" element={<ErrorPage />} />
             <Route path="/check-email" element={<CheckEmailContainer />} />
             <Route path="/passrecovery" element={<PassRecoveryContainer />} />
