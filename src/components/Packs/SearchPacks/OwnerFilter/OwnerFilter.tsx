@@ -2,27 +2,29 @@ import React, {useState} from 'react';
 import style from './OwnerFilter.module.css';
 import {Button, ButtonGroup} from '@material-ui/core';
 import {useAppSelector} from '../../../../store/store';
+import {useSearchParams} from 'react-router-dom';
 
-type OwnerFilterPropsType = {
-    setUserID: (userID: string) => void,
-}
+type OwnerFilterPropsType = {}
 
-const OwnerFilter: React.FC<OwnerFilterPropsType> = ({setUserID}) => {
+const OwnerFilter: React.FC<OwnerFilterPropsType> = () => {
     const userID = useAppSelector(state => state.auth.user._id);
     const [activeButton, setActiveButton] = useState<'all' | 'my'>('all');
+    const [searchParameters, setSearchParameters] = useSearchParams();
 
     const onclickHandler = (e: React.MouseEvent<HTMLSpanElement>) => {
         if (e.currentTarget.dataset.owner) {
             const trigger: string = e.currentTarget.dataset.owner;
             if (trigger === 'my') {
-                setUserID(userID);
+                setSearchParameters({...Object.fromEntries(searchParameters), id: userID});
                 setActiveButton('my');
             } else {
-                setUserID('');
+                searchParameters.delete('id');
+                setSearchParameters({...Object.fromEntries(searchParameters)});
                 setActiveButton('all');
             }
         }
     };
+
     return (
         <div className={style.owner_filter}>
             <h3>Show packs cards</h3>

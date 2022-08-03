@@ -8,13 +8,13 @@ export const packAPI = {
 };
 
 export type GetCardsType = {
-    packName?: string
+    packName?: string | null
     min?: number
     max?: number
     sortPacks?: string
     page?: number
     pageCount?: number
-    user_id?: string | undefined | null
+    user_id?: string | null
 }
 export type GetCardsPackResponseType = {
     cardPacks: Pack[]

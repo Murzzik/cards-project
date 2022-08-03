@@ -5,13 +5,8 @@ import NameFilter from './NameFilter/NameFilter';
 import OwnerFilter from './OwnerFilter/OwnerFilter';
 import QuantityFilter from './QuantityFilter/QuantityFilter';
 
-type SearchContainerPropsType = {
-    setNamePack: (namePack: string) => void,
-    setMin: (min: number) => void,
-    setMax: (min: number) => void,
-    setUserID: (userID: string) => void,
-}
-const SearchContainer: React.FC<SearchContainerPropsType> = ({setNamePack, setMax, setMin, setUserID}) => {
+type SearchContainerPropsType = {}
+const SearchContainer: React.FC<SearchContainerPropsType> = () => {
     return (
         <div className={style.search_block}>
             <div className={style.search_header}>
@@ -19,9 +14,9 @@ const SearchContainer: React.FC<SearchContainerPropsType> = ({setNamePack, setMa
                 <Button variant={'contained'} color={'primary'}>Add new pack</Button>
             </div>
             <div className={style.parameters_block}>
-                <NameFilter setNamePack={setNamePack}/>
-                <OwnerFilter setUserID={setUserID}/>
-                <QuantityFilter setMin={setMin} setMax={setMax}/>
+                <NameFilter/>
+                <OwnerFilter/>
+                <QuantityFilter/>
             </div>
         </div>
     );

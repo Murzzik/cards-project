@@ -1,56 +1,53 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect} from 'react';
 import SearchContainer from './SearchPacks/SearchContainer';
 import PacksListContainer from './PacksList/PacksListContainer';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {initializedPacks} from '../../store/reducers/packs-reducer';
-import {GetCardsType} from '../../api/packAPI';
 import 'antd/dist/antd.css';
 import {Pagination} from 'antd';
+import {useSearchParams} from 'react-router-dom';
 
 const PacksContainer = () => {
-    const [namePack, setNamePack] = useState<string>();
-    const [min, setMin] = useState<number>();
-    const [max, setMax] = useState<number>();
-    const [page, setPage] = useState<number>(1);
-    const [pageCount, setPageCount] = useState<number>(10);
-    const [userID, setUserID] = useState<string>();
-    const totalItems = useAppSelector(state => state.packs.cardPacksTotalCount);
+        const totalItems = useAppSelector(state => state.packs.cardPacksTotalCount);
 
-    const queryParameters: GetCardsType = useMemo(() => {
-        return {
-            packName: namePack,
-            min: min,
-            max: max,
-            pageCount: pageCount,
-            page: page,
-            user_id: userID,
-            sortPacks: '0updated'
+        const [searchParameters, setSearchParameters] = useSearchParams();
+        const user_id = searchParameters.get('id');
+        const min = Number(searchParameters.get('min'));
+        const max = Number(searchParameters.get('max'));
+        const packName = searchParameters.get('name');
+        const page = Number(searchParameters.get('page'));
+        let pageCount = Number(searchParameters.get('pageCount'));
+
+        if (!pageCount) {
+            pageCount = 4;
+        }
+        const dispatch = useAppDispatch();
+
+        useEffect(() => {
+            dispatch(initializedPacks({user_id, min, max, packName, page, pageCount}));
+        }, [dispatch, user_id, min, max, packName, page, pageCount]);
+
+        const onChangeHandlerPage = (page: number, size = 4) => {
+            setSearchParameters({...Object.fromEntries(searchParameters), pageCount: size.toString(), page: page.toString()});
         };
-    }, [namePack, max, min, pageCount, page, userID]);
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-        dispatch(initializedPacks(queryParameters));
-    }, [queryParameters, dispatch]);
 
-    const onChangeHandker = (page: number, pageSize: number) => {
-        setPage(page);
-        setPageCount(pageSize);
-    };
-    return (
-        <div>
-            <SearchContainer setNamePack={setNamePack} setMin={setMin} setMax={setMax} setUserID={setUserID}/>
-            <PacksListContainer/>
+        return (
+            <div>
+                <SearchContainer/>
+                <PacksListContainer/>
 
-            <Pagination
-                total={totalItems}
-                showSizeChanger
-                showQuickJumper
-                onChange={onChangeHandker}
-                pageSizeOptions={[4, 10, 20]}
-                showTotal={(total) => `Total ${total} items`}
-            />
-        </div>
-    );
-};
+                <Pagination
+                    total={totalItems}
+                    showSizeChanger
+                    showQuickJumper
+                    onChange={onChangeHandlerPage}
+                    defaultPageSize={pageCount}
+                    pageSizeOptions={[4, 10, 20]}
+                    showTotal={(total) => `Total ${total} items`}
+                />
+            </div>
+        );
+    }
+;
 
 export default PacksContainer;
