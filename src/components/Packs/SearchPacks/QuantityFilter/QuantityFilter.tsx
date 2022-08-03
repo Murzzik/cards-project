@@ -7,12 +7,13 @@ import {useSearchParams} from 'react-router-dom';
 type QuantityFilterPropsType = {}
 
 const QuantityFilter: React.FC<QuantityFilterPropsType> = () => {
-    const [value, setValue] = React.useState<number[]>([0, 110]);
+    const [searchParameters, setSearchParameters] = useSearchParams();
+    const min = Number(searchParameters.get('min'));
+    const max = Number(searchParameters.get('max'));
+    const [value, setValue] = React.useState<number[]>([min, max]);
 
     const debouncedMin = useDebounce(value[0], 1500);
     const debouncedMax = useDebounce(value[1], 1500);
-
-    const [searchParameters, setSearchParameters] = useSearchParams();
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
