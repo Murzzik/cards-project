@@ -7,9 +7,16 @@ import {useSearchParams} from 'react-router-dom';
 type OwnerFilterPropsType = {}
 
 const OwnerFilter: React.FC<OwnerFilterPropsType> = () => {
-    const userID = useAppSelector(state => state.auth.user._id);
-    const [activeButton, setActiveButton] = useState<'all' | 'my'>('all');
     const [searchParameters, setSearchParameters] = useSearchParams();
+    const owner = searchParameters.get('id');
+    let ownerParameter = '';
+    if (owner) {
+        ownerParameter = 'my';
+    } else {
+        ownerParameter = 'all';
+    }
+    const userID = useAppSelector(state => state.auth.user._id);
+    const [activeButton, setActiveButton] = useState(ownerParameter);
 
     const onclickHandler = (e: React.MouseEvent<HTMLSpanElement>) => {
         if (e.currentTarget.dataset.owner) {
