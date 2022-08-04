@@ -1,5 +1,6 @@
 import {cardsAPI, CardsType, GetCardType} from '../../api/cardsAPI';
 import {AppThunk} from '../store';
+import {setError, setPreloaderStatus} from './app-reducer';
 
 const initialState: initialStateType = {
     cards: [],
@@ -27,6 +28,13 @@ export const setCardsData = (cardsData: initialStateType) => {
 export const initializedCards = (args: GetCardType): AppThunk => (dispatch) => {
     cardsAPI.getCards(args).then(res => {
         dispatch(setCardsData(res.data));
+    }).catch(e => {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        dispatch(setError(error));
+        alert(error);
+        dispatch(setPreloaderStatus('failed'));
     });
 };
 type initialStateType = {

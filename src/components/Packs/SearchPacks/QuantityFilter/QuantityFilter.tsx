@@ -9,11 +9,16 @@ type QuantityFilterPropsType = {}
 const QuantityFilter: React.FC<QuantityFilterPropsType> = () => {
     const [searchParameters, setSearchParameters] = useSearchParams();
     const min = Number(searchParameters.get('min'));
-    const max = Number(searchParameters.get('max'));
+    let max = Number(searchParameters.get('max'));
+    if (max === 0) max = 110;
+
     const [value, setValue] = React.useState<number[]>([min, max]);
 
     const debouncedMin = useDebounce(value[0], 1500);
     const debouncedMax = useDebounce(value[1], 1500);
+
+    // const inputMin = value[0].toString().replace(/^0+/, '');
+    // const inputMax = value[1].toString().replace(/^0+/, '');
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);

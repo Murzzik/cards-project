@@ -1,5 +1,6 @@
 import {GetCardsType, packAPI} from '../../api/packAPI';
 import {AppThunk} from '../store';
+import {setError, setPreloaderStatus} from './app-reducer';
 
 const initialState: initialStateType = {
     cardPacks: [],
@@ -28,6 +29,13 @@ export const setPacksData = (packsData: initialStateType) => {
 export const initializedPacks = (args: GetCardsType = {}): AppThunk => (dispatch) => {
     packAPI.getPacks(args).then(res => {
         dispatch(setPacksData(res.data));
+    }).catch(e => {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        dispatch(setError(error));
+        alert(error);
+        dispatch(setPreloaderStatus('failed'));
     });
 };
 
