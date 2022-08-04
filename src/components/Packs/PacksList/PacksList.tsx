@@ -53,14 +53,9 @@ export const PackList: React.FC<PackListPopsType> = ({packs}) => {
                 <TableBody>
                     {packs.map((pack) => (
                         <StyledTableRow key={pack._id}>
-                            {/*<StyledTableCell component="th" scope="row">*/}
-                            {/*    {pack.name}*/}
-                            {/*</StyledTableCell>*/}
-
                             <StyledTableCell component="th" scope="row">
-                                <NavLink to={''}>{pack.name}</NavLink>
+                                <NavLink to={'/packs/' + pack._id}>{pack.name}</NavLink>
                             </StyledTableCell>
-
                             <StyledTableCell align="right">{pack.cardsCount}</StyledTableCell>
                             <StyledTableCell align="right">{pack.updated}</StyledTableCell>
                             <StyledTableCell align="right">{pack.user_name}</StyledTableCell>

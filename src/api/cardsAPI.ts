@@ -13,8 +13,8 @@ export type GetCardType = {
     min?: number
     max?: number
     sortCards?: string
-    page?: number
-    pageCount?: number
+    page?: number | null| undefined
+    pageCount?: number | null | undefined
 }
 export type CardsType = {
     answer: string

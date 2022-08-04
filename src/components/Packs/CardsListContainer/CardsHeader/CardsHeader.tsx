@@ -11,12 +11,18 @@ type CardsHeaderPropsType = {
 }
 
 const CardsHeader: React.FC<CardsHeaderPropsType> = ({cardsPack_id}) => {
-    const [question, setQuestion] = useState<string>('');
+    const [searchParameters, setSearchParameters] = useSearchParams();
+    let starQuestion = searchParameters.get('question');
+    let questionParameter = '';
+    if (starQuestion) {
+        questionParameter = starQuestion;
+    }
+    const [question, setQuestion] = useState<string>(questionParameter);
     const debouncedName = useDebounce(question, 1500);
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setQuestion(event.currentTarget.value);
     };
-    const [searchParameters, setSearchParameters] = useSearchParams();
+
     const pack = useAppSelector(state => state.packs.cardPacks.find(p => p._id === cardsPack_id));
     let packName = '';
     if (pack) {
