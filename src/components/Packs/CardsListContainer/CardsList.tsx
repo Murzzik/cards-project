@@ -5,11 +5,12 @@ import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
-import {NavLink, useSearchParams} from 'react-router-dom';
+import {useSearchParams} from 'react-router-dom';
 import TableContainer from '@mui/material/TableContainer';
 import {styled} from '@mui/material/styles';
 import TableCell, {tableCellClasses} from '@mui/material/TableCell';
 import {Pagination} from 'antd';
+import {Rating} from '@mui/material';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -67,7 +68,9 @@ const CardsList: React.FC<CardsListPropsType> = ({cards, cardsTotalCount}) => {
                                 <StyledTableCell component="th" scope="row">{card.question}</StyledTableCell>
                                 <StyledTableCell align="right">{card.answer}</StyledTableCell>
                                 <StyledTableCell align="right">{card.updated.toString()}</StyledTableCell>
-                                <StyledTableCell align="right">{card.grade}</StyledTableCell>
+                                <StyledTableCell align="right">
+                                    <Rating name="half-rating-read" defaultValue={card.grade} precision={0.5} readOnly />
+                                </StyledTableCell>
                             </StyledTableRow>
                         ))}
                     </TableBody>
