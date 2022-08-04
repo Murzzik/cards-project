@@ -14,6 +14,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import {IconButton} from '@material-ui/core';
+import {useAppSelector} from '../../../store/store';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -42,11 +43,13 @@ type PackListPopsType = {
 
 export const PackList: React.FC<PackListPopsType> = ({packs, totalItems}) => {
     const [searchParameters, setSearchParameters] = useSearchParams();
+    const myId = useAppSelector(state => state.auth.user._id);
     const page = Number(searchParameters.get('page'));
     let pageCount = Number(searchParameters.get('pageCount'));
     if (!pageCount) {
         pageCount = 4;
     }
+
     const onChangeHandlerPage = (page: number, size = 4) => {
         setSearchParameters({...Object.fromEntries(searchParameters), pageCount: size.toString(), page: page.toString()});
     };
@@ -76,17 +79,25 @@ export const PackList: React.FC<PackListPopsType> = ({packs, totalItems}) => {
                                     <StyledTableCell align="right">{pack.updated}</StyledTableCell>
                                     <StyledTableCell align="right">{pack.user_name}</StyledTableCell>
                                     <StyledTableCell align="right">
-                                        <div>
-                                            <IconButton>
-                                                <SchoolIcon/>
-                                            </IconButton>
-                                            <IconButton>
-                                                <DeleteForeverIcon/>
-                                            </IconButton>
-                                            <IconButton>
-                                                <EditIcon/>
-                                            </IconButton>
-                                        </div>
+                                        {myId === pack.user_id ?
+                                            <div>
+                                                <IconButton>
+                                                    <SchoolIcon/>
+                                                </IconButton>
+                                                <IconButton>
+                                                    <DeleteForeverIcon/>
+                                                </IconButton>
+                                                <IconButton>
+                                                    <EditIcon/>
+                                                </IconButton>
+                                            </div>
+                                            :
+                                            <div>
+                                                <IconButton>
+                                                    <SchoolIcon/>
+                                                </IconButton>
+                                            </div>
+                                        }
                                     </StyledTableCell>
                                 </StyledTableRow>
                             ))}
