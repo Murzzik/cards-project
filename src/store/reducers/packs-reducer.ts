@@ -55,6 +55,23 @@ export const addNewPack = (name: string): AppThunk => (dispatch, getState) => {
     });
 };
 
+export const deletePack = (id: string): AppThunk => (dispatch, getState) => {
+    console.log(id)
+    const userId = getState().auth.user._id
+    dispatch(setPreloaderStatus('loading'));
+    packAPI.deleteCard(id).then((res) => {
+        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(initializedPacks({user_id: userId}))
+    }).catch(e => {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        dispatch(setError(error));
+        alert(error);
+        dispatch(setPreloaderStatus('failed'));
+    });
+}
+
 type initialStateType = {
     cardPacks: Pack[],
     page: number,

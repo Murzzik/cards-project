@@ -1,5 +1,6 @@
 import {instance} from './instance';
 import {Pack} from '../store/reducers/packs-reducer';
+import { GetCardsResponseType } from './cardsAPI';
 
 export const packAPI = {
     getPacks(args: GetCardsType) {
@@ -7,7 +8,10 @@ export const packAPI = {
     },
     addNewPack(name: string) {
         return instance.post<GetCardsPackResponseType>('cards/pack', {cardsPack: {name}})
-    }
+    },
+    deleteCard(id: string) {
+        return instance.delete<GetCardsResponseType>('/cards/pack', {params: {id}})
+    },
 };
 
 export type AddNewCardType = {
