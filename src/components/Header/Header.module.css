@@ -121,7 +121,8 @@
 }
 
 .navProfileElement:hover {
-    background: #d5e0f6;
+    color: #000;
+    background: #dde7fa;
 }
 
 .userInfo {

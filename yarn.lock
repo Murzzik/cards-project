@@ -9696,11 +9696,6 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-use-search-params@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/use-search-params/-/use-search-params-1.0.4.tgz#00a3426c152cffecf3df5f6880814e3134fda8c9"
-  integrity sha512-aDEqiOv2JIYv3PH5Qi6Iir6+n7kUT59o2/kxImFVBARw9ekwSfs6TyxPBKbjxzR/v3EkYyzoqzsspD/yXVBOAA==
-
 use-sync-external-store@^1.0.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"

@@ -5,7 +5,16 @@ export const packAPI = {
     getPacks(args: GetCardsType) {
         return instance.get<GetCardsPackResponseType>('cards/pack', {params: args});
     },
+    addNewPack(name: string) {
+        return instance.post<GetCardsPackResponseType>('cards/pack', {cardsPack: {name}})
+    }
 };
+
+export type AddNewCardType = {
+    name: string
+    deckCover?: string
+    private?: boolean
+}
 
 export type GetCardsType = {
     packName?: string | null

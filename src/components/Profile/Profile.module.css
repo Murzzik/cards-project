@@ -116,6 +116,10 @@
     cursor: pointer;
 }
 
+.logoutButton img {
+    margin-top: 1px;
+}
+
 .logoutButton:hover {
     background: #a7f8ce;
 }
