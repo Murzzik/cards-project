@@ -1702,6 +1702,13 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
+"@mui/icons-material@^5.8.4":
+  version "5.8.4"
+  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.8.4.tgz#3f2907c9f8f5ce4d754cb8fb4b68b5a1abf4d095"
+  integrity sha512-9Z/vyj2szvEhGWDvb+gG875bOGm8b8rlHBKOD1+nA3PcgC3fV6W1AU6pfOorPeBfH2X4mb9Boe97vHvaSndQvA==
+  dependencies:
+    "@babel/runtime" "^7.17.2"
+
 "@mui/material@^5.7.0":
   version "5.9.1"
   resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.9.1.tgz#92990e6d4035792430dcf548b91db6f335aebdd3"
@@ -9695,11 +9702,6 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
-
-use-search-params@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/use-search-params/-/use-search-params-1.0.4.tgz#00a3426c152cffecf3df5f6880814e3134fda8c9"
-  integrity sha512-aDEqiOv2JIYv3PH5Qi6Iir6+n7kUT59o2/kxImFVBARw9ekwSfs6TyxPBKbjxzR/v3EkYyzoqzsspD/yXVBOAA==
 
 use-sync-external-store@^1.0.0:
   version "1.2.0"
