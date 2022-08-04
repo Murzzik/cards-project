@@ -8,7 +8,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Pack} from '../../../store/reducers/packs-reducer';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useSearchParams} from 'react-router-dom';
+import {Pagination} from 'antd';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -32,39 +33,61 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
 
 type PackListPopsType = {
     packs: Pack[],
+    totalItems: number,
 }
 
-export const PackList: React.FC<PackListPopsType> = ({packs}) => {
-
+export const PackList: React.FC<PackListPopsType> = ({packs, totalItems}) => {
+    const [searchParameters, setSearchParameters] = useSearchParams();
+    const page = Number(searchParameters.get('page'));
+    let pageCount = Number(searchParameters.get('pageCount'));
+    if (!pageCount) {
+        pageCount = 4;
+    }
+    const onChangeHandlerPage = (page: number, size = 4) => {
+        setSearchParameters({...Object.fromEntries(searchParameters), pageCount: size.toString(), page: page.toString()});
+    };
     return (
-        <TableContainer component={Paper} style={{width: '80%', margin: '0 auto'}}>
-            <Table sx={{minWidth: 700}} aria-label="customized table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell>
-                            <span style={{cursor: 'pointer'}}>Name</span>
-                        </StyledTableCell>
-                        <StyledTableCell align="right">Cards</StyledTableCell>
-                        <StyledTableCell align="right">Last Update</StyledTableCell>
-                        <StyledTableCell align="right">Create By</StyledTableCell>
-                        <StyledTableCell align="right">Action</StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {packs.map((pack) => (
-                        <StyledTableRow key={pack._id}>
-                            <StyledTableCell component="th" scope="row">
-                                <NavLink to={'/packs/' + pack._id}>{pack.name}</NavLink>
+        <div>
+            <TableContainer component={Paper} style={{width: '80%', margin: '0 auto'}}>
+                <Table sx={{minWidth: 700}} aria-label="customized table">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell>
+                                <span style={{cursor: 'pointer'}}>Name</span>
                             </StyledTableCell>
-                            <StyledTableCell align="right">{pack.cardsCount}</StyledTableCell>
-                            <StyledTableCell align="right">{pack.updated}</StyledTableCell>
-                            <StyledTableCell align="right">{pack.user_name}</StyledTableCell>
-                            <StyledTableCell align="right">..............icons</StyledTableCell>
-                        </StyledTableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                            <StyledTableCell align="right">Cards</StyledTableCell>
+                            <StyledTableCell align="right">Last Update</StyledTableCell>
+                            <StyledTableCell align="right">Create By</StyledTableCell>
+                            <StyledTableCell align="right">Action</StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {packs.map((pack) => (
+                            <StyledTableRow key={pack._id}>
+                                <StyledTableCell component="th" scope="row">
+                                    <NavLink to={'/packs/' + pack._id}>{pack.name}</NavLink>
+                                </StyledTableCell>
+                                <StyledTableCell align="right">{pack.cardsCount}</StyledTableCell>
+                                <StyledTableCell align="right">{pack.updated}</StyledTableCell>
+                                <StyledTableCell align="right">{pack.user_name}</StyledTableCell>
+                                <StyledTableCell align="right">..............icons</StyledTableCell>
+                            </StyledTableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <Pagination
+                total={totalItems}
+                showSizeChanger
+                showQuickJumper
+                onChange={onChangeHandlerPage}
+                defaultPageSize={pageCount}
+                pageSizeOptions={[4, 10, 20]}
+                defaultCurrent={page}
+                showTotal={(total) => `Total ${total} items`}
+                style={{width: '80%', margin: '0 auto', color: 'white', backgroundColor: 'black', padding: '10px', borderRadius: '5px', marginTop: '20px', textAlign: 'right'}}
+            />
+        </div>
     );
 };
 export default PackList;
