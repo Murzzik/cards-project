@@ -13,15 +13,15 @@ import CardsContainer from './Packs/CardsListContainer/CardsContainer';
 export const MyRoutes = () => {
     return (
         <Routes>
-            <Route path="/authorization" element={<AuthorizationContainer />} />
-            <Route path="/registration" element={<RegistrationContainer />} />
-            <Route path="/set-new-password/:token" element={<ApplyNewPasswordContainer />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/packs" element={<PacksContainer />} />
-            <Route path="/packs/:cardsPack_id" element={<CardsContainer />} />
-            <Route path="/error404" element={<ErrorPage />} />
-            <Route path="/check-email" element={<CheckEmailContainer />} />
-            <Route path="/passrecovery" element={<PassRecoveryContainer />} />
+            <Route path="#/authorization" element={<AuthorizationContainer />} />
+            <Route path="#/registration" element={<RegistrationContainer />} />
+            <Route path="#/set-new-password/:token" element={<ApplyNewPasswordContainer />} />
+            <Route path="#/profile" element={<Profile />} />
+            <Route path="#/packs" element={<PacksContainer />} />
+            <Route path="#/packs/:cardsPack_id" element={<CardsContainer />} />
+            <Route path="#/error404" element={<ErrorPage />} />
+            <Route path="#/check-email" element={<CheckEmailContainer />} />
+            <Route path="#/passrecovery" element={<PassRecoveryContainer />} />
         </Routes>
     );
 };
