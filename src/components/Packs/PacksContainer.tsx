@@ -35,7 +35,7 @@ const PacksContainer = () => {
             <div>
                 <SearchContainer/>
                 <PacksListContainer/>
-                    // ждя теста
+                    {/*для теста*/}
                 <Pagination
                     total={totalItems}
                     showSizeChanger
@@ -45,8 +45,10 @@ const PacksContainer = () => {
                     pageSizeOptions={[4, 10, 20]}
                     defaultCurrent={page}
                     showTotal={(total) => `Total ${total} items`}
+                    style={{width: '80%', margin: '0 auto', color:"white", backgroundColor: "black", padding:"10px", borderRadius:"5px", marginTop:"20px", textAlign:"right"}}
                 />
-                <NavLink to="/packs/62e7db8b8d08284360e42db0">navlik</NavLink> // для теста
+                {/*// для теста*/}
+                <NavLink to="/packs/62e7db8b8d08284360e42db0">navlik</NavLink>
             </div>
         );
     }

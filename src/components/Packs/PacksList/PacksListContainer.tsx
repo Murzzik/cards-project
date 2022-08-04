@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import PacksList from './PacksList';
+import {useAppSelector} from '../../../store/store';
 
 const PacksListContainer = () => {
-        return (
-        <div>
+    const packs = useAppSelector(state => state.packs.cardPacks)
+    useEffect(()=>{
 
-        </div>
+    },[packs])
+        return (
+        <PacksList packs={packs}/>
     );
 };
 
