@@ -15,7 +15,7 @@ const SearchContainer: React.FC<SearchContainerPropsType> = () => {
     const dispatch = useAppDispatch()
 
     const newPackHandler = () => {
-        const name = 'finnaly gatcha nsud556546545'
+        const name = 'New pack success added'
         setSearchParameters({...Object.fromEntries(searchParameters), page: "1"});
         dispatch(addNewPack(name))
     }
