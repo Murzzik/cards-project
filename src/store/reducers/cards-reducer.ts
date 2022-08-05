@@ -37,6 +37,23 @@ export const initializedCards = (args: GetCardType): AppThunk => (dispatch) => {
         dispatch(setPreloaderStatus('failed'));
     });
 };
+
+export const addNewCard = (packID: string, question: string, answer: string): AppThunk => (dispatch) => {
+    dispatch(setPreloaderStatus('loading'));
+    cardsAPI.addNewCard(packID, question, answer).then((res) => {
+        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(initializedCards({cardsPack_id: packID}))
+    }).catch(e => {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        dispatch(setError(error));
+        alert(error);
+        dispatch(setPreloaderStatus('failed'));
+    });
+};
+
+
 type initialStateType = {
     cards: CardsType[]
     cardsTotalCount: number

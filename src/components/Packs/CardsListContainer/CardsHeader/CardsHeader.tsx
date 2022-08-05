@@ -4,13 +4,15 @@ import {useSearchParams} from 'react-router-dom';
 import {Button, IconButton, TextField} from '@material-ui/core';
 import {SearchOutlined} from '@material-ui/icons';
 import style from './CardsHeader.module.css';
-import {useAppSelector} from '../../../../store/store';
+import { useAppDispatch, useAppSelector } from '../../../../store/store';
+import { addNewCard } from '../../../../store/reducers/cards-reducer';
 
 type CardsHeaderPropsType = {
-    cardsPack_id: string | undefined
+    cardsPack_id: string
 }
 
 const CardsHeader: React.FC<CardsHeaderPropsType> = ({cardsPack_id}) => {
+    const dispatch = useAppDispatch()
     const [searchParameters, setSearchParameters] = useSearchParams();
     let starQuestion = searchParameters.get('question');
     let questionParameter = '';
@@ -28,6 +30,13 @@ const CardsHeader: React.FC<CardsHeaderPropsType> = ({cardsPack_id}) => {
     if (pack) {
         packName = pack.name;
     }
+
+    const addPackHandler = (id: string) => {
+        const question = 'Who is your boss baby'
+        const answer = 'You are, my papa'
+        dispatch(addNewCard(id, question, answer))
+    }
+
     useEffect(() => {
         if (question.length > 0) {
             setSearchParameters({...Object.fromEntries(searchParameters), question});
@@ -57,7 +66,7 @@ const CardsHeader: React.FC<CardsHeaderPropsType> = ({cardsPack_id}) => {
                     }}
                 />
             </div>
-            <Button variant={'contained'} color={'primary'}>Add new card</Button>
+            <Button variant={'contained'} color={'primary'} onClick={() => addPackHandler(cardsPack_id)}>Add new card</Button>
         </div>
     );
 };

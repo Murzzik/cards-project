@@ -1,16 +1,16 @@
-import {applyMiddleware, combineReducers, legacy_createStore as createStore} from 'redux';
-import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
-import {ActionTypeFoAuthReducer, authorizationReducer} from './reducers/authorization-reducer';
-import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
-import {ActionTypeForAppReducer, appReducer} from './reducers/app-reducer';
-import {ActionTypeForPacksReducer, packsReducer} from './reducers/packs-reducer';
-import {ActionTypeForCards, cardsReducer} from './reducers/cards-reducer';
+import { applyMiddleware, combineReducers, legacy_createStore as createStore } from 'redux';
+import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { ActionTypeFoAuthReducer, authorizationReducer } from './reducers/authorization-reducer';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { ActionTypeForAppReducer, appReducer } from './reducers/app-reducer';
+import { ActionTypeForPacksReducer, packsReducer } from './reducers/packs-reducer';
+import { ActionTypeForCards, cardsReducer } from './reducers/cards-reducer';
 
 const rootReducer = combineReducers({
     auth: authorizationReducer,
     app: appReducer,
     packs: packsReducer,
-    cards: cardsReducer
+    cards: cardsReducer,
 
 });
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));

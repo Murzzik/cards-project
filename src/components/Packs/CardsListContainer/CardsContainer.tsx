@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react';
-import {useParams, useSearchParams} from 'react-router-dom';
-import {initializedCards} from '../../../store/reducers/cards-reducer';
-import {useAppDispatch, useAppSelector} from '../../../store/store';
+import React, { useEffect } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { initializedCards } from '../../../store/reducers/cards-reducer';
+import { useAppDispatch, useAppSelector } from '../../../store/store';
 import CardsHeader from './CardsHeader/CardsHeader';
 import CardsList from './CardsList';
 
 const CardsContainer = () => {
     const {cardsPack_id} = useParams();
     const dispatch = useAppDispatch();
-    const [searchParameters, setSearchParameters] = useSearchParams();
+    const [searchParameters] = useSearchParams();
     const cardQuestion = searchParameters.get('question');
     let page = Number(searchParameters.get('page'));
     let pageCount = Number(searchParameters.get('pageCount'));
@@ -22,7 +22,7 @@ const CardsContainer = () => {
     const cards = useAppSelector(state => state.cards.cards);
     return (
         <div>
-            <CardsHeader cardsPack_id={cardsPack_id}/>
+            <CardsHeader cardsPack_id={cardsPack_id ? cardsPack_id : ''}/>
             <CardsList cards={cards} cardsTotalCount={cardsTotalCount}/>
         </div>
     );

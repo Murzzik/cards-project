@@ -1,4 +1,4 @@
-import { AddNewCardType, GetCardsType, packAPI } from '../../api/packAPI';
+import { GetCardsType, packAPI } from '../../api/packAPI';
 import { AppThunk } from '../store';
 import { setError, setPreloaderStatus } from './app-reducer';
 
@@ -15,7 +15,7 @@ const initialState: initialStateType = {
 export const packsReducer = (state = initialState, action: ActionTypeForPacksReducer): initialStateType => {
     switch(action.type) {
         case 'packs-setPacksData': {
-            return { ...action.packsData };
+            return {...action.packsData};
         }
         default:
             return state;
@@ -23,7 +23,7 @@ export const packsReducer = (state = initialState, action: ActionTypeForPacksRed
 };
 
 export const setPacksData = (packsData: initialStateType) => {
-    return { type: 'packs-setPacksData', packsData };
+    return {type: 'packs-setPacksData', packsData};
 };
 
 export const initializedPacks = (args: GetCardsType = {}): AppThunk => (dispatch) => {
@@ -39,12 +39,11 @@ export const initializedPacks = (args: GetCardsType = {}): AppThunk => (dispatch
     });
 };
 
-export const addNewPack = (name: string): AppThunk => (dispatch, getState) => {
-    const id = getState().auth.user._id
+export const addNewPack = (name: string): AppThunk => (dispatch) => {
     dispatch(setPreloaderStatus('loading'));
     packAPI.addNewPack(name).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedPacks({user_id: id}))
+        dispatch(initializedPacks());
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -56,12 +55,11 @@ export const addNewPack = (name: string): AppThunk => (dispatch, getState) => {
 };
 
 export const deletePack = (id: string): AppThunk => (dispatch, getState) => {
-    console.log(id)
-    const userId = getState().auth.user._id
     dispatch(setPreloaderStatus('loading'));
-    packAPI.deleteCard(id).then((res) => {
+    const userId = getState().auth.user._id;
+    packAPI.deletePack(id).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedPacks({user_id: userId}))
+        dispatch(initializedPacks({user_id: userId}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -70,7 +68,22 @@ export const deletePack = (id: string): AppThunk => (dispatch, getState) => {
         alert(error);
         dispatch(setPreloaderStatus('failed'));
     });
-}
+};
+
+export const updatePackName = (id: string, name: string): AppThunk => (dispatch) => {
+    dispatch(setPreloaderStatus('loading'));
+    packAPI.updatePackName(id, name).then((res) => {
+        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(initializedPacks());
+    }).catch(e => {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        dispatch(setError(error));
+        alert(error);
+        dispatch(setPreloaderStatus('failed'));
+    });
+};
 
 type initialStateType = {
     cardPacks: Pack[],
