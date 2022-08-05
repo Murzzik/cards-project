@@ -1,13 +1,13 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from './Profile.module.css';
 import editUserName from '../../assets/images/Edit.png';
 import logout from '../../assets/images/logout.png';
-import { BadgeAvatars } from '../common/BadgeAvatars/BadgeAvatars';
-import { TextField } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../store/store';
-import { Navigate } from 'react-router-dom';
+import {BadgeAvatars} from '../common/BadgeAvatars/BadgeAvatars';
+import {TextField} from '@mui/material';
+import {useAppDispatch, useAppSelector} from '../../store/store';
+import {Navigate} from 'react-router-dom';
 import Preloader from '../common/Preloader/Preloader';
-import { logOut, updateUserData } from '../../store/reducers/authorization-reducer';
+import {logOut, updateUserData} from '../../store/reducers/authorization-reducer';
 
 export const Profile = () => {
     const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn);
@@ -67,9 +67,11 @@ export const Profile = () => {
             </div>
     );
 
+
     if (!isInitialized) {
         return <Preloader/>;
     }
+
 
     if (!isLoggedIn) return <Navigate to={'/authorization'}/>;
     return (
