@@ -11,8 +11,12 @@ import { useSearchParams } from 'react-router-dom';
 type SearchContainerPropsType = {}
 const SearchContainer: React.FC<SearchContainerPropsType> = () => {
     const [searchParameters, setSearchParameters] = useSearchParams();
-
-    const dispatch = useAppDispatch();
+    const owner = searchParameters.get('id');
+    let userId = ""
+    if (owner) {
+        userId = owner
+    }
+    const dispatch = useAppDispatch()
 
     const newPackHandler = () => {
         const name = 'New pack success added';

@@ -55,6 +55,12 @@ export const PackList: React.FC<PackListPopsType> = ({packs, totalItems, isLogge
         pageCount = 4;
     }
 
+    const owner = searchParameters.get('id');
+    let userId = ""
+    if (owner) {
+        userId = owner
+    }
+
     const deletePackHandler = (id: string) => {
         dispatch(deletePack(id));
     };
