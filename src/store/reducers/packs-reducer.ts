@@ -1,4 +1,4 @@
-import { AddNewCardType, GetCardsType, packAPI } from '../../api/packAPI';
+import { GetCardsType, packAPI } from '../../api/packAPI';
 import { AppThunk } from '../store';
 import { setError, setPreloaderStatus } from './app-reducer';
 
@@ -15,7 +15,7 @@ const initialState: initialStateType = {
 export const packsReducer = (state = initialState, action: ActionTypeForPacksReducer): initialStateType => {
     switch(action.type) {
         case 'packs-setPacksData': {
-            return { ...action.packsData };
+            return {...action.packsData};
         }
         default:
             return state;
@@ -23,7 +23,7 @@ export const packsReducer = (state = initialState, action: ActionTypeForPacksRed
 };
 
 export const setPacksData = (packsData: initialStateType) => {
-    return { type: 'packs-setPacksData', packsData };
+    return {type: 'packs-setPacksData', packsData};
 };
 
 export const initializedPacks = (args: GetCardsType = {}): AppThunk => (dispatch) => {
@@ -39,12 +39,43 @@ export const initializedPacks = (args: GetCardsType = {}): AppThunk => (dispatch
     });
 };
 
-export const addNewPack = (name: string): AppThunk => (dispatch, getState) => {
-    const id = getState().auth.user._id
+//TODO: When you in "MY PACKS" and try to delete or add packs, you wont be redirected to "ALL PACKS" - NEED TO FIX
+
+export const addNewPack = (name: string): AppThunk => (dispatch) => {
     dispatch(setPreloaderStatus('loading'));
     packAPI.addNewPack(name).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedPacks({user_id: id}))
+        dispatch(initializedPacks());
+    }).catch(e => {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        dispatch(setError(error));
+        alert(error);
+        dispatch(setPreloaderStatus('failed'));
+    });
+};
+
+export const deletePack = (id: string): AppThunk => (dispatch) => {
+    dispatch(setPreloaderStatus('loading'));
+    packAPI.deletePack(id).then((res) => {
+        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(initializedPacks());
+    }).catch(e => {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        dispatch(setError(error));
+        alert(error);
+        dispatch(setPreloaderStatus('failed'));
+    });
+};
+
+export const updatePackName = (id: string, name: string): AppThunk => (dispatch) => {
+    dispatch(setPreloaderStatus('loading'));
+    packAPI.updatePackName(id, name).then((res) => {
+        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(initializedPacks());
     }).catch(e => {
         const error = e.response
             ? e.response.data.error

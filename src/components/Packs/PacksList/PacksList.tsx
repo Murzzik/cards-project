@@ -7,14 +7,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Pack} from '../../../store/reducers/packs-reducer';
+import { deletePack, Pack, updatePackName } from '../../../store/reducers/packs-reducer';
 import {NavLink, useSearchParams} from 'react-router-dom';
 import {Pagination} from 'antd';
 import SchoolIcon from '@mui/icons-material/School';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import {IconButton} from '@material-ui/core';
-import {useAppSelector} from '../../../store/store';
+import { useAppDispatch, useAppSelector } from '../../../store/store';
+import { convertDate } from '../../../utilities/parsData';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -42,12 +43,23 @@ type PackListPopsType = {
 }
 
 export const PackList: React.FC<PackListPopsType> = ({packs, totalItems}) => {
+    const dispatch = useAppDispatch()
+
     const [searchParameters, setSearchParameters] = useSearchParams();
     const myId = useAppSelector(state => state.auth.user._id);
     const page = Number(searchParameters.get('page'));
     let pageCount = Number(searchParameters.get('pageCount'));
     if (!pageCount) {
         pageCount = 4;
+    }
+
+    const deletePackHandler = (id: string) => {
+        dispatch(deletePack(id))
+    }
+
+    const updatePackNameHandler = (id: string) => {
+        const newPackName = 'Test for name change before modal implemented'
+        dispatch(updatePackName(id, newPackName))
     }
 
     const onChangeHandlerPage = (page: number, size = 4) => {
@@ -70,13 +82,13 @@ export const PackList: React.FC<PackListPopsType> = ({packs, totalItems}) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {packs.map((pack) => (
+                            {packs.map((pack: Pack, index) => (
                                 <StyledTableRow key={pack._id}>
                                     <StyledTableCell component="th" scope="row">
                                         <NavLink to={'/packs/' + pack._id}>{pack.name}</NavLink>
                                     </StyledTableCell>
                                     <StyledTableCell align="right">{pack.cardsCount}</StyledTableCell>
-                                    <StyledTableCell align="right">{pack.updated}</StyledTableCell>
+                                    <StyledTableCell align="right">{convertDate(pack.updated)}</StyledTableCell>
                                     <StyledTableCell align="right">{pack.user_name}</StyledTableCell>
                                     <StyledTableCell align="right">
                                         {myId === pack.user_id ?
@@ -84,11 +96,11 @@ export const PackList: React.FC<PackListPopsType> = ({packs, totalItems}) => {
                                                 <IconButton>
                                                     <SchoolIcon/>
                                                 </IconButton>
-                                                <IconButton>
+                                                <IconButton onClick={() => deletePackHandler(pack._id)}>
                                                     <DeleteForeverIcon/>
                                                 </IconButton>
                                                 <IconButton>
-                                                    <EditIcon/>
+                                                    <EditIcon onClick={() => updatePackNameHandler(pack._id)}/>
                                                 </IconButton>
                                             </div>
                                             :
