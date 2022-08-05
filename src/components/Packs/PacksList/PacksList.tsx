@@ -62,12 +62,12 @@ export const PackList: React.FC<PackListPopsType> = ({packs, totalItems, isLogge
     }
 
     const deletePackHandler = (id: string) => {
-        dispatch(deletePack(id));
+        dispatch(deletePack(id, userId));
     };
 
     const updatePackNameHandler = (id: string) => {
         const newPackName = 'Test for name change before modal implemented';
-        dispatch(updatePackName(id, newPackName));
+        dispatch(updatePackName(id, newPackName, userId));
     };
 
     const onChangeHandlerPage = (page: number, size = 4) => {
