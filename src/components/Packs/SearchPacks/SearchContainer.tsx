@@ -6,14 +6,17 @@ import OwnerFilter from './OwnerFilter/OwnerFilter';
 import QuantityFilter from './QuantityFilter/QuantityFilter';
 import { useAppDispatch } from '../../../store/store';
 import { addNewPack } from '../../../store/reducers/packs-reducer';
+import {useSearchParams} from 'react-router-dom';
 
 type SearchContainerPropsType = {}
 const SearchContainer: React.FC<SearchContainerPropsType> = () => {
+    const [searchParameters, setSearchParameters] = useSearchParams();
 
     const dispatch = useAppDispatch()
 
     const newPackHandler = () => {
-        const name = 'finnaly gatcha nsud'
+        const name = 'finnaly gatcha nsud556546545'
+        setSearchParameters({...Object.fromEntries(searchParameters), page: "1"});
         dispatch(addNewPack(name))
     }
 

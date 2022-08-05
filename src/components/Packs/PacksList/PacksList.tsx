@@ -124,6 +124,7 @@ export const PackList: React.FC<PackListPopsType> = ({packs, totalItems,isLogged
                     total={totalItems}
                     showSizeChanger
                     showQuickJumper
+                    current={page}
                     onChange={onChangeHandlerPage}
                     defaultPageSize={pageCount}
                     pageSizeOptions={[4, 10, 20]}
