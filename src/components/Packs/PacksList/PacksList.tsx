@@ -58,7 +58,7 @@ export const PackList: React.FC<PackListPopsType> = ({packs, totalItems}) => {
     }
 
     const updatePackNameHandler = (id: string) => {
-        const newPackName = 'SOME FIXED'
+        const newPackName = 'Test for name change before modal implemented'
         dispatch(updatePackName(id, newPackName))
     }
 

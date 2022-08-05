@@ -5,8 +5,14 @@ export const cardsAPI = {
         return instance.get<GetCardsResponseType>('/cards/card', {params: args});
     },
     addNewCard: (cardsPack_id: string, question: string, answer: string) => {
-    return instance.post<GetCardsResponseType>('/cards/card', {card: {cardsPack_id, question, answer}});
+        return instance.post<GetCardsResponseType>('/cards/card', {card: {cardsPack_id, question, answer}});
     },
+    deleteCard: (id: string) => {
+        return instance.delete<GetCardsResponseType>(`/cards/card?id=${id}`)
+    },
+    updateCard: (_id: string, question: string) => {
+        return instance.put<GetCardsResponseType>('/cards/card', {card: {_id, question}})
+    }
 };
 
 export type GetCardType = {

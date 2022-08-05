@@ -12,6 +12,8 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { Pagination } from 'antd';
 import { Rating } from '@mui/material';
 import { convertDate } from '../../../utilities/parsData';
+import { deleteCard, updateCard } from '../../../store/reducers/cards-reducer';
+import { useAppDispatch } from '../../../store/store';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -39,6 +41,7 @@ type CardsListPropsType = {
 }
 
 const CardsList: React.FC<CardsListPropsType> = ({cards, cardsTotalCount}) => {
+    const dispatch = useAppDispatch()
     const [searchParameters, setSearchParameters] = useSearchParams();
     let page = Number(searchParameters.get('page'));
     let pageCount = Number(searchParameters.get('pageCount'));
@@ -52,6 +55,15 @@ const CardsList: React.FC<CardsListPropsType> = ({cards, cardsTotalCount}) => {
             page: page.toString(),
         });
     };
+
+    const deleteCardHandler = (id: string, packID: string) => {
+        dispatch(deleteCard(id, packID))
+    }
+
+    const updateCardHandler = (id: string, packID: string) => {
+        const newQuestion = 'Test for name change before modal implemented'
+        dispatch(updateCard(id, newQuestion, packID))
+    }
 
     return (
         <div>
@@ -74,6 +86,8 @@ const CardsList: React.FC<CardsListPropsType> = ({cards, cardsTotalCount}) => {
                                 <StyledTableCell align="right">{card.answer}</StyledTableCell>
                                 <StyledTableCell align="right">{convertDate(card.updated)}</StyledTableCell>
                                 <StyledTableCell align="right">
+                                    <button onClick={() => {updateCardHandler(card._id, card.cardsPack_id)}}>update card</button>
+                                    <button onClick={() => {deleteCardHandler(card._id, card.cardsPack_id)}}>Delete card</button>
                                     <Rating name="half-rating-read" defaultValue={card.grade} precision={0.5}
                                             readOnly />
                                 </StyledTableCell>

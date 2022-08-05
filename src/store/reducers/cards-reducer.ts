@@ -1,6 +1,6 @@
-import {cardsAPI, CardsType, GetCardType} from '../../api/cardsAPI';
-import {AppThunk} from '../store';
-import {setError, setPreloaderStatus} from './app-reducer';
+import { cardsAPI, CardsType, GetCardType } from '../../api/cardsAPI';
+import { AppThunk } from '../store';
+import { setError, setPreloaderStatus } from './app-reducer';
 
 const initialState: initialStateType = {
     cards: [],
@@ -12,7 +12,7 @@ const initialState: initialStateType = {
     packUserId: '',
 };
 export const cardsReducer = (state = initialState, action: ActionTypeForCards): initialStateType => {
-    switch (action.type) {
+    switch(action.type) {
         case 'cards-setCardsData': {
             return action.cardsData;
         }
@@ -42,7 +42,7 @@ export const addNewCard = (packID: string, question: string, answer: string): Ap
     dispatch(setPreloaderStatus('loading'));
     cardsAPI.addNewCard(packID, question, answer).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedCards({cardsPack_id: packID}))
+        dispatch(initializedCards({cardsPack_id: packID}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -53,6 +53,35 @@ export const addNewCard = (packID: string, question: string, answer: string): Ap
     });
 };
 
+export const deleteCard = (id: string, packID: string): AppThunk => (dispatch) => {
+    dispatch(setPreloaderStatus('loading'));
+    cardsAPI.deleteCard(id).then((res) => {
+        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(initializedCards({cardsPack_id: packID}));
+    }).catch(e => {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        dispatch(setError(error));
+        alert(error);
+        dispatch(setPreloaderStatus('failed'));
+    });
+};
+
+export const updateCard = (id: string, question: string, packID: string): AppThunk => (dispatch, getState) => {
+    dispatch(setPreloaderStatus('loading'));
+    cardsAPI.updateCard(id, question).then((res) => {
+        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(initializedCards({cardsPack_id: packID}));
+    }).catch(e => {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        dispatch(setError(error));
+        alert(error);
+        dispatch(setPreloaderStatus('failed'));
+    });
+};
 
 type initialStateType = {
     cards: CardsType[]

@@ -39,6 +39,8 @@ export const initializedPacks = (args: GetCardsType = {}): AppThunk => (dispatch
     });
 };
 
+//TODO: When you in "MY PACKS" and try to delete or add packs, you wont be redirected to "ALL PACKS" - NEED TO FIX
+
 export const addNewPack = (name: string): AppThunk => (dispatch) => {
     dispatch(setPreloaderStatus('loading'));
     packAPI.addNewPack(name).then((res) => {
@@ -54,12 +56,11 @@ export const addNewPack = (name: string): AppThunk => (dispatch) => {
     });
 };
 
-export const deletePack = (id: string): AppThunk => (dispatch, getState) => {
+export const deletePack = (id: string): AppThunk => (dispatch) => {
     dispatch(setPreloaderStatus('loading'));
-    const userId = getState().auth.user._id;
     packAPI.deletePack(id).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedPacks({user_id: userId}));
+        dispatch(initializedPacks());
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
