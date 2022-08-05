@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import SearchContainer from './SearchPacks/SearchContainer';
 import PacksListContainer from './PacksList/PacksListContainer';
-import { useAppDispatch } from '../../store/store';
-import { initializedPacks } from '../../store/reducers/packs-reducer';
+import {useAppDispatch} from '../../store/store';
+import {initializedPacks} from '../../store/reducers/packs-reducer';
 import 'antd/dist/antd.css';
-import { useSearchParams } from 'react-router-dom';
+import {useSearchParams} from 'react-router-dom';
 
 const PacksContainer = () => {
         const [searchParameters, setSearchParameters] = useSearchParams();
@@ -20,7 +20,6 @@ const PacksContainer = () => {
         useEffect(() => {
             dispatch(initializedPacks({user_id, min, max, packName, page, pageCount}));
         }, [dispatch, user_id, min, max, packName, page, pageCount]);
-
         return (
             <div>
                 <SearchContainer/>

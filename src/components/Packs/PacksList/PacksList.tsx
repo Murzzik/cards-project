@@ -7,15 +7,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { deletePack, Pack, updatePackName } from '../../../store/reducers/packs-reducer';
+import {deletePack, Pack, updatePackName} from '../../../store/reducers/packs-reducer';
 import {NavLink, useSearchParams} from 'react-router-dom';
 import {Pagination} from 'antd';
 import SchoolIcon from '@mui/icons-material/School';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import {IconButton} from '@material-ui/core';
-import { useAppDispatch, useAppSelector } from '../../../store/store';
-import { convertDate } from '../../../utilities/parsData';
+import {useAppDispatch, useAppSelector} from '../../../store/store';
+import {convertDate} from '../../../utilities/parsData';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -40,9 +40,10 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
 type PackListPopsType = {
     packs: Pack[],
     totalItems: number,
+    isLoggedIn: boolean
 }
 
-export const PackList: React.FC<PackListPopsType> = ({packs, totalItems}) => {
+export const PackList: React.FC<PackListPopsType> = ({packs, totalItems,isLoggedIn}) => {
     const dispatch = useAppDispatch()
 
     const [searchParameters, setSearchParameters] = useSearchParams();
@@ -68,58 +69,62 @@ export const PackList: React.FC<PackListPopsType> = ({packs, totalItems}) => {
     return (
         <div>{packs.length > 0 ?
             <div>
-                <TableContainer component={Paper} style={{width: '80%', margin: '0 auto'}}>
-                    <Table sx={{minWidth: 700}} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell>
-                                    <span style={{cursor: 'pointer'}}>Name</span>
-                                </StyledTableCell>
-                                <StyledTableCell align="right">Cards</StyledTableCell>
-                                <StyledTableCell align="right">Last Update</StyledTableCell>
-                                <StyledTableCell align="right">Create By</StyledTableCell>
-                                <StyledTableCell align="right">Action</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {packs.map((pack: Pack, index) => (
-                                <StyledTableRow key={pack._id}>
-                                    <StyledTableCell component="th" scope="row">
-                                        <NavLink to={'/packs/' + pack._id}>{pack.name}</NavLink>
+                {!isLoggedIn?
+                <h3>Ты не авторизирован</h3>
+                :
+                    <TableContainer component={Paper} style={{width: '80%', margin: '0 auto'}}>
+                        <Table sx={{minWidth: 700}} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>
+                                        <span style={{cursor: 'pointer'}}>Name</span>
                                     </StyledTableCell>
-                                    <StyledTableCell align="right">{pack.cardsCount}</StyledTableCell>
-                                    <StyledTableCell align="right">{convertDate(pack.updated)}</StyledTableCell>
-                                    <StyledTableCell align="right">{pack.user_name}</StyledTableCell>
-                                    <StyledTableCell align="right">
-                                        {myId === pack.user_id ?
-                                            <div>
-                                                <IconButton>
-                                                    <SchoolIcon/>
-                                                </IconButton>
-                                                <IconButton onClick={() => deletePackHandler(pack._id)}>
-                                                    <DeleteForeverIcon/>
-                                                </IconButton>
-                                                <IconButton>
-                                                    <EditIcon onClick={() => updatePackNameHandler(pack._id)}/>
-                                                </IconButton>
-                                            </div>
-                                            :
-                                            <div>
-                                                <IconButton>
-                                                    <SchoolIcon/>
-                                                </IconButton>
-                                            </div>
-                                        }
-                                    </StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                                    <StyledTableCell align="right">Cards</StyledTableCell>
+                                    <StyledTableCell align="right">Last Update</StyledTableCell>
+                                    <StyledTableCell align="right">Create By</StyledTableCell>
+                                    <StyledTableCell align="right">Action</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {packs.map((pack: Pack, index) => (
+                                    <StyledTableRow key={pack._id}>
+                                        <StyledTableCell component="th" scope="row">
+                                            <NavLink to={'/packs/' + pack._id}>{pack.name}</NavLink>
+                                        </StyledTableCell>
+                                        <StyledTableCell align="right">{pack.cardsCount}</StyledTableCell>
+                                        <StyledTableCell align="right">{convertDate(pack.updated)}</StyledTableCell>
+                                        <StyledTableCell align="right">{pack.user_name}</StyledTableCell>
+                                        <StyledTableCell align="right">
+                                            {myId === pack.user_id ?
+                                                <div>
+                                                    <IconButton>
+                                                        <SchoolIcon/>
+                                                    </IconButton>
+                                                    <IconButton onClick={() => deletePackHandler(pack._id)}>
+                                                        <DeleteForeverIcon/>
+                                                    </IconButton>
+                                                    <IconButton>
+                                                        <EditIcon onClick={() => updatePackNameHandler(pack._id)}/>
+                                                    </IconButton>
+                                                </div>
+                                                :
+                                                <div>
+                                                    <IconButton>
+                                                        <SchoolIcon/>
+                                                    </IconButton>
+                                                </div>
+                                            }
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>}
                 <Pagination
                     total={totalItems}
                     showSizeChanger
                     showQuickJumper
+                    current={page}
                     onChange={onChangeHandlerPage}
                     defaultPageSize={pageCount}
                     pageSizeOptions={[4, 10, 20]}

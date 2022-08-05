@@ -1,6 +1,7 @@
-import { GetCardsType, packAPI } from '../../api/packAPI';
-import { AppThunk } from '../store';
-import { setError, setPreloaderStatus } from './app-reducer';
+import {GetCardsType, packAPI} from '../../api/packAPI';
+import {AppThunk} from '../store';
+import {setError, setPreloaderStatus} from './app-reducer';
+import {setIsLoggedIn} from './authorization-reducer';
 
 const initialState: initialStateType = {
     cardPacks: [],
@@ -13,7 +14,7 @@ const initialState: initialStateType = {
 };
 
 export const packsReducer = (state = initialState, action: ActionTypeForPacksReducer): initialStateType => {
-    switch(action.type) {
+    switch (action.type) {
         case 'packs-setPacksData': {
             return {...action.packsData};
         }
@@ -34,7 +35,11 @@ export const initializedPacks = (args: GetCardsType = {}): AppThunk => (dispatch
             ? e.response.data.error
             : (e.message + ', more details in the console');
         dispatch(setError(error));
-        alert(error);
+        dispatch(setIsLoggedIn(false));
+        if (error==="you are not authorized /ᐠ-ꞈ-ᐟ\\\\") {
+            dispatch(setIsLoggedIn(false));
+        }
+        alert(error)
         dispatch(setPreloaderStatus('failed'));
     });
 };
