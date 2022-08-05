@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import style from './OwnerFilter.module.css';
-import {Button, ButtonGroup} from '@material-ui/core';
-import {useAppSelector} from '../../../../store/store';
-import {useSearchParams} from 'react-router-dom';
+import { Button, ButtonGroup } from '@material-ui/core';
+import { useAppSelector } from '../../../../store/store';
+import { useSearchParams } from 'react-router-dom';
 
 type OwnerFilterPropsType = {}
 
@@ -10,7 +10,7 @@ const OwnerFilter: React.FC<OwnerFilterPropsType> = () => {
     const [searchParameters, setSearchParameters] = useSearchParams();
     const owner = searchParameters.get('id');
     let ownerParameter = '';
-    if (owner) {
+    if(owner) {
         ownerParameter = 'my';
     } else {
         ownerParameter = 'all';
@@ -19,9 +19,9 @@ const OwnerFilter: React.FC<OwnerFilterPropsType> = () => {
     const [activeButton, setActiveButton] = useState(ownerParameter);
 
     const onclickHandler = (e: React.MouseEvent<HTMLSpanElement>) => {
-        if (e.currentTarget.dataset.owner) {
+        if(e.currentTarget.dataset.owner) {
             const trigger: string = e.currentTarget.dataset.owner;
-            if (trigger === 'my') {
+            if(trigger === 'my') {
                 setSearchParameters({...Object.fromEntries(searchParameters), id: userID});
                 setActiveButton('my');
             } else {
@@ -36,8 +36,10 @@ const OwnerFilter: React.FC<OwnerFilterPropsType> = () => {
         <div className={style.ownerFilter}>
             <h3>Show packs cards</h3>
             <ButtonGroup variant="contained" aria-label="outlined primary button group" className={style.buttonGroup}>
-                <Button data-owner="my" className={activeButton === 'my' ? style.activeButton : ''} onClick={onclickHandler}>My</Button>
-                <Button data-owner="all" className={activeButton === 'all' ? style.activeButton : ''} onClick={onclickHandler}>All</Button>
+                <Button data-owner="my" className={activeButton === 'my' ? style.activeButton : ''}
+                        onClick={onclickHandler}>My</Button>
+                <Button data-owner="all" className={activeButton === 'all' ? style.activeButton : ''}
+                        onClick={onclickHandler}>All</Button>
             </ButtonGroup>
         </div>
     );

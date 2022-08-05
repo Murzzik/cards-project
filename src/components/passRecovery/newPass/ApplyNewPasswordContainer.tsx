@@ -6,7 +6,7 @@ import { createNewPassword } from '../../../store/reducers/authorization-reducer
 
 const ApplyNewPasswordContainer: React.FC = () => {
     const dispatch = useAppDispatch();
-    let { token } = useParams();
+    let {token} = useParams();
 
     const createPasswords = (password: string, token: string | undefined) => {
         dispatch(createNewPassword(password, token));

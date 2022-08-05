@@ -7,13 +7,13 @@ export const packAPI = {
         return instance.get<GetCardsPackResponseType>('cards/pack', {params: args});
     },
     addNewPack(name: string) {
-        return instance.post<GetCardsPackResponseType>('cards/pack', {cardsPack: {name}})
+        return instance.post<GetCardsPackResponseType>('cards/pack', {cardsPack: {name}});
     },
     deletePack(id: string) {
-        return instance.delete<GetCardsResponseType>('/cards/pack', {params: {id}})
+        return instance.delete<GetCardsResponseType>('/cards/pack', {params: {id}});
     },
     updatePackName(_id: string, name: string) {
-        return instance.put<GetCardsResponseType>('/cards/pack', {cardsPack: {_id, name}})
+        return instance.put<GetCardsResponseType>('/cards/pack', {cardsPack: {_id, name}});
     },
 };
 

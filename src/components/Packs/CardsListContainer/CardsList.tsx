@@ -14,6 +14,10 @@ import { Rating } from '@mui/material';
 import { convertDate } from '../../../utilities/parsData';
 import { deleteCard, updateCard } from '../../../store/reducers/cards-reducer';
 import { useAppDispatch } from '../../../store/store';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { IconButton } from '@material-ui/core';
+import EditIcon from '@mui/icons-material/Edit';
+import s from './CardsList.module.css';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -41,7 +45,7 @@ type CardsListPropsType = {
 }
 
 const CardsList: React.FC<CardsListPropsType> = ({cards, cardsTotalCount}) => {
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
     const [searchParameters, setSearchParameters] = useSearchParams();
     let page = Number(searchParameters.get('page'));
     let pageCount = Number(searchParameters.get('pageCount'));
@@ -57,13 +61,13 @@ const CardsList: React.FC<CardsListPropsType> = ({cards, cardsTotalCount}) => {
     };
 
     const deleteCardHandler = (id: string, packID: string) => {
-        dispatch(deleteCard(id, packID))
-    }
+        dispatch(deleteCard(id, packID));
+    };
 
     const updateCardHandler = (id: string, packID: string) => {
-        const newQuestion = 'Test for name change before modal implemented'
-        dispatch(updateCard(id, newQuestion, packID))
-    }
+        const newQuestion = 'Test for name change before modal implemented';
+        dispatch(updateCard(id, newQuestion, packID));
+    };
 
     return (
         <div>
@@ -85,11 +89,21 @@ const CardsList: React.FC<CardsListPropsType> = ({cards, cardsTotalCount}) => {
                                 <StyledTableCell component="th" scope="row">{card.question}</StyledTableCell>
                                 <StyledTableCell align="right">{card.answer}</StyledTableCell>
                                 <StyledTableCell align="right">{convertDate(card.updated)}</StyledTableCell>
-                                <StyledTableCell align="right">
-                                    <button onClick={() => {updateCardHandler(card._id, card.cardsPack_id)}}>update card</button>
-                                    <button onClick={() => {deleteCardHandler(card._id, card.cardsPack_id)}}>Delete card</button>
-                                    <Rating name="half-rating-read" defaultValue={card.grade} precision={0.5}
-                                            readOnly />
+                                <StyledTableCell align="right" >
+                                    <div className={s.editRow}>
+                                        <IconButton>
+                                            <EditIcon onClick={() => {
+                                                updateCardHandler(card._id, card.cardsPack_id);
+                                            }} />
+                                        </IconButton>
+                                        <IconButton onClick={() => {
+                                            deleteCardHandler(card._id, card.cardsPack_id);
+                                        }}>
+                                            <DeleteForeverIcon />
+                                        </IconButton>
+                                        <Rating name="half-rating-read" defaultValue={card.grade} precision={0.5}
+                                                readOnly />
+                                    </div>
                                 </StyledTableCell>
                             </StyledTableRow>
                         ))}

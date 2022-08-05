@@ -1,9 +1,9 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import style from './NameFilter.module.css';
-import {IconButton, TextField} from '@material-ui/core';
-import {SearchOutlined} from '@material-ui/icons';
+import { IconButton, TextField } from '@material-ui/core';
+import { SearchOutlined } from '@material-ui/icons';
 import useDebounce from 'usehooks-ts/dist/esm/useDebounce/useDebounce';
-import {useSearchParams} from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 type NameFilterPropsType = {}
 
@@ -11,7 +11,7 @@ const NameFilter: React.FC<NameFilterPropsType> = () => {
     const [searchParameters, setSearchParameters] = useSearchParams();
     let startName = searchParameters.get('name');
     let nameParameter = '';
-    if (startName) {
+    if(startName) {
         nameParameter = startName;
     }
     const [name, setName] = useState(nameParameter);
@@ -21,7 +21,7 @@ const NameFilter: React.FC<NameFilterPropsType> = () => {
     };
 
     useEffect(() => {
-        if (name.length > 0) {
+        if(name.length > 0) {
             setSearchParameters({...Object.fromEntries(searchParameters), name});
         } else {
             searchParameters.delete('name');
@@ -41,7 +41,7 @@ const NameFilter: React.FC<NameFilterPropsType> = () => {
                 InputProps={{
                     endAdornment: (
                         <IconButton disabled>
-                            <SearchOutlined/>
+                            <SearchOutlined />
                         </IconButton>
                     ),
                 }}

@@ -6,12 +6,12 @@ import { useAppSelector } from '../../../store/store';
 
 export const BadgeAvatars = () => {
 
-    const userProfileAvatar = useAppSelector(state => state.auth.user.avatar)
+    const userProfileAvatar = useAppSelector(state => state.auth.user.avatar);
 
     return (
         <Badge
             overlap="circular"
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
             badgeContent={
                 <img alt="Edit user photo" src={editPhoto} className={s.editUserPhoto} />
             }

@@ -1,21 +1,22 @@
 import * as React from 'react';
-import {styled} from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, {tableCellClasses} from '@mui/material/TableCell';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {deletePack, Pack, updatePackName} from '../../../store/reducers/packs-reducer';
-import {NavLink, useSearchParams} from 'react-router-dom';
-import {Pagination} from 'antd';
+import { deletePack, Pack, updatePackName } from '../../../store/reducers/packs-reducer';
+import { NavLink, useSearchParams } from 'react-router-dom';
+import { Pagination } from 'antd';
 import SchoolIcon from '@mui/icons-material/School';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
-import {IconButton} from '@material-ui/core';
-import {useAppDispatch, useAppSelector} from '../../../store/store';
-import {convertDate} from '../../../utilities/parsData';
+import { IconButton } from '@material-ui/core';
+import { useAppDispatch, useAppSelector } from '../../../store/store';
+import { convertDate } from '../../../utilities/parsData';
+import s from './PackList.module.css';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -43,35 +44,39 @@ type PackListPopsType = {
     isLoggedIn: boolean
 }
 
-export const PackList: React.FC<PackListPopsType> = ({packs, totalItems,isLoggedIn}) => {
-    const dispatch = useAppDispatch()
+export const PackList: React.FC<PackListPopsType> = ({packs, totalItems, isLoggedIn}) => {
+    const dispatch = useAppDispatch();
 
     const [searchParameters, setSearchParameters] = useSearchParams();
     const myId = useAppSelector(state => state.auth.user._id);
     const page = Number(searchParameters.get('page'));
     let pageCount = Number(searchParameters.get('pageCount'));
-    if (!pageCount) {
+    if(!pageCount) {
         pageCount = 4;
     }
 
     const deletePackHandler = (id: string) => {
-        dispatch(deletePack(id))
-    }
+        dispatch(deletePack(id));
+    };
 
     const updatePackNameHandler = (id: string) => {
-        const newPackName = 'Test for name change before modal implemented'
-        dispatch(updatePackName(id, newPackName))
-    }
+        const newPackName = 'Test for name change before modal implemented';
+        dispatch(updatePackName(id, newPackName));
+    };
 
     const onChangeHandlerPage = (page: number, size = 4) => {
-        setSearchParameters({...Object.fromEntries(searchParameters), pageCount: size.toString(), page: page.toString()});
+        setSearchParameters({
+            ...Object.fromEntries(searchParameters),
+            pageCount: size.toString(),
+            page: page.toString(),
+        });
     };
     return (
         <div>{packs.length > 0 ?
             <div>
-                {!isLoggedIn?
-                <h3>Ты не авторизирован</h3>
-                :
+                {!isLoggedIn ?
+                    <h3 className={s.errorAuthText}>Ты не авторизирован, попробуй перезайти:)</h3>
+                    :
                     <TableContainer component={Paper} style={{width: '80%', margin: '0 auto'}}>
                         <Table sx={{minWidth: 700}} aria-label="customized table">
                             <TableHead>
@@ -98,19 +103,19 @@ export const PackList: React.FC<PackListPopsType> = ({packs, totalItems,isLogged
                                             {myId === pack.user_id ?
                                                 <div>
                                                     <IconButton>
-                                                        <SchoolIcon/>
+                                                        <SchoolIcon />
                                                     </IconButton>
                                                     <IconButton onClick={() => deletePackHandler(pack._id)}>
-                                                        <DeleteForeverIcon/>
+                                                        <DeleteForeverIcon />
                                                     </IconButton>
                                                     <IconButton>
-                                                        <EditIcon onClick={() => updatePackNameHandler(pack._id)}/>
+                                                        <EditIcon onClick={() => updatePackNameHandler(pack._id)} />
                                                     </IconButton>
                                                 </div>
                                                 :
                                                 <div>
                                                     <IconButton>
-                                                        <SchoolIcon/>
+                                                        <SchoolIcon />
                                                     </IconButton>
                                                 </div>
                                             }
@@ -130,10 +135,20 @@ export const PackList: React.FC<PackListPopsType> = ({packs, totalItems,isLogged
                     pageSizeOptions={[4, 10, 20]}
                     defaultCurrent={page}
                     showTotal={(total) => `Total ${total} items`}
-                    style={{width: '80%', margin: '0 auto', color: 'white', backgroundColor: 'black', padding: '10px', borderRadius: '5px', marginTop: '20px', textAlign: 'right'}}
+                    style={{
+                        width: '80%',
+                        margin: '0 auto',
+                        color: 'white',
+                        backgroundColor: 'black',
+                        padding: '10px',
+                        borderRadius: '5px',
+                        marginTop: '20px',
+                        textAlign: 'right',
+                    }}
                 />
             </div>
-            : <h3 style={{fontSize: '50px', color: 'white', textAlign: 'center'}}>НИ*УЯ НИМА</h3>}
+            : <h3 style={{fontSize: '50px', color: 'white', textAlign: 'center'}}>Возможно паки ещё не загрузились,
+                ожидайте...</h3>}
 
         </div>
     );

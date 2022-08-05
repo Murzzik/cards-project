@@ -1,8 +1,8 @@
-import React, {ChangeEvent, useEffect} from 'react';
+import React, { ChangeEvent, useEffect } from 'react';
 import style from './QuantityFilter.module.css';
 import Slider from '@mui/material/Slider';
 import useDebounce from 'usehooks-ts/dist/esm/useDebounce/useDebounce';
-import {useSearchParams} from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 type QuantityFilterPropsType = {}
 
@@ -10,7 +10,7 @@ const QuantityFilter: React.FC<QuantityFilterPropsType> = () => {
     const [searchParameters, setSearchParameters] = useSearchParams();
     const min = Number(searchParameters.get('min'));
     let max = Number(searchParameters.get('max'));
-    if (max === 0) max = 110;
+    if(max === 0) max = 110;
 
     const [value, setValue] = React.useState<number[]>([min, max]);
 
@@ -25,19 +25,19 @@ const QuantityFilter: React.FC<QuantityFilterPropsType> = () => {
     };
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        if (event.currentTarget.dataset.quantity) {
+        if(event.currentTarget.dataset.quantity) {
             const trigger: string = event.currentTarget.dataset.quantity;
-            if (trigger === 'minimum') {
+            if(trigger === 'minimum') {
                 setValue([+event.currentTarget.value, value[1]]);
             }
-            if (trigger === 'maximum') {
+            if(trigger === 'maximum') {
                 setValue([value[0], +event.currentTarget.value]);
             }
         }
     };
 
     useEffect(() => {
-        if (value[0] === 0) {
+        if(value[0] === 0) {
             searchParameters.delete('min');
             setSearchParameters({...Object.fromEntries(searchParameters)});
         } else {
@@ -47,7 +47,7 @@ const QuantityFilter: React.FC<QuantityFilterPropsType> = () => {
     }, [debouncedMin]);
 
     useEffect(() => {
-        if (value[1] === 110) {
+        if(value[1] === 110) {
             searchParameters.delete('max');
             setSearchParameters({...Object.fromEntries(searchParameters)});
         } else {
@@ -59,7 +59,7 @@ const QuantityFilter: React.FC<QuantityFilterPropsType> = () => {
         <div className={style.quantity_filter}>
             <h3>Number of cards</h3>
             <div className={style.quantity_parameters}>
-                <input type="number" value={value[0]} onChange={onChangeHandler} data-quantity="minimum"/>
+                <input type="number" value={value[0]} onChange={onChangeHandler} data-quantity="minimum" />
                 <Slider
                     getAriaLabel={() => 'Temperature range'}
                     value={value}
@@ -67,7 +67,7 @@ const QuantityFilter: React.FC<QuantityFilterPropsType> = () => {
                     valueLabelDisplay="auto"
                     max={110}
                 />
-                <input value={value[1]} onChange={onChangeHandler} data-quantity="maximum"/>
+                <input value={value[1]} onChange={onChangeHandler} data-quantity="maximum" />
             </div>
         </div>
     );

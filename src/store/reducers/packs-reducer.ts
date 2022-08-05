@@ -1,7 +1,7 @@
-import {GetCardsType, packAPI} from '../../api/packAPI';
-import {AppThunk} from '../store';
-import {setError, setPreloaderStatus} from './app-reducer';
-import {setIsLoggedIn} from './authorization-reducer';
+import { GetCardsType, packAPI } from '../../api/packAPI';
+import { AppThunk } from '../store';
+import { setError, setPreloaderStatus } from './app-reducer';
+import { setIsLoggedIn } from './authorization-reducer';
 
 const initialState: initialStateType = {
     cardPacks: [],
@@ -14,7 +14,7 @@ const initialState: initialStateType = {
 };
 
 export const packsReducer = (state = initialState, action: ActionTypeForPacksReducer): initialStateType => {
-    switch (action.type) {
+    switch(action.type) {
         case 'packs-setPacksData': {
             return {...action.packsData};
         }
@@ -36,10 +36,10 @@ export const initializedPacks = (args: GetCardsType = {}): AppThunk => (dispatch
             : (e.message + ', more details in the console');
         dispatch(setError(error));
         dispatch(setIsLoggedIn(false));
-        if (error==="you are not authorized /ᐠ-ꞈ-ᐟ\\\\") {
+        if(error === 'you are not authorized /ᐠ-ꞈ-ᐟ\\\\') {
             dispatch(setIsLoggedIn(false));
         }
-        alert(error)
+        alert(error);
         dispatch(setPreloaderStatus('failed'));
     });
 };
@@ -61,11 +61,11 @@ export const addNewPack = (name: string): AppThunk => (dispatch) => {
     });
 };
 
-export const deletePack = (id: string): AppThunk => (dispatch) => {
+export const deletePack = (id: string, userID=''): AppThunk => (dispatch) => {
     dispatch(setPreloaderStatus('loading'));
     packAPI.deletePack(id).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedPacks());
+        dispatch(initializedPacks({user_id: userID}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -76,11 +76,11 @@ export const deletePack = (id: string): AppThunk => (dispatch) => {
     });
 };
 
-export const updatePackName = (id: string, name: string): AppThunk => (dispatch) => {
+export const updatePackName = (id: string, name: string, userID=''): AppThunk => (dispatch) => {
     dispatch(setPreloaderStatus('loading'));
     packAPI.updatePackName(id, name).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedPacks());
+        dispatch(initializedPacks({user_id: userID}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error

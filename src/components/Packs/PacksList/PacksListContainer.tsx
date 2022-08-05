@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PacksList from './PacksList';
-import {useAppSelector} from '../../../store/store';
+import { useAppSelector } from '../../../store/store';
 
 const PacksListContainer = () => {
     const packs = useAppSelector(state => state.packs.cardPacks);
@@ -10,7 +10,7 @@ const PacksListContainer = () => {
 
     }, [packs]);
     return (
-        <PacksList packs={packs} totalItems={totalItems} isLoggedIn={isLoggedIn}/>
+        <PacksList packs={packs} totalItems={totalItems} isLoggedIn={isLoggedIn} />
     );
 };
 

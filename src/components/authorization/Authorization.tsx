@@ -1,12 +1,22 @@
 import React from 'react';
-import {useFormik} from 'formik';
-import {Button, FormControl, FormControlLabel, FormGroup, IconButton, Input, InputAdornment, InputLabel, TextField,} from '@material-ui/core';
-import {NavLink} from 'react-router-dom';
-import {Visibility, VisibilityOff} from '@material-ui/icons/';
+import { useFormik } from 'formik';
+import {
+    Button,
+    FormControl,
+    FormControlLabel,
+    FormGroup,
+    IconButton,
+    Input,
+    InputAdornment,
+    InputLabel,
+    TextField,
+} from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
+import { Visibility, VisibilityOff } from '@material-ui/icons/';
 import Preloader from '../common/Preloader/Preloader';
 import style from '../../styles/auth/Auth.module.css';
-import {RequestStatusType} from '../../store/reducers/app-reducer';
-import {SuperCheckbox} from '../SuperComponents/SuperCheckbox/SuperCheckbox';
+import { RequestStatusType } from '../../store/reducers/app-reducer';
+import { SuperCheckbox } from '../SuperComponents/SuperCheckbox/SuperCheckbox';
 
 export type FormikErrorType = {
     email?: string
@@ -79,14 +89,14 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
         <form onSubmit={formik.handleSubmit} className={style.form_block}>
             <FormControl className={style.form_block}>
                 <FormGroup className={style.control_group}>
-                    <TextField label="Email" className={style.input_field} disabled={isDisabled}
+                    <TextField label="Email" className={style.inputField} disabled={isDisabled}
                                {...formik.getFieldProps('email')}
                     />
                     <div className={style.errors}>
                         {formik.touched.email && formik.errors.email && <span>{formik.errors.email}</span>}
                     </div>
 
-                    <FormControl variant="standard" className={style.input_field}>
+                    <FormControl variant="standard" className={style.inputField}>
                         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                         <Input
                             id="standard-adornment-password"

@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from '../../store/store';
-import {Registration} from './Registration';
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../store/store';
+import { Registration } from './Registration';
 
-import {Navigate} from 'react-router-dom';
-import {registration, setRegisteredUser} from '../../store/reducers/authorization-reducer';
+import { Navigate } from 'react-router-dom';
+import { registration, setRegisteredUser } from '../../store/reducers/authorization-reducer';
 
 export type RegistrationData = {
     email: string,
@@ -23,10 +23,11 @@ export const RegistrationContainer: React.FC = () => {
         dispatch(setRegisteredUser(false));
     }, [dispatch]);
 
-    if (isRegistered) {
-        return <Navigate to="/authorization"/>;
+    if(isRegistered) {
+        return <Navigate to="/authorization" />;
     }
     return (
-        <Registration isLoggedIn={isLoggedIn} onRegistrationSubmit={onRegistrationSubmit} isLoad={isLoad} isDisabled={isDisabled}/>
+        <Registration isLoggedIn={isLoggedIn} onRegistrationSubmit={onRegistrationSubmit} isLoad={isLoad}
+                      isDisabled={isDisabled} />
     );
 };

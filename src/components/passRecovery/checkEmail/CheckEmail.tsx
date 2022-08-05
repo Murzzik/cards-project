@@ -8,7 +8,7 @@ type CheckEmailPropsType = {
     recoveryEmail: string,
 }
 
-const CheckEmail: React.FC<CheckEmailPropsType> = ({ recoveryEmail }) => {
+const CheckEmail: React.FC<CheckEmailPropsType> = ({recoveryEmail}) => {
     return (
         <div className={style.main_block}>
             <h2>Check Email</h2>

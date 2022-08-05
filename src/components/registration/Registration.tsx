@@ -101,14 +101,14 @@ export const Registration: React.FC<AuthorizationPropsType> = ({
         <form onSubmit={formik.handleSubmit} className={style.form_block}>
             <FormControl className={style.form_block}>
                 <FormGroup className={style.control_group}>
-                    <TextField label="Email" className={style.input_field} disabled={isDisabled}
+                    <TextField label="Email" className={style.inputField} disabled={isDisabled}
                                {...formik.getFieldProps('email')}
                     />
                     <div className={style.errors}>
                         {formik.touched.email && formik.errors.email && <span>{formik.errors.email}</span>}
                     </div>
 
-                    <FormControl variant="standard" className={style.input_field}>
+                    <FormControl variant="standard" className={style.inputField}>
                         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                         <Input
                             id="standard-adornment-password1"
@@ -134,7 +134,7 @@ export const Registration: React.FC<AuthorizationPropsType> = ({
                         {formik.touched.password && formik.errors.password && <span>{formik.errors.password}</span>}
                     </div>
 
-                    <FormControl variant="standard" className={style.input_field}>
+                    <FormControl variant="standard" className={style.inputField}>
                         <InputLabel htmlFor="standard-adornment-password2">Confirm password</InputLabel>
                         <Input
                             id="standard-adornment-password"

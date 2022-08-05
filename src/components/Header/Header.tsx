@@ -18,7 +18,7 @@ export const Header = () => {
 
     const logoutHandler = () => {
         dispatch(logOut());
-        setIsActiveProfile(true)
+        setIsActiveProfile(true);
     };
 
     const dropdownNavigateHandler = () => {

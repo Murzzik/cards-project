@@ -1,18 +1,18 @@
-import {AppThunk} from '../store';
-import {authAPI} from '../../api/userAPI';
-import {setError, setInitialized, setPreloaderStatus} from './app-reducer';
-import {RegistrationData} from '../../components/registration/RegistrationContainer';
+import { AppThunk } from '../store';
+import { authAPI } from '../../api/userAPI';
+import { setError, setInitialized, setPreloaderStatus } from './app-reducer';
+import { RegistrationData } from '../../components/registration/RegistrationContainer';
 
 const initialState: initialStateType = {
     isLoggedIn: false,
     isAutoRedirect: false,
     recoveryEmail: '',
     isRegistered: false,
-    user: {} as User
+    user: {} as User,
 };
 
 export const authorizationReducer = (state = initialState, action: ActionTypeFoAuthReducer) => {
-    switch (action.type) {
+    switch(action.type) {
         case 'auth-setIsLoggedIn': {
             return {...state, isLoggedIn: action.value};
         }
@@ -36,8 +36,11 @@ export const authorizationReducer = (state = initialState, action: ActionTypeFoA
 
 export const setIsLoggedIn = (value: boolean) => ({type: 'auth-setIsLoggedIn', value} as const);
 export const setRecoveryEmail = (email: string) => ({type: 'auth-setRecoveryEmail', email} as const);
-export const setIsAutoRedirect = (isAutoRedirect: boolean) => ({type: 'auth-setIsAutoRedirect', isAutoRedirect,} as const);
-export const setUserInfo = (user: User) => ({type: 'auth-setUserInfo', user,} as const);
+export const setIsAutoRedirect = (isAutoRedirect: boolean) => ({
+    type: 'auth-setIsAutoRedirect',
+    isAutoRedirect,
+} as const);
+export const setUserInfo = (user: User) => ({type: 'auth-setUserInfo', user} as const);
 
 export const setRegisteredUser = (isRegistered: boolean) => ({type: 'set-registrationNewUser', isRegistered} as const);
 
@@ -115,7 +118,7 @@ export const authorizationUser = (): AppThunk => (dispatch) => {
     }).finally(() => {
             dispatch(setPreloaderStatus('succeeded'));
             dispatch(setInitialized(true));
-        }
+        },
     );
 };
 

@@ -1,8 +1,8 @@
 import axios from 'axios';
-import {instance} from './instance';
-import Package from './../../package.json'
+import { instance } from './instance';
+import Package from './../../package.json';
 
-const gitUrl = Package.homepage
+const gitUrl = Package.homepage;
 
 export const authAPI = {
     login(data: SignInArgs) {
@@ -11,7 +11,7 @@ export const authAPI = {
     forgot(email: string) {
         const data = {
             email,
-            message: `<div style="background-color: lime; padding: 15px">password recovery link: <a href='${gitUrl+'/#'}/set-new-password/$token$'>link</a></div>`,
+            message: `<div style="background-color: lime; padding: 15px">password recovery link: <a href='${gitUrl + '/#'}/set-new-password/$token$'>link</a></div>`,
         };
         return axios.post<ForgotRes>('https://neko-back.herokuapp.com/2.0/auth/forgot', data);
     },

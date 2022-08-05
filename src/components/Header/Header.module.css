@@ -61,16 +61,18 @@
 }
 
 .navElement {
+    color: #98d0c4;
     display: block;
-    color: #a7f8ce;
     padding: 1rem;
-    border-radius: .25rem;
+    background: #2b3560;
+    font-weight: 500;
     font-size: 18px;
     text-decoration: none;
     transition: .3s;
 }
 
 .navElement:hover {
+    color: #98d0c4;
     background: #2c5263;
 }
 

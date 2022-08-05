@@ -16,7 +16,7 @@ type ApplyNewPassPropsType = {
     createPasswords(password: string, token: string | undefined): void
 }
 
-export const ApplyNewPass: React.FC<ApplyNewPassPropsType> = ({ token, createPasswords }) => {
+export const ApplyNewPass: React.FC<ApplyNewPassPropsType> = ({token, createPasswords}) => {
     const [error, setError] = useState('');
     const [password, setPassword] = useState('');
 
@@ -59,7 +59,7 @@ export const ApplyNewPass: React.FC<ApplyNewPassPropsType> = ({ token, createPas
         <div className={style.main_block}>
             {isLoad === 'loading' && <Preloader />}
             <h2>Create new Password</h2>
-            <FormControl variant="standard" className={style.input_field}>
+            <FormControl variant="standard" className={style.inputField}>
                 <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                 <Input
                     // id="standard-adornment-password"
@@ -71,7 +71,7 @@ export const ApplyNewPass: React.FC<ApplyNewPassPropsType> = ({ token, createPas
                                 aria-label="toggle password visibility"
                                 onClick={handleClickShowPassword}
                                 onMouseDown={handleMouseDownPassword}
-                                style={{ backgroundColor: 'transparent' }}
+                                style={{backgroundColor: 'transparent'}}
                                 disableRipple={true}
                             >
                                 {values.showPassword ? <VisibilityOff /> : <Visibility />}
@@ -83,13 +83,13 @@ export const ApplyNewPass: React.FC<ApplyNewPassPropsType> = ({ token, createPas
             <div className={style.errors}>
                 <span>{error}</span>
             </div>
-            <p className={style.opacity_text} style={{ textAlign: 'left' }}> Create new password and we will send you
+            <p className={style.opacity_text} style={{textAlign: 'left'}}> Create new password and we will send you
                 further instructions to email </p>
 
 
             <Button className={style.auth_button} variant={'contained'} color={'primary'} onClick={onClickHandler}
                     disabled={blockBtn}>
-                <NavLink style={{ color: '#fff', textDecoration: 'none', width: '100%' }} to={'/authorization'}>Create
+                <NavLink style={{color: '#fff', textDecoration: 'none', width: '100%'}} to={'/authorization'}>Create
                     new Password</NavLink>
             </Button>
         </div>

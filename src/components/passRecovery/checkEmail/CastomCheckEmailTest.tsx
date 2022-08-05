@@ -8,7 +8,7 @@ type CheckEmailPropsType = {
     recoveryEmail: string,
 }
 
-const CheckEmail: React.FC<CheckEmailPropsType> = ({ recoveryEmail }) => {
+const CheckEmail: React.FC<CheckEmailPropsType> = ({recoveryEmail}) => {
 
     const generatorLink = (recoveryEmail: string) => {
         const firstIndex = recoveryEmail.indexOf('@');
@@ -21,10 +21,10 @@ const CheckEmail: React.FC<CheckEmailPropsType> = ({ recoveryEmail }) => {
                 return <div className={style.email_link}>
                     <a href={'https://mail.google.com/mail/u/0/#inbox'} target="_blank">
                         <Button variant={'contained'}
-                             color={'primary'}
-                             className={style.auth_button}>
-                        Check Email
-                    </Button>
+                                color={'primary'}
+                                className={style.auth_button}>
+                            Check Email
+                        </Button>
                     </a>
                 </div>;
             }

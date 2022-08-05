@@ -14,7 +14,7 @@ const CardsContainer = () => {
     let pageCount = Number(searchParameters.get('pageCount'));
     const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount);
     useEffect(() => {
-        if (cardsPack_id) {
+        if(cardsPack_id) {
             dispatch(initializedCards({cardsPack_id, cardQuestion, page, pageCount}));
         }
 
@@ -22,8 +22,8 @@ const CardsContainer = () => {
     const cards = useAppSelector(state => state.cards.cards);
     return (
         <div>
-            <CardsHeader cardsPack_id={cardsPack_id ? cardsPack_id : ''}/>
-            <CardsList cards={cards} cardsTotalCount={cardsTotalCount}/>
+            <CardsHeader cardsPack_id={cardsPack_id ? cardsPack_id : ''} />
+            <CardsList cards={cards} cardsTotalCount={cardsTotalCount} />
         </div>
     );
 };
