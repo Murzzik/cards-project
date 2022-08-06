@@ -36,21 +36,21 @@ export const initializedPacks = (args: GetCardsType = {}): AppThunk => (dispatch
             : (e.message + ', more details in the console');
         dispatch(setError(error));
         dispatch(setIsLoggedIn(false));
-        if (error==="you are not authorized /ᐠ-ꞈ-ᐟ\\\\") {
+        if (error === 'you are not authorized /ᐠ-ꞈ-ᐟ\\\\') {
             dispatch(setIsLoggedIn(false));
         }
-        alert(error)
+        alert(error);
         dispatch(setPreloaderStatus('failed'));
     });
 };
 
 //TODO: When you in "MY PACKS" and try to delete or add packs, you wont be redirected to "ALL PACKS" - NEED TO FIX
 
-export const addNewPack = (name: string,id=""): AppThunk => (dispatch) => {
+export const addNewPack = (name: string, id = ''): AppThunk => (dispatch) => {
     dispatch(setPreloaderStatus('loading'));
     packAPI.addNewPack(name).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedPacks({user_id:id}));
+        dispatch(initializedPacks({user_id: id}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -61,11 +61,17 @@ export const addNewPack = (name: string,id=""): AppThunk => (dispatch) => {
     });
 };
 
-export const deletePack = (id: string, userId=""): AppThunk => (dispatch) => {
+export const deletePack = (id: string, userId = ''): AppThunk => (dispatch, getState) => {
+    let page = getState().packs.page;
+    const pageCount = getState().packs.pageCount;
+    const items = getState().packs.cardPacks.length;
+    if (items === 1) {
+        page = page - 1;
+    }
     dispatch(setPreloaderStatus('loading'));
     packAPI.deletePack(id).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedPacks({user_id:userId}));
+        dispatch(initializedPacks({user_id: userId, page, pageCount}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -76,11 +82,11 @@ export const deletePack = (id: string, userId=""): AppThunk => (dispatch) => {
     });
 };
 
-export const updatePackName = (id: string, name: string, userId=""): AppThunk => (dispatch) => {
+export const updatePackName = (id: string, name: string, userId = ''): AppThunk => (dispatch) => {
     dispatch(setPreloaderStatus('loading'));
     packAPI.updatePackName(id, name).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedPacks({user_id:userId}));
+        dispatch(initializedPacks({user_id: userId}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
