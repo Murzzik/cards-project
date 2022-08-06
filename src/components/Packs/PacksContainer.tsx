@@ -1,29 +1,45 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import SearchContainer from './SearchPacks/SearchContainer';
 import PacksListContainer from './PacksList/PacksListContainer';
-import { useAppDispatch } from '../../store/store';
-import { initializedPacks } from '../../store/reducers/packs-reducer';
+import {useAppDispatch, useAppSelector} from '../../store/store';
+import {initializedPacks} from '../../store/reducers/packs-reducer';
 import 'antd/dist/antd.css';
-import { useSearchParams } from 'react-router-dom';
+import {Navigate, useSearchParams} from 'react-router-dom';
+import {authorizationUser} from '../../store/reducers/authorization-reducer';
+import Preloader from '../common/Preloader/Preloader';
 
 const PacksContainer = () => {
-        const [searchParameters, setSearchParameters] = useSearchParams();
+        const [searchParameters] = useSearchParams();
         const user_id = searchParameters.get('id');
         const min = Number(searchParameters.get('min'));
         const max = Number(searchParameters.get('max'));
         const packName = searchParameters.get('name');
         const page = Number(searchParameters.get('page'));
         let pageCount = Number(searchParameters.get('pageCount'));
-
         const dispatch = useAppDispatch();
+
+        const isInitialized = useAppSelector(state => state.app.isInitialized)
+        const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+
+        const userProfileName = useAppSelector(state => state.auth.user.name);
+        if (!userProfileName) {
+                dispatch(authorizationUser());
+        }
+
+
 
         useEffect(() => {
             dispatch(initializedPacks({user_id, min, max, packName, page, pageCount}));
         }, [dispatch, user_id, min, max, packName, page, pageCount]);
+
+        if (!isInitialized) {
+                return <Preloader/>
+        }
+        if(!isLoggedIn) return <Navigate to={'/authorization'} />;
         return (
             <div>
-                <SearchContainer />
-                <PacksListContainer />
+                <SearchContainer/>
+                <PacksListContainer/>
             </div>
         );
     }
