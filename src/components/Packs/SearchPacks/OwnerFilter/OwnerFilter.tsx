@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import style from './OwnerFilter.module.css';
-import { Button, ButtonGroup } from '@material-ui/core';
-import { useAppSelector } from '../../../../store/store';
-import { useSearchParams } from 'react-router-dom';
+import {Button, ButtonGroup} from '@material-ui/core';
+import {useAppSelector} from '../../../../store/store';
+import {useSearchParams} from 'react-router-dom';
 
 type OwnerFilterPropsType = {}
 
@@ -10,7 +10,7 @@ const OwnerFilter: React.FC<OwnerFilterPropsType> = () => {
     const [searchParameters, setSearchParameters] = useSearchParams();
     const owner = searchParameters.get('id');
     let ownerParameter = '';
-    if(owner) {
+    if (owner) {
         ownerParameter = 'my';
     } else {
         ownerParameter = 'all';
@@ -19,14 +19,14 @@ const OwnerFilter: React.FC<OwnerFilterPropsType> = () => {
     const [activeButton, setActiveButton] = useState(ownerParameter);
 
     const onclickHandler = (e: React.MouseEvent<HTMLSpanElement>) => {
-        if(e.currentTarget.dataset.owner) {
+        if (e.currentTarget.dataset.owner) {
             const trigger: string = e.currentTarget.dataset.owner;
-            if(trigger === 'my') {
-                setSearchParameters({...Object.fromEntries(searchParameters), id: userID});
+            if (trigger === 'my') {
+                setSearchParameters({...Object.fromEntries(searchParameters), id: userID, page: '1'});
                 setActiveButton('my');
             } else {
                 searchParameters.delete('id');
-                setSearchParameters({...Object.fromEntries(searchParameters)});
+                setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
                 setActiveButton('all');
             }
         }

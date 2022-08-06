@@ -6,12 +6,12 @@ import {useSearchParams} from 'react-router-dom';
 const PacksPaginationContainer: React.FC = () => {
     const totalItems = useAppSelector(state => state.packs.cardPacksTotalCount);
     const [searchParameters, setSearchParameters] = useSearchParams();
-
+    let currentPage = useAppSelector(state => state.packs.page)
     let page = Number(searchParameters.get('page'));
     let pageCount = Number(searchParameters.get('pageCount'));
     if (!page) page = 1;
     if (!pageCount) pageCount = 4;
-
+    currentPage = page!==currentPage? currentPage : page
     const changePacksPaginationData = (page: number, pageCount = 4) => {
         setSearchParameters({
             ...Object.fromEntries(searchParameters),
@@ -20,7 +20,7 @@ const PacksPaginationContainer: React.FC = () => {
         });
     };
     return (
-        <UniversalPagination page={page} totalItems={totalItems} pageCount={pageCount} changePaginationData={changePacksPaginationData}/>
+        <UniversalPagination page={currentPage} totalItems={totalItems} pageCount={pageCount} changePaginationData={changePacksPaginationData}/>
     );
 };
 

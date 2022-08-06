@@ -10,7 +10,7 @@ import { useSearchParams } from 'react-router-dom';
 
 type SearchContainerPropsType = {}
 const SearchContainer: React.FC<SearchContainerPropsType> = () => {
-    const [searchParameters, setSearchParameters] = useSearchParams();
+    const [searchParameters] = useSearchParams();
     const owner = searchParameters.get('id');
     let userId = ""
     if (owner) {
@@ -20,8 +20,8 @@ const SearchContainer: React.FC<SearchContainerPropsType> = () => {
 
     const newPackHandler = () => {
         const name = 'New pack success added';
-        setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
-        dispatch(addNewPack(name));
+        // setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
+        dispatch(addNewPack(name, userId));
     };
 
     return (
