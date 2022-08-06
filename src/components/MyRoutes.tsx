@@ -13,6 +13,7 @@ import CardsContainer from './Packs/CardsListContainer/CardsContainer';
 export const MyRoutes = () => {
     return (
         <Routes>
+            <Route path="/" element={<Profile />} />
             <Route path="/authorization" element={<AuthorizationContainer />} />
             <Route path="/registration" element={<RegistrationContainer />} />
             <Route path="/set-new-password/:token" element={<ApplyNewPasswordContainer />} />

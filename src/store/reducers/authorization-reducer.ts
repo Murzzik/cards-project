@@ -1,7 +1,7 @@
-import { AppThunk } from '../store';
-import { authAPI } from '../../api/userAPI';
-import { setError, setInitialized, setPreloaderStatus } from './app-reducer';
-import { RegistrationData } from '../../components/registration/RegistrationContainer';
+import {AppThunk} from '../store';
+import {authAPI} from '../../api/userAPI';
+import {setError, setInitialized, setPreloaderStatus} from './app-reducer';
+import {RegistrationData} from '../../components/registration/RegistrationContainer';
 
 const initialState: initialStateType = {
     isLoggedIn: false,
@@ -12,7 +12,7 @@ const initialState: initialStateType = {
 };
 
 export const authorizationReducer = (state = initialState, action: ActionTypeFoAuthReducer) => {
-    switch(action.type) {
+    switch (action.type) {
         case 'auth-setIsLoggedIn': {
             return {...state, isLoggedIn: action.value};
         }
@@ -66,6 +66,8 @@ export const login = (data: any): AppThunk => (dispatch) => {
         dispatch(setIsLoggedIn(true));
         dispatch(setPreloaderStatus('succeeded'));
         dispatch(setUserInfo(res.data));
+        dispatch(setInitialized(true));
+
     }).catch(e => {
         const error = e.response
             ? e.response.data.error

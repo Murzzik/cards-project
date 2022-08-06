@@ -15,7 +15,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import {IconButton} from '@material-ui/core';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {convertDate} from '../../../utilities/parsData';
-import s from './PackList.module.css';
 import PacksPaginationContainer from './PacksPaginationContainer';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
@@ -43,7 +42,7 @@ type PackListPopsType = {
     isLoggedIn: boolean
 }
 
-export const PackList: React.FC<PackListPopsType> = ({packs, isLoggedIn}) => {
+export const PackList: React.FC<PackListPopsType> = ({packs}) => {
     const dispatch = useAppDispatch();
 
     const [searchParameters] = useSearchParams();
@@ -67,59 +66,56 @@ export const PackList: React.FC<PackListPopsType> = ({packs, isLoggedIn}) => {
     return (
         <div>{packs.length > 0 ?
             <div>
-                {!isLoggedIn ?
-                    <h3 className={s.errorAuthText}>Ты не авторизирован, попробуй перезайти:)</h3>
-                    :
-                    <TableContainer component={Paper} style={{width: '80%', margin: '0 auto'}}>
-                        <Table sx={{minWidth: 700}} aria-label="customized table">
-                            <TableHead>
-                                <TableRow>
-                                    <StyledTableCell>
-                                        <span style={{cursor: 'pointer'}}>Name</span>
+                <TableContainer component={Paper} style={{width: '80%', margin: '0 auto'}}>
+                    <Table sx={{minWidth: 700}} aria-label="customized table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell>
+                                    <span style={{cursor: 'pointer'}}>Name</span>
+                                </StyledTableCell>
+                                <StyledTableCell align="right">Cards</StyledTableCell>
+                                <StyledTableCell align="right">Last Update</StyledTableCell>
+                                <StyledTableCell align="right">Create By</StyledTableCell>
+                                <StyledTableCell align="right">Action</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {packs.map((pack: Pack) => (
+                                <StyledTableRow key={pack._id}>
+                                    <StyledTableCell component="th" scope="row">
+                                        <NavLink to={'/packs/' + pack._id}>{pack.name}</NavLink>
                                     </StyledTableCell>
-                                    <StyledTableCell align="right">Cards</StyledTableCell>
-                                    <StyledTableCell align="right">Last Update</StyledTableCell>
-                                    <StyledTableCell align="right">Create By</StyledTableCell>
-                                    <StyledTableCell align="right">Action</StyledTableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {packs.map((pack: Pack) => (
-                                    <StyledTableRow key={pack._id}>
-                                        <StyledTableCell component="th" scope="row">
-                                            <NavLink to={'/packs/' + pack._id}>{pack.name}</NavLink>
-                                        </StyledTableCell>
-                                        <StyledTableCell align="right">{pack.cardsCount}</StyledTableCell>
-                                        <StyledTableCell align="right">{convertDate(pack.updated)}</StyledTableCell>
-                                        <StyledTableCell align="right">{pack.user_name}</StyledTableCell>
-                                        <StyledTableCell align="right">
-                                            {myId === pack.user_id ?
-                                                <div>
-                                                    <IconButton>
-                                                        <SchoolIcon/>
-                                                    </IconButton>
-                                                    <IconButton onClick={() => deletePackHandler(pack._id)}>
-                                                        <DeleteForeverIcon/>
-                                                    </IconButton>
-                                                    <IconButton>
-                                                        <EditIcon onClick={() => updatePackNameHandler(pack._id)}/>
-                                                    </IconButton>
-                                                </div>
-                                                :
-                                                <div>
-                                                    <IconButton>
-                                                        <SchoolIcon/>
-                                                    </IconButton>
-                                                </div>
-                                            }
-                                        </StyledTableCell>
-                                    </StyledTableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>}
+                                    <StyledTableCell align="right">{pack.cardsCount}</StyledTableCell>
+                                    <StyledTableCell align="right">{convertDate(pack.updated)}</StyledTableCell>
+                                    <StyledTableCell align="right">{pack.user_name}</StyledTableCell>
+                                    <StyledTableCell align="right">
+                                        {myId === pack.user_id ?
+                                            <div>
+                                                <IconButton>
+                                                    <SchoolIcon/>
+                                                </IconButton>
+                                                <IconButton onClick={() => deletePackHandler(pack._id)}>
+                                                    <DeleteForeverIcon/>
+                                                </IconButton>
+                                                <IconButton>
+                                                    <EditIcon onClick={() => updatePackNameHandler(pack._id)}/>
+                                                </IconButton>
+                                            </div>
+                                            :
+                                            <div>
+                                                <IconButton>
+                                                    <SchoolIcon/>
+                                                </IconButton>
+                                            </div>
+                                        }
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
 
-                    <PacksPaginationContainer/>
+                <PacksPaginationContainer/>
             </div>
             : <h3 style={{fontSize: '50px', color: 'white', textAlign: 'center'}}>Возможно паки ещё не загрузились,
                 ожидайте...</h3>}
