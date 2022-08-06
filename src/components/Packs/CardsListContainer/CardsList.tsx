@@ -1,23 +1,22 @@
 import React from 'react';
-import { CardsType } from '../../../api/cardsAPI';
+import {CardsType} from '../../../api/cardsAPI';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
-import { useSearchParams } from 'react-router-dom';
 import TableContainer from '@mui/material/TableContainer';
-import { styled } from '@mui/material/styles';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import { Pagination } from 'antd';
-import { Rating } from '@mui/material';
-import { convertDate } from '../../../utilities/parsData';
-import { deleteCard, updateCard } from '../../../store/reducers/cards-reducer';
-import { useAppDispatch } from '../../../store/store';
+import {styled} from '@mui/material/styles';
+import TableCell, {tableCellClasses} from '@mui/material/TableCell';
+import {Rating} from '@mui/material';
+import {convertDate} from '../../../utilities/parsData';
+import {deleteCard, updateCard} from '../../../store/reducers/cards-reducer';
+import {useAppDispatch} from '../../../store/store';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { IconButton } from '@material-ui/core';
+import {IconButton} from '@material-ui/core';
 import EditIcon from '@mui/icons-material/Edit';
 import s from './CardsList.module.css';
+import CardsPaginationContainer from './CardsPaginationContainer';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -44,22 +43,8 @@ type CardsListPropsType = {
     cardsTotalCount: number,
 }
 
-const CardsList: React.FC<CardsListPropsType> = ({cards, cardsTotalCount}) => {
+const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
     const dispatch = useAppDispatch();
-    const [searchParameters, setSearchParameters] = useSearchParams();
-    let page = Number(searchParameters.get('page'));
-    let pageCount = Number(searchParameters.get('pageCount'));
-    if(!page) page = 1;
-    if(!pageCount) pageCount = 4;
-
-    const onChangeHandlerPage = (page: number, size = 4) => {
-        setSearchParameters({
-            ...Object.fromEntries(searchParameters),
-            pageCount: size.toString(),
-            page: page.toString(),
-        });
-    };
-
     const deleteCardHandler = (id: string, packID: string) => {
         dispatch(deleteCard(id, packID));
     };
@@ -89,20 +74,20 @@ const CardsList: React.FC<CardsListPropsType> = ({cards, cardsTotalCount}) => {
                                 <StyledTableCell component="th" scope="row">{card.question}</StyledTableCell>
                                 <StyledTableCell align="right">{card.answer}</StyledTableCell>
                                 <StyledTableCell align="right">{convertDate(card.updated)}</StyledTableCell>
-                                <StyledTableCell align="right" >
+                                <StyledTableCell align="right">
                                     <div className={s.editRow}>
                                         <IconButton>
                                             <EditIcon onClick={() => {
                                                 updateCardHandler(card._id, card.cardsPack_id);
-                                            }} />
+                                            }}/>
                                         </IconButton>
                                         <IconButton onClick={() => {
                                             deleteCardHandler(card._id, card.cardsPack_id);
                                         }}>
-                                            <DeleteForeverIcon />
+                                            <DeleteForeverIcon/>
                                         </IconButton>
                                         <Rating name="half-rating-read" defaultValue={card.grade} precision={0.5}
-                                                readOnly />
+                                                readOnly/>
                                     </div>
                                 </StyledTableCell>
                             </StyledTableRow>
@@ -110,26 +95,8 @@ const CardsList: React.FC<CardsListPropsType> = ({cards, cardsTotalCount}) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Pagination
-                total={cardsTotalCount}
-                showSizeChanger
-                showQuickJumper
-                onChange={onChangeHandlerPage}
-                defaultPageSize={pageCount}
-                pageSizeOptions={[4, 10, 20]}
-                defaultCurrent={page}
-                showTotal={(total) => `Total ${total} items`}
-                style={{
-                    width: '80%',
-                    margin: '0 auto',
-                    color: 'white',
-                    backgroundColor: 'black',
-                    padding: '10px',
-                    borderRadius: '5px',
-                    marginTop: '20px',
-                    textAlign: 'right',
-                }}
-            />
+
+            <CardsPaginationContainer/>
         </div>
 
     );

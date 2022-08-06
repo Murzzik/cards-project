@@ -1,22 +1,22 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import {styled} from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableCell, {tableCellClasses} from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { deletePack, Pack, updatePackName } from '../../../store/reducers/packs-reducer';
-import { NavLink, useSearchParams } from 'react-router-dom';
-import { Pagination } from 'antd';
+import {deletePack, Pack, updatePackName} from '../../../store/reducers/packs-reducer';
+import {NavLink, useSearchParams} from 'react-router-dom';
 import SchoolIcon from '@mui/icons-material/School';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
-import { IconButton } from '@material-ui/core';
-import { useAppDispatch, useAppSelector } from '../../../store/store';
-import { convertDate } from '../../../utilities/parsData';
+import {IconButton} from '@material-ui/core';
+import {useAppDispatch, useAppSelector} from '../../../store/store';
+import {convertDate} from '../../../utilities/parsData';
 import s from './PackList.module.css';
+import PacksPaginationContainer from './PacksPaginationContainer';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -40,25 +40,19 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
 
 type PackListPopsType = {
     packs: Pack[],
-    totalItems: number,
     isLoggedIn: boolean
 }
 
-export const PackList: React.FC<PackListPopsType> = ({packs, totalItems, isLoggedIn}) => {
+export const PackList: React.FC<PackListPopsType> = ({packs, isLoggedIn}) => {
     const dispatch = useAppDispatch();
 
-    const [searchParameters, setSearchParameters] = useSearchParams();
+    const [searchParameters] = useSearchParams();
     const myId = useAppSelector(state => state.auth.user._id);
-    const page = Number(searchParameters.get('page'));
-    let pageCount = Number(searchParameters.get('pageCount'));
-    if(!pageCount) {
-        pageCount = 4;
-    }
 
     const owner = searchParameters.get('id');
-    let userId = ""
+    let userId = '';
     if (owner) {
-        userId = owner
+        userId = owner;
     }
 
     const deletePackHandler = (id: string) => {
@@ -70,13 +64,6 @@ export const PackList: React.FC<PackListPopsType> = ({packs, totalItems, isLogge
         dispatch(updatePackName(id, newPackName, userId));
     };
 
-    const onChangeHandlerPage = (page: number, size = 4) => {
-        setSearchParameters({
-            ...Object.fromEntries(searchParameters),
-            pageCount: size.toString(),
-            page: page.toString(),
-        });
-    };
     return (
         <div>{packs.length > 0 ?
             <div>
@@ -97,7 +84,7 @@ export const PackList: React.FC<PackListPopsType> = ({packs, totalItems, isLogge
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {packs.map((pack: Pack, index) => (
+                                {packs.map((pack: Pack) => (
                                     <StyledTableRow key={pack._id}>
                                         <StyledTableCell component="th" scope="row">
                                             <NavLink to={'/packs/' + pack._id}>{pack.name}</NavLink>
@@ -109,19 +96,19 @@ export const PackList: React.FC<PackListPopsType> = ({packs, totalItems, isLogge
                                             {myId === pack.user_id ?
                                                 <div>
                                                     <IconButton>
-                                                        <SchoolIcon />
+                                                        <SchoolIcon/>
                                                     </IconButton>
                                                     <IconButton onClick={() => deletePackHandler(pack._id)}>
-                                                        <DeleteForeverIcon />
+                                                        <DeleteForeverIcon/>
                                                     </IconButton>
                                                     <IconButton>
-                                                        <EditIcon onClick={() => updatePackNameHandler(pack._id)} />
+                                                        <EditIcon onClick={() => updatePackNameHandler(pack._id)}/>
                                                     </IconButton>
                                                 </div>
                                                 :
                                                 <div>
                                                     <IconButton>
-                                                        <SchoolIcon />
+                                                        <SchoolIcon/>
                                                     </IconButton>
                                                 </div>
                                             }
@@ -131,27 +118,8 @@ export const PackList: React.FC<PackListPopsType> = ({packs, totalItems, isLogge
                             </TableBody>
                         </Table>
                     </TableContainer>}
-                <Pagination
-                    total={totalItems}
-                    showSizeChanger
-                    showQuickJumper
-                    current={page}
-                    onChange={onChangeHandlerPage}
-                    defaultPageSize={pageCount}
-                    pageSizeOptions={[4, 10, 20]}
-                    defaultCurrent={page}
-                    showTotal={(total) => `Total ${total} items`}
-                    style={{
-                        width: '80%',
-                        margin: '0 auto',
-                        color: 'white',
-                        backgroundColor: 'black',
-                        padding: '10px',
-                        borderRadius: '5px',
-                        marginTop: '20px',
-                        textAlign: 'right',
-                    }}
-                />
+
+                    <PacksPaginationContainer/>
             </div>
             : <h3 style={{fontSize: '50px', color: 'white', textAlign: 'center'}}>Возможно паки ещё не загрузились,
                 ожидайте...</h3>}
