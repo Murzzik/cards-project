@@ -18,24 +18,25 @@ const PacksContainer = () => {
         let pageCount = Number(searchParameters.get('pageCount'));
         const dispatch = useAppDispatch();
 
-        const isInitialized = useAppSelector(state => state.app.isInitialized)
-        const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+        const isInitialized = useAppSelector(state => state.app.isInitialized);
+        const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
 
         const userProfileName = useAppSelector(state => state.auth.user.name);
         if (!userProfileName) {
-                dispatch(authorizationUser());
+            dispatch(authorizationUser());
         }
-
-
 
         useEffect(() => {
-            dispatch(initializedPacks({user_id, min, max, packName, page, pageCount}));
-        }, [dispatch, user_id, min, max, packName, page, pageCount]);
+            if (isLoggedIn) {
+                dispatch(initializedPacks({user_id, min, max, packName, page, pageCount}));
+            }
+        }, [dispatch, user_id, min, max, packName, page, pageCount, isLoggedIn]);
 
         if (!isInitialized) {
-                return <Preloader/>
+            return <Preloader/>;
         }
-        if(!isLoggedIn) return <Navigate to={'/authorization'} />;
+        if (!isLoggedIn) return <Navigate to={'/authorization'}/>;
+
         return (
             <div>
                 <SearchContainer/>
