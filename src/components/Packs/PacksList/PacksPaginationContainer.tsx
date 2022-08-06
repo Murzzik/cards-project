@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import UniversalPagination from '../../common/Pagination/UniversalPagination';
 import {useAppSelector} from '../../../store/store';
 import {useSearchParams} from 'react-router-dom';
@@ -6,13 +6,20 @@ import {useSearchParams} from 'react-router-dom';
 const PacksPaginationContainer: React.FC = () => {
     const totalItems = useAppSelector(state => state.packs.cardPacksTotalCount);
     const [searchParameters, setSearchParameters] = useSearchParams();
-    let currentPage = useAppSelector(state => state.packs.page)
-    let page = Number(searchParameters.get('page'));
-    let pageCount = Number(searchParameters.get('pageCount'));
-    if (!page) page = 1;
-    if (!pageCount) pageCount = 4;
-    currentPage = page!==currentPage? currentPage : page
+    let currentPage = useAppSelector(state => state.packs.page);
+    let pageCount = useAppSelector(state => state.packs.pageCount);
+    // let page = Number(searchParameters.get('page'));
+    // let pageCount = Number(searchParameters.get('pageCount'));
+    // if (!page) page = 1;
+    // if (!pageCount) pageCount = 4;
+    // useEffect(()=>{
+    //     currentPage = page!==currentPage? currentPage : page
+    // },[currentPage, page])
+    // currentPage = page !== currentPage ? currentPage : page;
+    useEffect(() => {
+    }, [currentPage, pageCount]);
     const changePacksPaginationData = (page: number, pageCount = 4) => {
+        console.log(page);
         setSearchParameters({
             ...Object.fromEntries(searchParameters),
             pageCount: pageCount.toString(),
