@@ -4,22 +4,37 @@ import {useAppSelector} from '../../../store/store';
 import {useSearchParams} from 'react-router-dom';
 
 const PacksPaginationContainer: React.FC = () => {
+    // const totalItems = useAppSelector(state => state.packs.cardPacksTotalCount);
+    // const [searchParameters, setSearchParameters] = useSearchParams();
+    // let currentPage = useAppSelector(state => state.packs.page);
+    // let pageCount = useAppSelector(state => state.packs.pageCount);
+    // // let page = Number(searchParameters.get('page'));
+    // // let pageCount = Number(searchParameters.get('pageCount'));
+    // // if (!page) page = 1;
+    // // if (!pageCount) pageCount = 4;
+    // // useEffect(()=>{
+    // //     currentPage = page!==currentPage? currentPage : page
+    // // },[currentPage, page])
+    // // currentPage = page !== currentPage ? currentPage : page;
+    // useEffect(() => {
+    // }, [currentPage, pageCount]);
+    // const changePacksPaginationData = (page: number, pageCount = 4) => {
+    //     console.log(page);
+    //     setSearchParameters({
+    //         ...Object.fromEntries(searchParameters),
+    //         pageCount: pageCount.toString(),
+    //         page: page.toString(),
+    //     });
+    // };
     const totalItems = useAppSelector(state => state.packs.cardPacksTotalCount);
     const [searchParameters, setSearchParameters] = useSearchParams();
-    let currentPage = useAppSelector(state => state.packs.page);
-    let pageCount = useAppSelector(state => state.packs.pageCount);
-    // let page = Number(searchParameters.get('page'));
-    // let pageCount = Number(searchParameters.get('pageCount'));
-    // if (!page) page = 1;
-    // if (!pageCount) pageCount = 4;
-    // useEffect(()=>{
-    //     currentPage = page!==currentPage? currentPage : page
-    // },[currentPage, page])
-    // currentPage = page !== currentPage ? currentPage : page;
-    useEffect(() => {
-    }, [currentPage, pageCount]);
+
+    let page = Number(searchParameters.get('page'));
+    let pageCount = Number(searchParameters.get('pageCount'));
+    if (!page) page = 1;
+    if (!pageCount) pageCount = 4;
+
     const changePacksPaginationData = (page: number, pageCount = 4) => {
-        console.log(page);
         setSearchParameters({
             ...Object.fromEntries(searchParameters),
             pageCount: pageCount.toString(),
@@ -27,7 +42,7 @@ const PacksPaginationContainer: React.FC = () => {
         });
     };
     return (
-        <UniversalPagination page={currentPage} totalItems={totalItems} pageCount={pageCount} changePaginationData={changePacksPaginationData}/>
+        <UniversalPagination page={page} totalItems={totalItems} pageCount={pageCount} changePaginationData={changePacksPaginationData}/>
     );
 };
 

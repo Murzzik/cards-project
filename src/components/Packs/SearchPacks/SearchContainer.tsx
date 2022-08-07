@@ -16,7 +16,7 @@ const SearchContainer: React.FC<SearchContainerPropsType> = () => {
     if (owner) {
         userId = owner;
     }
-
+    const page = searchParameters.get('page');
     const triggerAddNewPack = useAppSelector(state => state.packs.triggerAddNewPack);
     const dispatch = useAppDispatch();
 
@@ -27,6 +27,9 @@ const SearchContainer: React.FC<SearchContainerPropsType> = () => {
     };
     useEffect(() => {
         setSearchParameters({...Object.fromEntries(searchParameters), page: '0'});
+        if (page==="0") {
+            setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
+        }
     }, [triggerAddNewPack]);
 
     return (

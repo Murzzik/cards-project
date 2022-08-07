@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {CardsType} from '../../../api/cardsAPI';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -11,12 +11,13 @@ import TableCell, {tableCellClasses} from '@mui/material/TableCell';
 import {Rating} from '@mui/material';
 import {convertDate} from '../../../utilities/parsData';
 import {deleteCard, updateCard} from '../../../store/reducers/cards-reducer';
-import {useAppDispatch} from '../../../store/store';
+import {useAppDispatch, useAppSelector} from '../../../store/store';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {IconButton} from '@material-ui/core';
 import EditIcon from '@mui/icons-material/Edit';
 import s from './CardsList.module.css';
 import CardsPaginationContainer from './CardsPaginationContainer';
+import {useSearchParams} from 'react-router-dom';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -45,9 +46,18 @@ type CardsListPropsType = {
 
 const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
     const dispatch = useAppDispatch();
+    const [searchParameters, setSearchParameters] = useSearchParams();
     const deleteCardHandler = (id: string, packID: string) => {
         dispatch(deleteCard(id, packID));
     };
+    const triggerUpdateCard = useAppSelector(state => state.cards.triggerUpdateCard);
+    const page = searchParameters.get('page');
+    useEffect(() => {
+        setSearchParameters({...Object.fromEntries(searchParameters), page: '0'});
+        if (page === '0') {
+            setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
+        }
+    }, [triggerUpdateCard]);
 
     const updateCardHandler = (id: string, packID: string) => {
         const newQuestion = 'Test for name change before modal implemented';

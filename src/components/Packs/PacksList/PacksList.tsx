@@ -67,13 +67,16 @@ export const PackList: React.FC<PackListPopsType> = ({packs, isLoggedIn}) => {
     if (owner) {
         userId = owner;
     }
-
+    const page = searchParameters.get('page');
     const deletePackHandler = (id: string) => {
         dispatch(deletePack(id, userId));
     };
     const triggerUpdatePack = useAppSelector(state => state.packs.triggerUpdatePack);
     useEffect(() => {
         setSearchParameters({...Object.fromEntries(searchParameters), page: '0'});
+        if (page==="0") {
+            setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
+        }
     }, [triggerUpdatePack]);
 
     const updatePackNameHandler = (id: string) => {

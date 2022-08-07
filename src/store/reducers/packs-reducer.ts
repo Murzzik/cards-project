@@ -18,7 +18,7 @@ const initialState: initialStateType = {
 export const packsReducer = (state = initialState, action: ActionTypeForPacksReducer): initialStateType => {
     switch (action.type) {
         case 'packs-setPacksData': {
-            return {...action.packsData, triggerAddNewPack: state.triggerAddNewPack};
+            return {...action.packsData, triggerAddNewPack: state.triggerAddNewPack, triggerUpdatePack: state.triggerUpdatePack};
         }
         case 'packs-setTriggerForAddNewPackL': {
             return {...state, triggerAddNewPack: !state.triggerAddNewPack};
@@ -68,7 +68,7 @@ export const addNewPack = (name: string, id = ''): AppThunk => (dispatch, getSta
     packAPI.addNewPack(name).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
         // dispatch(initializedPacks({user_id: id, pageCount}));
-        dispatch(setTriggerForAddNewPack())
+        dispatch(setTriggerForAddNewPack());
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -107,7 +107,7 @@ export const updatePackName = (id: string, name: string, userId = ''): AppThunk 
     packAPI.updatePackName(id, name).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
         // dispatch(initializedPacks({user_id: userId, pageCount}));
-        dispatch(setTriggerForUpdatePack())
+        dispatch(setTriggerForUpdatePack());
     }).catch(e => {
         const error = e.response
             ? e.response.data.error

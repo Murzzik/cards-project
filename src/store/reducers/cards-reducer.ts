@@ -1,4 +1,4 @@
-import {cardsAPI, CardsType, GetCardType} from '../../api/cardsAPI';
+import {cardsAPI, CardsType, GetCardsResponseType, GetCardType} from '../../api/cardsAPI';
 import {AppThunk} from '../store';
 import {setError, setPreloaderStatus} from './app-reducer';
 
@@ -7,22 +7,38 @@ const initialState: initialStateType = {
     cardsTotalCount: 0,
     maxGrade: 0,
     minGrade: 0,
-    page:1,
+    page: 1,
     pageCount: 4,
     packUserId: '',
+    triggerAddNewCard: false,
+    triggerUpdateCard: false
 };
 export const cardsReducer = (state = initialState, action: ActionTypeForCards): initialStateType => {
     switch (action.type) {
         case 'cards-setCardsData': {
-            return action.cardsData;
+            return {...action.cardsData, triggerAddNewCard: state.triggerAddNewCard, triggerUpdateCard: state.triggerUpdateCard};
+        }
+        case 'packs-setTriggerForAddNewCard': {
+            return {...state, triggerAddNewCard: !state.triggerAddNewCard};
+        }
+        case 'packs-setTriggerForUpdateCard': {
+            return {...state, triggerUpdateCard: !state.triggerUpdateCard};
         }
         default:
             return state;
     }
 };
 
-export const setCardsData = (cardsData: initialStateType) => {
+export const setCardsData = (cardsData: GetCardsResponseType) => {
     return {type: 'cards-setCardsData', cardsData} as const;
+};
+
+export const setTriggerForAddNewCard = () => {
+    return {type: 'packs-setTriggerForAddNewCard'} as const;
+};
+
+export const setTriggerForUpdateCard = () => {
+    return {type: 'packs-setTriggerForUpdateCard'} as const;
 };
 
 export const initializedCards = (args: GetCardType): AppThunk => (dispatch) => {
@@ -42,7 +58,8 @@ export const addNewCard = (packID: string, question: string, answer: string): Ap
     dispatch(setPreloaderStatus('loading'));
     cardsAPI.addNewCard(packID, question, answer).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedCards({cardsPack_id: packID}));
+        // dispatch(initializedCards({cardsPack_id: packID}));
+        dispatch(setTriggerForAddNewCard())
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -79,7 +96,8 @@ export const updateCard = (id: string, question: string, packID: string): AppThu
     dispatch(setPreloaderStatus('loading'));
     cardsAPI.updateCard(id, question).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedCards({cardsPack_id: packID, pageCount}));
+        // dispatch(initializedCards({cardsPack_id: packID, pageCount}));
+        dispatch(setTriggerForUpdateCard())
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -98,6 +116,8 @@ type initialStateType = {
     page: number
     pageCount: number
     packUserId: string
+    triggerAddNewCard?: boolean,
+    triggerUpdateCard?: boolean
 }
 
-export type ActionTypeForCards = ReturnType<typeof setCardsData>
+export type ActionTypeForCards = ReturnType<typeof setCardsData> | ReturnType<typeof setTriggerForUpdateCard> | ReturnType<typeof setTriggerForAddNewCard>
