@@ -9,10 +9,12 @@ import { ErrorPage } from './ErrorPage';
 import CheckEmailContainer from './passRecovery/checkEmail/CheckEmailContainer';
 import PassRecoveryContainer from './passRecovery/PassRecoveryContainer';
 import CardsContainer from './Packs/CardsListContainer/CardsContainer';
+import { WelcomePage } from './WelcomePage/WelcomePage';
 
 export const MyRoutes = () => {
     return (
         <Routes>
+            <Route path="/" element={<WelcomePage />} />
             <Route path="/authorization" element={<AuthorizationContainer />} />
             <Route path="/registration" element={<RegistrationContainer />} />
             <Route path="/set-new-password/:token" element={<ApplyNewPasswordContainer />} />
