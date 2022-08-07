@@ -1,18 +1,18 @@
-import { cardsAPI, CardsType, GetCardType } from '../../api/cardsAPI';
-import { AppThunk } from '../store';
-import { setError, setPreloaderStatus } from './app-reducer';
+import {cardsAPI, CardsType, GetCardType} from '../../api/cardsAPI';
+import {AppThunk} from '../store';
+import {setError, setPreloaderStatus} from './app-reducer';
 
 const initialState: initialStateType = {
     cards: [],
     cardsTotalCount: 0,
     maxGrade: 0,
     minGrade: 0,
-    page: 0,
-    pageCount: 0,
+    page:1,
+    pageCount: 4,
     packUserId: '',
 };
 export const cardsReducer = (state = initialState, action: ActionTypeForCards): initialStateType => {
-    switch(action.type) {
+    switch (action.type) {
         case 'cards-setCardsData': {
             return action.cardsData;
         }
@@ -53,11 +53,17 @@ export const addNewCard = (packID: string, question: string, answer: string): Ap
     });
 };
 
-export const deleteCard = (id: string, packID: string): AppThunk => (dispatch) => {
+export const deleteCard = (id: string, packID: string): AppThunk => (dispatch, getState) => {
+    let page = getState().cards.page;
+    const pageCount = getState().cards.pageCount;
+    const items = getState().cards.cards.length;
+    if (items === 1) {
+        page = page - 1;
+    }
     dispatch(setPreloaderStatus('loading'));
     cardsAPI.deleteCard(id).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedCards({cardsPack_id: packID}));
+        dispatch(initializedCards({cardsPack_id: packID, page, pageCount}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -69,10 +75,11 @@ export const deleteCard = (id: string, packID: string): AppThunk => (dispatch) =
 };
 
 export const updateCard = (id: string, question: string, packID: string): AppThunk => (dispatch, getState) => {
+    const pageCount = getState().cards.pageCount;
     dispatch(setPreloaderStatus('loading'));
     cardsAPI.updateCard(id, question).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedCards({cardsPack_id: packID}));
+        dispatch(initializedCards({cardsPack_id: packID, pageCount}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error

@@ -59,7 +59,7 @@ const QuantityFilter: React.FC<QuantityFilterPropsType> = () => {
         <div className={style.quantity_filter}>
             <h3>Number of cards</h3>
             <div className={style.quantity_parameters}>
-                <input type="number" value={value[0]} onChange={onChangeHandler} data-quantity="minimum" />
+                <input type="number" value={min} onChange={onChangeHandler} data-quantity="minimum" />
                 <Slider
                     getAriaLabel={() => 'Temperature range'}
                     value={value}

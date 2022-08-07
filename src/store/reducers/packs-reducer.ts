@@ -83,11 +83,12 @@ export const deletePack = (id: string, userId = ''): AppThunk => (dispatch, getS
     });
 };
 
-export const updatePackName = (id: string, name: string, userId = ''): AppThunk => (dispatch) => {
+export const updatePackName = (id: string, name: string, userId = ''): AppThunk => (dispatch,getState) => {
+    const pageCount = getState().packs.pageCount;
     dispatch(setPreloaderStatus('loading'));
     packAPI.updatePackName(id, name).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedPacks({user_id: userId}));
+        dispatch(initializedPacks({user_id: userId, pageCount}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error

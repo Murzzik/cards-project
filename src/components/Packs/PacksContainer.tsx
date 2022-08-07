@@ -4,7 +4,7 @@ import PacksListContainer from './PacksList/PacksListContainer';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {initializedPacks} from '../../store/reducers/packs-reducer';
 import 'antd/dist/antd.css';
-import {Navigate, useSearchParams} from 'react-router-dom';
+import {Navigate, useLocation, useNavigate, useSearchParams} from 'react-router-dom';
 import {authorizationUser} from '../../store/reducers/authorization-reducer';
 import Preloader from '../common/Preloader/Preloader';
 
