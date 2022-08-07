@@ -18,7 +18,7 @@ import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {convertDate} from '../../../utilities/parsData';
 import s from './PackList.module.css';
 import {TableSortLabel} from '@mui/material';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import PacksPaginationContainer from './PacksPaginationContainer';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
@@ -59,9 +59,8 @@ export const PackList: React.FC<PackListPopsType> = ({packs, isLoggedIn}) => {
 
     const [sortMode, setSortMode] = useState<sortModeType>({sortBy: 'lastUpdate', direction: true});
 
-    const [searchParameters] = useSearchParams();
+    const [searchParameters, setSearchParameters] = useSearchParams();
     const myId = useAppSelector(state => state.auth.user._id);
-
 
     const owner = searchParameters.get('id');
     let userId = '';
@@ -72,6 +71,10 @@ export const PackList: React.FC<PackListPopsType> = ({packs, isLoggedIn}) => {
     const deletePackHandler = (id: string) => {
         dispatch(deletePack(id, userId));
     };
+    const triggerUpdatePack = useAppSelector(state => state.packs.triggerUpdatePack);
+    useEffect(() => {
+        setSearchParameters({...Object.fromEntries(searchParameters), page: '0'});
+    }, [triggerUpdatePack]);
 
     const updatePackNameHandler = (id: string) => {
         const newPackName = 'Test for name change before modal implemented';

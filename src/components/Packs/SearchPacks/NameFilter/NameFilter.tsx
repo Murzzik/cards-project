@@ -30,22 +30,23 @@ const NameFilter: React.FC<NameFilterPropsType> = () => {
     }, [debouncedName]);
 
     return (
-        <div className={style.inputField}>
+        <div >
             <h3>Search</h3>
-            <TextField
-                value={name}
-                fullWidth
-                id="standard-bare"
-                variant="outlined"
-                onChange={handleChange}
-                InputProps={{
-                    endAdornment: (
-                        <IconButton disabled>
-                            <SearchOutlined />
-                        </IconButton>
-                    ),
-                }}
-            />
+            {/*<TextField*/}
+            {/*    value={name}*/}
+            {/*    fullWidth*/}
+            {/*    id="standard-bare"*/}
+            {/*    variant="outlined"*/}
+            {/*    onChange={handleChange}*/}
+            {/*    InputProps={{*/}
+            {/*        endAdornment: (*/}
+            {/*            <IconButton disabled>*/}
+            {/*                <SearchOutlined />*/}
+            {/*            </IconButton>*/}
+            {/*        ),*/}
+            {/*    }}*/}
+            {/*/>*/}
+            <input type="text" value={name} onChange={handleChange}/>
         </div>
     );
 };

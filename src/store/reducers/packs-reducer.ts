@@ -1,4 +1,4 @@
-import {GetCardsType, packAPI} from '../../api/packAPI';
+import {GetCardsPackResponseType, GetCardsType, packAPI} from '../../api/packAPI';
 import {AppThunk} from '../store';
 import {setError, setPreloaderStatus} from './app-reducer';
 import {setIsLoggedIn} from './authorization-reducer';
@@ -11,20 +11,36 @@ const initialState: initialStateType = {
     minCardsCount: 0,
     maxCardsCount: 0,
     isLoading: false,
+    triggerAddNewPack: false,
+    triggerUpdatePack: false
 };
 
 export const packsReducer = (state = initialState, action: ActionTypeForPacksReducer): initialStateType => {
     switch (action.type) {
         case 'packs-setPacksData': {
-            return {...action.packsData};
+            return {...action.packsData, triggerAddNewPack: state.triggerAddNewPack};
+        }
+        case 'packs-setTriggerForAddNewPackL': {
+            return {...state, triggerAddNewPack: !state.triggerAddNewPack};
+        }
+        case 'packs-setTriggerForDeletePack': {
+            return {...state, triggerUpdatePack: !state.triggerUpdatePack};
         }
         default:
             return state;
     }
 };
 
-export const setPacksData = (packsData: initialStateType) => {
-    return {type: 'packs-setPacksData', packsData};
+export const setPacksData = (packsData: GetCardsPackResponseType) => {
+    return {type: 'packs-setPacksData', packsData} as const;
+};
+
+export const setTriggerForAddNewPack = () => {
+    return {type: 'packs-setTriggerForAddNewPackL'} as const;
+};
+
+export const setTriggerForUpdatePack = () => {
+    return {type: 'packs-setTriggerForDeletePack'} as const;
 };
 
 export const initializedPacks = (args: GetCardsType = {}): AppThunk => (dispatch) => {
@@ -51,7 +67,8 @@ export const addNewPack = (name: string, id = ''): AppThunk => (dispatch, getSta
     dispatch(setPreloaderStatus('loading'));
     packAPI.addNewPack(name).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedPacks({user_id: id, pageCount}));
+        // dispatch(initializedPacks({user_id: id, pageCount}));
+        dispatch(setTriggerForAddNewPack())
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -73,6 +90,7 @@ export const deletePack = (id: string, userId = ''): AppThunk => (dispatch, getS
     packAPI.deletePack(id).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
         dispatch(initializedPacks({user_id: userId, page, pageCount}));
+
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -83,12 +101,13 @@ export const deletePack = (id: string, userId = ''): AppThunk => (dispatch, getS
     });
 };
 
-export const updatePackName = (id: string, name: string, userId = ''): AppThunk => (dispatch,getState) => {
+export const updatePackName = (id: string, name: string, userId = ''): AppThunk => (dispatch, getState) => {
     const pageCount = getState().packs.pageCount;
     dispatch(setPreloaderStatus('loading'));
     packAPI.updatePackName(id, name).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
-        dispatch(initializedPacks({user_id: userId, pageCount}));
+        // dispatch(initializedPacks({user_id: userId, pageCount}));
+        dispatch(setTriggerForUpdatePack())
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -109,6 +128,8 @@ type initialStateType = {
     token?: string,
     tokenDeathTime?: number,
     isLoading?: boolean,
+    triggerAddNewPack?: boolean
+    triggerUpdatePack?: boolean
 }
 
 export type Pack = {
@@ -129,4 +150,4 @@ export type Pack = {
     __v: number
 }
 
-export type ActionTypeForPacksReducer = ReturnType<typeof setPacksData>
+export type ActionTypeForPacksReducer = ReturnType<typeof setPacksData> | ReturnType<typeof setTriggerForAddNewPack> | ReturnType<typeof setTriggerForUpdatePack>
