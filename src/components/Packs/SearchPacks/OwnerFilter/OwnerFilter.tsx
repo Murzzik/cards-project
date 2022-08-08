@@ -22,11 +22,11 @@ const OwnerFilter: React.FC<OwnerFilterPropsType> = () => {
         if (e.currentTarget.dataset.owner) {
             const trigger: string = e.currentTarget.dataset.owner;
             if (trigger === 'my') {
-                setSearchParameters({...Object.fromEntries(searchParameters), id: userID, page: '1'});
+                setSearchParameters({...Object.fromEntries(searchParameters), id: userID, page: '0'});
                 setActiveButton('my');
             } else {
                 searchParameters.delete('id');
-                setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
+                setSearchParameters({...Object.fromEntries(searchParameters), page: '0'});
                 setActiveButton('all');
             }
         }

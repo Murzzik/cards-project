@@ -78,7 +78,6 @@ export const PackList: React.FC<PackListPopsType> = ({packs, isLoggedIn}) => {
         //     setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
         // }
     }, [triggerUpdatePack]);
-
     const updatePackNameHandler = (id: string) => {
         const newPackName = 'Test for name change before modal implemented';
         dispatch(updatePackName(id, newPackName, userId));

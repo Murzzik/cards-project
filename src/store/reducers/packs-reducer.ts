@@ -6,7 +6,7 @@ import {setIsLoggedIn} from './authorization-reducer';
 const initialState: initialStateType = {
     cardPacks: [],
     page: 0,
-    pageCount: 0,
+    pageCount: 4,
     cardPacksTotalCount: 0,
     minCardsCount: 0,
     maxCardsCount: 0,
@@ -18,7 +18,7 @@ const initialState: initialStateType = {
 export const packsReducer = (state = initialState, action: ActionTypeForPacksReducer): initialStateType => {
     switch (action.type) {
         case 'packs-setPacksData': {
-            return {...action.packsData};
+            return {...action.packsData, triggerAddNewPack: state.triggerAddNewPack, triggerUpdatePack: state.triggerUpdatePack};
         }
         case 'packs-setTriggerForAddNewPackL': {
             return {...state, triggerAddNewPack: !state.triggerAddNewPack};
@@ -141,8 +141,8 @@ type initialStateType = {
     token?: string,
     tokenDeathTime?: number,
     isLoading?: boolean,
-    triggerAddNewPack?: boolean
-    triggerUpdatePack?: boolean
+    triggerAddNewPack: boolean
+    triggerUpdatePack: boolean
 }
 
 export type Pack = {

@@ -31,7 +31,6 @@ const SearchContainer: React.FC<SearchContainerPropsType> = () => {
         //     setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
         // }
     }, [triggerAddNewPack]);
-
     return (
         <div className={style.searchBlock}>
             <div className={style.searchHeader}>
