@@ -18,7 +18,7 @@ const initialState: initialStateType = {
 export const packsReducer = (state = initialState, action: ActionTypeForPacksReducer): initialStateType => {
     switch (action.type) {
         case 'packs-setPacksData': {
-            return {...action.packsData, triggerAddNewPack: state.triggerAddNewPack, triggerUpdatePack: state.triggerUpdatePack};
+            return {...action.packsData};
         }
         case 'packs-setTriggerForAddNewPackL': {
             return {...state, triggerAddNewPack: !state.triggerAddNewPack};
@@ -64,11 +64,17 @@ export const initializedPacks = (args: GetCardsType = {}): AppThunk => (dispatch
 
 export const addNewPack = (name: string, id = ''): AppThunk => (dispatch, getState) => {
     const pageCount = getState().packs.pageCount;
+    const page = getState().packs.page;
     dispatch(setPreloaderStatus('loading'));
     packAPI.addNewPack(name).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
         // dispatch(initializedPacks({user_id: id, pageCount}));
-        dispatch(setTriggerForAddNewPack());
+       if (page>1) {
+           dispatch(setTriggerForAddNewPack());
+       }
+       else {
+           dispatch(initializedPacks({user_id: id, pageCount}));
+       }
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -103,11 +109,18 @@ export const deletePack = (id: string, userId = ''): AppThunk => (dispatch, getS
 
 export const updatePackName = (id: string, name: string, userId = ''): AppThunk => (dispatch, getState) => {
     const pageCount = getState().packs.pageCount;
+    const page = getState().packs.page;
     dispatch(setPreloaderStatus('loading'));
     packAPI.updatePackName(id, name).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
         // dispatch(initializedPacks({user_id: userId, pageCount}));
-        dispatch(setTriggerForUpdatePack());
+        // dispatch(setTriggerForUpdatePack());
+        if (page>1) {
+            dispatch(setTriggerForUpdatePack());
+        }
+        else {
+            dispatch(initializedPacks({user_id: userId, pageCount}));
+        }
     }).catch(e => {
         const error = e.response
             ? e.response.data.error

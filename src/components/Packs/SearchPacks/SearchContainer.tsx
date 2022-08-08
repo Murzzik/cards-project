@@ -27,9 +27,9 @@ const SearchContainer: React.FC<SearchContainerPropsType> = () => {
     };
     useEffect(() => {
         setSearchParameters({...Object.fromEntries(searchParameters), page: '0'});
-        if (page==="0") {
-            setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
-        }
+        // if (page==="0") {
+        //     setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
+        // }
     }, [triggerAddNewPack]);
 
     return (

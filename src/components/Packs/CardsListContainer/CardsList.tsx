@@ -54,9 +54,9 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
     const page = searchParameters.get('page');
     useEffect(() => {
         setSearchParameters({...Object.fromEntries(searchParameters), page: '0'});
-        if (page === '0') {
-            setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
-        }
+        // if (page === '0') {
+        //     setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
+        // }
     }, [triggerUpdateCard]);
 
     const updateCardHandler = (id: string, packID: string) => {

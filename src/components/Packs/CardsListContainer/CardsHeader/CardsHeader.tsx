@@ -41,9 +41,9 @@ const CardsHeader: React.FC<CardsHeaderPropsType> = ({cardsPack_id}) => {
 
     useEffect(() => {
         setSearchParameters({...Object.fromEntries(searchParameters), page: '0'});
-        if (page === '0') {
-            setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
-        }
+        // if (page === '0') {
+        //     setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
+        // }
     }, [triggerAddNewCard]);
 
     useEffect(() => {

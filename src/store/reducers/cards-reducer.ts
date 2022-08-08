@@ -16,7 +16,7 @@ const initialState: initialStateType = {
 export const cardsReducer = (state = initialState, action: ActionTypeForCards): initialStateType => {
     switch (action.type) {
         case 'cards-setCardsData': {
-            return {...action.cardsData, triggerAddNewCard: state.triggerAddNewCard, triggerUpdateCard: state.triggerUpdateCard};
+            return {...action.cardsData};
         }
         case 'packs-setTriggerForAddNewCard': {
             return {...state, triggerAddNewCard: !state.triggerAddNewCard};
@@ -54,12 +54,19 @@ export const initializedCards = (args: GetCardType): AppThunk => (dispatch) => {
     });
 };
 
-export const addNewCard = (packID: string, question: string, answer: string): AppThunk => (dispatch) => {
+export const addNewCard = (packID: string, question: string, answer: string): AppThunk => (dispatch, getState) => {
     dispatch(setPreloaderStatus('loading'));
+    const pageCount = getState().cards.pageCount;
+    const page = getState().cards.page;
     cardsAPI.addNewCard(packID, question, answer).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
         // dispatch(initializedCards({cardsPack_id: packID}));
-        dispatch(setTriggerForAddNewCard())
+        // dispatch(setTriggerForAddNewCard());
+        if (page > 1) {
+            dispatch(setTriggerForAddNewCard());
+        } else {
+            dispatch(initializedCards({cardsPack_id: packID, pageCount}));
+        }
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -93,11 +100,17 @@ export const deleteCard = (id: string, packID: string): AppThunk => (dispatch, g
 
 export const updateCard = (id: string, question: string, packID: string): AppThunk => (dispatch, getState) => {
     const pageCount = getState().cards.pageCount;
+    const page = getState().cards.page;
     dispatch(setPreloaderStatus('loading'));
     cardsAPI.updateCard(id, question).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
         // dispatch(initializedCards({cardsPack_id: packID, pageCount}));
-        dispatch(setTriggerForUpdateCard())
+        // dispatch(setTriggerForUpdateCard());
+        if (page > 1) {
+            dispatch(setTriggerForUpdateCard());
+        } else {
+            dispatch(initializedCards({cardsPack_id: packID, pageCount}));
+        }
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
