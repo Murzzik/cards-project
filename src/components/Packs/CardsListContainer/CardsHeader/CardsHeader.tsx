@@ -1,6 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import useDebounce from 'usehooks-ts/dist/esm/useDebounce/useDebounce';
-import {useSearchParams} from 'react-router-dom';
 import {Button, IconButton, TextField} from '@material-ui/core';
 import {SearchOutlined} from '@material-ui/icons';
 import style from './CardsHeader.module.css';
@@ -13,16 +12,11 @@ type CardsHeaderPropsType = {
 
 const CardsHeader: React.FC<CardsHeaderPropsType> = ({cardsPack_id}) => {
     const dispatch = useAppDispatch();
-    const [searchParameters, setSearchParameters] = useSearchParams();
-    let starQuestion = searchParameters.get('question');
-    let questionParameter = '';
-    if (starQuestion) {
-        questionParameter = starQuestion;
-    }
-    const [question, setQuestion] = useState<string>(questionParameter);
-    const debouncedName = useDebounce(question, 1500);
+
+    const [name, setName] = useState('');
+    const debouncedName = useDebounce(name, 1500);
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setQuestion(event.currentTarget.value);
+        setName(event.currentTarget.value);
     };
 
     const pack = useAppSelector(state => state.packs.cardPacks.find(p => p._id === cardsPack_id));
@@ -30,28 +24,16 @@ const CardsHeader: React.FC<CardsHeaderPropsType> = ({cardsPack_id}) => {
     if (pack) {
         packName = pack.name;
     }
-    const page = searchParameters.get('page');
+
     const addPackHandler = (id: string) => {
         const question = 'Who is your boss baby';
         const answer = 'You are, my papa';
         dispatch(addNewCard(id, question, answer));
     };
 
-    const triggerAddNewCard = useAppSelector(state => state.cards.triggerAddNewCard);
-
     useEffect(() => {
-        setSearchParameters({...Object.fromEntries(searchParameters), page: '0'});
-        // if (page === '0') {
-        //     setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
-        // }
-    }, [triggerAddNewCard]);
-
-    useEffect(() => {
-        if (question.length > 0) {
-            setSearchParameters({...Object.fromEntries(searchParameters), question});
-        } else {
-            searchParameters.delete('question');
-            setSearchParameters({...Object.fromEntries(searchParameters)});
+        if (packName !== name) {
+            // dispatch(setCarsParameter({...parameters, packName}));
         }
     }, [debouncedName]);
 
@@ -61,7 +43,7 @@ const CardsHeader: React.FC<CardsHeaderPropsType> = ({cardsPack_id}) => {
                 <h3>{packName}</h3>
                 <h3>Search</h3>
                 <TextField
-                    value={question}
+                    value={name}
                     fullWidth
                     id="standard-bare"
                     variant="outlined"

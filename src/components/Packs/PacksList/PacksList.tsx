@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import {styled} from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,8 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {deletePack, Pack, updatePackName} from '../../../store/reducers/packs-reducer';
-import {NavLink, useSearchParams} from 'react-router-dom';
-import {Pagination} from 'antd';
+import {NavLink} from 'react-router-dom';
 import SchoolIcon from '@mui/icons-material/School';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
@@ -18,7 +18,6 @@ import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {convertDate} from '../../../utilities/parsData';
 import s from './PackList.module.css';
 import {TableSortLabel} from '@mui/material';
-import {useEffect, useState} from 'react';
 import PacksPaginationContainer from './PacksPaginationContainer';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
@@ -41,46 +40,29 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
     },
 }));
 
-type PackListPopsType = {
-    packs: Pack[],
-    isLoggedIn: boolean
-}
+type PackListPopsType = {}
 type headCellsIDsType = 'name' | 'cardsCount' | 'lastUpdate' | 'createdBy' | 'actions'
 type sortModeType = { sortBy: headCellsIDsType, direction: boolean }
 type headCellsType = {
     id: headCellsIDsType
     label: string,
     align?: string,
-
 }
 
-export const PackList: React.FC<PackListPopsType> = ({packs, isLoggedIn}) => {
+export const PackList: React.FC<PackListPopsType> = () => {
     const dispatch = useAppDispatch();
-
+    const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn);
+    const packs = useAppSelector(state => state.packs.cardPacks);
     const [sortMode, setSortMode] = useState<sortModeType>({sortBy: 'lastUpdate', direction: true});
 
-    const [searchParameters, setSearchParameters] = useSearchParams();
     const myId = useAppSelector(state => state.auth.user._id);
 
-    const owner = searchParameters.get('id');
-    let userId = '';
-    if (owner) {
-        userId = owner;
-    }
-    const page = searchParameters.get('page');
     const deletePackHandler = (id: string) => {
-        dispatch(deletePack(id, userId));
+        dispatch(deletePack(id));
     };
-    const triggerUpdatePack = useAppSelector(state => state.packs.triggerUpdatePack);
-    useEffect(() => {
-        setSearchParameters({...Object.fromEntries(searchParameters), page: '0'});
-        // if (page==="0") {
-        //     setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
-        // }
-    }, [triggerUpdatePack]);
     const updatePackNameHandler = (id: string) => {
         const newPackName = 'Test for name change before modal implemented';
-        dispatch(updatePackName(id, newPackName, userId));
+        dispatch(updatePackName(id, newPackName));
     };
 
     const onSortModeChangeHandler = (id: headCellsIDsType) => {

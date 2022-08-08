@@ -1,36 +1,20 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import style from './SearchParameters.module.css';
 import {Button} from '@material-ui/core';
 import NameFilter from './NameFilter/NameFilter';
 import OwnerFilter from './OwnerFilter/OwnerFilter';
 import QuantityFilter from './QuantityFilter/QuantityFilter';
-import {useAppDispatch, useAppSelector} from '../../../store/store';
+import {useAppDispatch} from '../../../store/store';
 import {addNewPack} from '../../../store/reducers/packs-reducer';
-import {useSearchParams} from 'react-router-dom';
 
-type SearchContainerPropsType = {}
-const SearchContainer: React.FC<SearchContainerPropsType> = () => {
-    const [searchParameters, setSearchParameters] = useSearchParams();
-    const owner = searchParameters.get('id');
-    let userId = '';
-    if (owner) {
-        userId = owner;
-    }
-    const page = searchParameters.get('page');
-    const triggerAddNewPack = useAppSelector(state => state.packs.triggerAddNewPack);
+const SearchContainer: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const newPackHandler = () => {
         const name = 'New pack success added';
-        // setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
-        dispatch(addNewPack(name, userId));
+        dispatch(addNewPack(name));
     };
-    useEffect(() => {
-        setSearchParameters({...Object.fromEntries(searchParameters), page: '0'});
-        // if (page==="0") {
-        //     setSearchParameters({...Object.fromEntries(searchParameters), page: '1'});
-        // }
-    }, [triggerAddNewPack]);
+
     return (
         <div className={style.searchBlock}>
             <div className={style.searchHeader}>

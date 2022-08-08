@@ -1,16 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PacksList from './PacksList';
-import { useAppSelector } from '../../../store/store';
 
 const PacksListContainer = () => {
-    const packs = useAppSelector(state => state.packs.cardPacks);
-
-    const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn);
-    useEffect(() => {
-
-    }, [packs]);
     return (
-        <PacksList packs={packs} isLoggedIn={isLoggedIn} />
+        <PacksList/>
     );
 };
 

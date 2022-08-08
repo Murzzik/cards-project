@@ -1,52 +1,31 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import style from './NameFilter.module.css';
-import { IconButton, TextField } from '@material-ui/core';
-import { SearchOutlined } from '@material-ui/icons';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import useDebounce from 'usehooks-ts/dist/esm/useDebounce/useDebounce';
-import { useSearchParams } from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../../../store/store';
+import {setPacksParameter} from '../../../../store/reducers/packsParameterReducer';
 
 type NameFilterPropsType = {}
 
 const NameFilter: React.FC<NameFilterPropsType> = () => {
-    const [searchParameters, setSearchParameters] = useSearchParams();
-    let startName = searchParameters.get('name');
-    let nameParameter = '';
-    if(startName) {
-        nameParameter = startName;
-    }
-    const [name, setName] = useState(nameParameter);
-    const debouncedName = useDebounce(name, 1500);
+    const dispatch = useAppDispatch();
+    let parameters = useAppSelector(state => state.packsParameter);
+    let name = useAppSelector(state => state.packsParameter.packName);
+
+    const [packName, setPackName] = useState<string>('');
+    const debouncedName = useDebounce(packName, 1500);
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setName(event.currentTarget.value);
+        setPackName(event.currentTarget.value);
     };
 
     useEffect(() => {
-        if(name.length > 0) {
-            setSearchParameters({...Object.fromEntries(searchParameters), name});
-        } else {
-            searchParameters.delete('name');
-            setSearchParameters({...Object.fromEntries(searchParameters)});
+        if (packName !== name) {
+            dispatch(setPacksParameter({...parameters, packName}));
         }
     }, [debouncedName]);
 
     return (
-        <div >
+        <div>
             <h3>Search</h3>
-            {/*<TextField*/}
-            {/*    value={name}*/}
-            {/*    fullWidth*/}
-            {/*    id="standard-bare"*/}
-            {/*    variant="outlined"*/}
-            {/*    onChange={handleChange}*/}
-            {/*    InputProps={{*/}
-            {/*        endAdornment: (*/}
-            {/*            <IconButton disabled>*/}
-            {/*                <SearchOutlined />*/}
-            {/*            </IconButton>*/}
-            {/*        ),*/}
-            {/*    }}*/}
-            {/*/>*/}
-            <input type="text" value={name} onChange={handleChange}/>
+            <input type="text" value={packName} onChange={handleChange}/>
         </div>
     );
 };

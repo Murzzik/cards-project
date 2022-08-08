@@ -1,33 +1,28 @@
 import React, {useState} from 'react';
 import style from './OwnerFilter.module.css';
 import {Button, ButtonGroup} from '@material-ui/core';
-import {useAppSelector} from '../../../../store/store';
-import {useSearchParams} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../../../store/store';
+import {setPacksParameter} from '../../../../store/reducers/packsParameterReducer';
 
 type OwnerFilterPropsType = {}
 
 const OwnerFilter: React.FC<OwnerFilterPropsType> = () => {
-    const [searchParameters, setSearchParameters] = useSearchParams();
-    const owner = searchParameters.get('id');
-    let ownerParameter = '';
-    if (owner) {
-        ownerParameter = 'my';
-    } else {
-        ownerParameter = 'all';
-    }
-    const userID = useAppSelector(state => state.auth.user._id);
-    const [activeButton, setActiveButton] = useState(ownerParameter);
+
+    const dispatch = useAppDispatch();
+    const user_id = useAppSelector(state => state.auth.user._id);
+    const [activeButton, setActiveButton] = useState(false);
+    let parameters = useAppSelector(state => state.packsParameter);
+
 
     const onclickHandler = (e: React.MouseEvent<HTMLSpanElement>) => {
         if (e.currentTarget.dataset.owner) {
             const trigger: string = e.currentTarget.dataset.owner;
             if (trigger === 'my') {
-                setSearchParameters({...Object.fromEntries(searchParameters), id: userID, page: '0'});
-                setActiveButton('my');
+                dispatch(setPacksParameter({...parameters, user_id}));
+                setActiveButton(true)
             } else {
-                searchParameters.delete('id');
-                setSearchParameters({...Object.fromEntries(searchParameters), page: '0'});
-                setActiveButton('all');
+                dispatch(setPacksParameter({...parameters, user_id: ''}))
+                setActiveButton(false)
             }
         }
     };
@@ -36,9 +31,9 @@ const OwnerFilter: React.FC<OwnerFilterPropsType> = () => {
         <div className={style.ownerFilter}>
             <h3>Show packs cards</h3>
             <ButtonGroup variant="contained" aria-label="outlined primary button group" className={style.buttonGroup}>
-                <Button data-owner="my" className={activeButton === 'my' ? style.activeButton : ''}
+                <Button data-owner="my" className={activeButton ? style.activeButton : ''}
                         onClick={onclickHandler}>My</Button>
-                <Button data-owner="all" className={activeButton === 'all' ? style.activeButton : ''}
+                <Button data-owner="all" className={!activeButton ? style.activeButton : ''}
                         onClick={onclickHandler}>All</Button>
             </ButtonGroup>
         </div>

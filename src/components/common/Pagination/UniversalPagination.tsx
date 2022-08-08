@@ -3,8 +3,8 @@ import {Pagination} from 'antd';
 
 type PaginationPropsType = {
     totalItems: number,
-    page: number,
-    pageCount: number
+    page: number | undefined,
+    pageCount: number | undefined
     changePaginationData: (page: number, size: number) => void
 }
 
