@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import style from './OwnerFilter.module.css';
 import {Button, ButtonGroup} from '@material-ui/core';
-import {useAppDispatch, useAppSelector} from '../../../../store/store';
-import {setPacksParameter} from '../../../../store/reducers/packsParameterReducer';
+import {useAppDispatch, useAppSelector} from '../../../../../store/store';
+import {setPacksParameter} from '../../../../../store/reducers/packsParameterReducer';
+
 
 type OwnerFilterPropsType = {}
 

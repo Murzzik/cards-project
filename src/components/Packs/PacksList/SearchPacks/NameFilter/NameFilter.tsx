@@ -1,7 +1,8 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import useDebounce from 'usehooks-ts/dist/esm/useDebounce/useDebounce';
-import {useAppDispatch, useAppSelector} from '../../../../store/store';
-import {setPacksParameter} from '../../../../store/reducers/packsParameterReducer';
+import {useAppDispatch, useAppSelector} from '../../../../../store/store';
+import {setPacksParameter} from '../../../../../store/reducers/packsParameterReducer';
+
 
 type NameFilterPropsType = {}
 

@@ -2,8 +2,9 @@ import React, {ChangeEvent, useEffect} from 'react';
 import style from './QuantityFilter.module.css';
 import Slider from '@mui/material/Slider';
 import useDebounce from 'usehooks-ts/dist/esm/useDebounce/useDebounce';
-import {useAppDispatch, useAppSelector} from '../../../../store/store';
-import {setPacksParameter} from '../../../../store/reducers/packsParameterReducer';
+import {useAppDispatch, useAppSelector} from '../../../../../store/store';
+import {setPacksParameter} from '../../../../../store/reducers/packsParameterReducer';
+
 
 type QuantityFilterPropsType = {}
 

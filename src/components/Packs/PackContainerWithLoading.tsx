@@ -1,9 +1,10 @@
 import React from 'react';
-import PacksSearchContainer from './SearchPacks/SearchContainer';
+
 import PacksPaginationContainer from './PacksList/PacksPaginationContainer';
 import {useAppSelector} from '../../store/store';
 import PacksList from './PacksList/PacksList';
 import Preloader from '../common/Preloader/Preloader';
+import PacksSearchContainer from './PacksList/SearchPacks/PacksSearchContainer';
 
 const PackContainerWithLoading: React.FC = () => {
     const isLoading = useAppSelector(state => state.app.status) === 'loading';

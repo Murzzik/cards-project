@@ -4,10 +4,11 @@ import {Button} from '@material-ui/core';
 import NameFilter from './NameFilter/NameFilter';
 import OwnerFilter from './OwnerFilter/OwnerFilter';
 import QuantityFilter from './QuantityFilter/QuantityFilter';
-import {useAppDispatch} from '../../../store/store';
-import {addNewPack} from '../../../store/reducers/packs-reducer';
+import {addNewPack} from '../../../../store/reducers/packs-reducer';
+import {useAppDispatch} from '../../../../store/store';
 
-const SearchContainer: React.FC = () => {
+
+const PacksSearchContainer: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const newPackHandler = () => {
@@ -30,4 +31,4 @@ const SearchContainer: React.FC = () => {
     );
 };
 
-export default SearchContainer;
+export default PacksSearchContainer;
