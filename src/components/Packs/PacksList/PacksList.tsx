@@ -8,13 +8,12 @@ type PackListPopsType = {}
 export const PackList: React.FC<PackListPopsType> = () => {
     const isPacks = useAppSelector(state => state.packs.cardPacks).length > 0;
 
-
     return (
         <div>
             {isPacks ?
                 <TablesContainer/>
                 :
-              <ConditionResponse/>
+                <ConditionResponse/>
             }
         </div>
     );
