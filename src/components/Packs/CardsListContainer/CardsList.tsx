@@ -16,6 +16,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {IconButton} from '@material-ui/core';
 import EditIcon from '@mui/icons-material/Edit';
 import s from './CardsList.module.css';
+import CardsPaginationContainer from './CardsPaginationContainer';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -94,6 +95,7 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <CardsPaginationContainer/>
         </div>
 
     );
