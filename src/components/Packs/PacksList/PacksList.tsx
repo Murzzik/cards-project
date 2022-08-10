@@ -14,7 +14,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import {IconButton} from '@material-ui/core';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {convertDate} from '../../../utilities/parsData';
-import PacksTableHeadContainer from '../PacksTableHeadContainer';
+import PacksTableHeadContainer from './PacksTableHeadContainer';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {

@@ -3,7 +3,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableHead from '@mui/material/TableHead';
 import {TableSortLabel} from "@mui/material";
-import s from "./PacksList/PackList.module.css";
+import s from "./PackList.module.css";
 
 export type sortModeType = { sortBy: string, direction: 'asc' | 'desc' }
 export type headCellsType = {

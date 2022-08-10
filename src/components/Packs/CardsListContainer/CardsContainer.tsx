@@ -2,11 +2,9 @@ import React, {useEffect} from 'react';
 import {Navigate, useParams} from 'react-router-dom';
 import {initializedCards} from '../../../store/reducers/cards-reducer';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
-import CardsHeader from './CardsHeader/CardsHeader';
-import CardsList from './CardsList';
-import CardsPaginationContainer from './CardsPaginationContainer';
 import {authorizationUser} from '../../../store/reducers/authorization-reducer';
 import Preloader from '../../common/Preloader/Preloader';
+import CardsContainerWithLoading from './CardsContainerWithLoading';
 
 const CardsContainer = () => {
     const {cardsPack_id} = useParams();
@@ -34,11 +32,7 @@ const CardsContainer = () => {
     if (!isLoggedIn) return <Navigate to={'/authorization'}/>;
 
     return (
-        <div>
-            <CardsHeader cardsPack_id={cardsPack_id ? cardsPack_id : ''}/>
-            {cardsPack_id ? <CardsList cards={cards}/> : ''}
-            <CardsPaginationContainer/>
-        </div>
+        <CardsContainerWithLoading cardsPack_id={cardsPack_id ? cardsPack_id : ''} cards={cards}/>
     );
 };
 

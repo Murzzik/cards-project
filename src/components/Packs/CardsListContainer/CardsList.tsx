@@ -94,7 +94,6 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-
         </div>
 
     );
