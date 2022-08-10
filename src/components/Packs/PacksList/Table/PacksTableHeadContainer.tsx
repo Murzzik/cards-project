@@ -1,7 +1,9 @@
 import React from 'react';
-import CommonTableHead, {headCellsType, sortModeType} from "./TableHead";
-import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {setPacksParameter} from "../../../store/reducers/packsParameterReducer";
+
+import {useAppDispatch, useAppSelector} from "../../../../store/store";
+import {setPacksParameter} from "../../../../store/reducers/packsParameterReducer";
+import CommonTableHead, {headCellsType, sortModeType} from '../Table/TableHead';
+
 
 const PacksTableHeadContainer = () => {
     const parameters = useAppSelector(state => state.packsParameter);

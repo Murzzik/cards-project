@@ -1,7 +1,7 @@
 import React from 'react';
-import UniversalPagination from '../../common/Pagination/UniversalPagination';
-import {useAppDispatch, useAppSelector} from '../../../store/store';
-import {setPacksParameter} from '../../../store/reducers/packsParameterReducer';
+import UniversalPagination from '../../../common/Pagination/UniversalPagination';
+import {useAppDispatch, useAppSelector} from '../../../../store/store';
+import {setPacksParameter} from '../../../../store/reducers/packsParameterReducer';
 
 const PacksPaginationContainer: React.FC = () => {
     const totalItems = useAppSelector(state => state.packs.cardPacksTotalCount);

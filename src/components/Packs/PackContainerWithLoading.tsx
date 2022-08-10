@@ -1,6 +1,4 @@
 import React from 'react';
-
-import PacksPaginationContainer from './PacksList/PacksPaginationContainer';
 import {useAppSelector} from '../../store/store';
 import PacksList from './PacksList/PacksList';
 import Preloader from '../common/Preloader/Preloader';
@@ -13,7 +11,6 @@ const PackContainerWithLoading: React.FC = () => {
             {isLoading && <Preloader/>}
             <PacksSearchContainer/>
             <PacksList/>
-            <PacksPaginationContainer/>
         </div>
 
     );

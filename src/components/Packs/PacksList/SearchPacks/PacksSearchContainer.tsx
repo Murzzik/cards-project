@@ -11,7 +11,7 @@ import {useAppDispatch} from '../../../../store/store';
 const PacksSearchContainer: React.FC = () => {
     const dispatch = useAppDispatch();
 
-    const newPackHandler = () => {
+   const newPackHandler = () => {
         const name = 'New pack success added';
         dispatch(addNewPack(name));
     };
