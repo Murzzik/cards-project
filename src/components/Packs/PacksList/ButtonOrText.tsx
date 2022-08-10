@@ -3,7 +3,7 @@ import {Button} from '@material-ui/core';
 import {addNewPack} from '../../../store/reducers/packs-reducer';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 
-const ConditionResponse: React.FC = () => {
+const ButtonOrText: React.FC = () => {
     const dispatch = useAppDispatch();
     const myId = useAppSelector(state => state.auth.user._id);
     const isMyPacks = useAppSelector(state => state.packsParameter.user_id) === myId;
@@ -26,4 +26,4 @@ const ConditionResponse: React.FC = () => {
     );
 };
 
-export default ConditionResponse;
+export default ButtonOrText;

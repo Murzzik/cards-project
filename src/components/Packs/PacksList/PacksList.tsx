@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useAppSelector} from '../../../store/store';
 import TablesContainer from './Table/TablesContainer';
-import ConditionResponse from './ConditionResponse';
+import ButtonOrText from './ButtonOrText';
 
 type PackListPopsType = {}
 
@@ -13,7 +13,7 @@ export const PackList: React.FC<PackListPopsType> = () => {
             {isPacks ?
                 <TablesContainer/>
                 :
-                <ConditionResponse/>
+                <ButtonOrText/>
             }
         </div>
     );
