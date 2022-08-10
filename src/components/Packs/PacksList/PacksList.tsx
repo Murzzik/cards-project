@@ -7,8 +7,7 @@ import {addNewPack} from '../../../store/reducers/packs-reducer';
 type PackListPopsType = {}
 
 export const PackList: React.FC<PackListPopsType> = () => {
-    const IsPacks = useAppSelector(state => state.packs.cardPacks).length > 0;
-
+    const isPacks = useAppSelector(state => state.packs.cardPacks).length > 0;
     const dispatch = useAppDispatch();
     const newPackHandler = () => {
         const name = 'New pack success added';
@@ -17,7 +16,7 @@ export const PackList: React.FC<PackListPopsType> = () => {
 
     return (
         <div>
-            {IsPacks ?
+            {isPacks ?
                 <TablesContainer/>
                 :
                 <Button variant={'contained'} color={'primary'} onClick={newPackHandler} style={{left: '50%'}}>Add new pack</Button>
