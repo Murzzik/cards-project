@@ -15,8 +15,7 @@ import {IconButton} from '@material-ui/core';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {convertDate} from '../../../utilities/parsData';
 import s from './PackList.module.css';
-import PacksPaginationContainer from './PacksPaginationContainer';
-import PacksTableHeadContainer from "../PacksTableHeadContainer";
+import PacksTableHeadContainer from '../PacksTableHeadContainer';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -99,7 +98,7 @@ export const PackList: React.FC<PackListPopsType> = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>}
-                <PacksPaginationContainer/>
+
             </div>
             : <h3 style={{fontSize: '50px', color: 'white', textAlign: 'center'}}>Возможно паки ещё не загрузились,
                 ожидайте...</h3>}

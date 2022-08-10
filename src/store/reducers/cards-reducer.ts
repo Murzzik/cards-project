@@ -28,7 +28,9 @@ export const setCardsData = (cardsData: GetCardsResponseType) => {
 };
 
 export const initializedCards = (args: GetCardType): AppThunk => (dispatch) => {
+    dispatch(setPreloaderStatus('loading'));
     cardsAPI.getCards(args).then(res => {
+        dispatch(setPreloaderStatus('succeeded'));
         dispatch(setCardsData(res.data));
     }).catch(e => {
         const error = e.response

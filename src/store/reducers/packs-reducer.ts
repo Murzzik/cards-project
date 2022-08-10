@@ -30,7 +30,9 @@ export const setPacksData = (packsData: GetCardsPackResponseType) => {
 };
 
 export const initializedPacks = (args: GetCardsType = {}): AppThunk => (dispatch, getState) => {
+    dispatch(setPreloaderStatus('loading'));
     packAPI.getPacks(args).then(res => {
+        dispatch(setPreloaderStatus('succeeded'));
         dispatch(setPacksData(res.data));
     }).catch(e => {
         const error = e.response
