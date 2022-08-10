@@ -1,6 +1,6 @@
-import { instance } from './instance';
-import { Pack } from '../store/reducers/packs-reducer';
-import { GetCardsResponseType } from './cardsAPI';
+import {instance} from './instance';
+import {Pack} from '../store/reducers/packs-reducer';
+import {GetCardsResponseType} from './cardsAPI';
 
 export const packAPI = {
     getPacks(args: GetCardsType) {
