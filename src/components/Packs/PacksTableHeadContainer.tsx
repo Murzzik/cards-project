@@ -1,11 +1,9 @@
 import React from 'react';
 import CommonTableHead, {headCellsType, sortModeType} from "./TableHead";
-import {useSearchParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {setPacksParameter} from "../../store/reducers/packsParameterReducer";
 
 const PacksTableHeadContainer = () => {
-    const [searchParameters, setSearchParameters] = useSearchParams()
     const parameters = useAppSelector(state => state.packsParameter);
     const dispatch = useAppDispatch()
 
@@ -50,7 +48,6 @@ const PacksTableHeadContainer = () => {
     const setSearchParams = (sortMode: sortModeType) => {
         const sortPacks = `${sortMode.direction === 'asc' ? '0' : '1'}${sortMode.sortBy}`
         dispatch(setPacksParameter({...parameters, sortPacks}))
-        // setSearchParameters({...Object.fromEntries(searchParameters), sortPacks})
     }
 
     return (

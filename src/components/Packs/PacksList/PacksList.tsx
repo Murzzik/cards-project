@@ -1,11 +1,9 @@
 import * as React from 'react';
-import {useState} from 'react';
 import {styled} from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, {tableCellClasses} from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {deletePack, Pack, updatePackName} from '../../../store/reducers/packs-reducer';
@@ -17,7 +15,6 @@ import {IconButton} from '@material-ui/core';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {convertDate} from '../../../utilities/parsData';
 import s from './PackList.module.css';
-import {TableSortLabel} from '@mui/material';
 import PacksPaginationContainer from './PacksPaginationContainer';
 import PacksTableHeadContainer from "../PacksTableHeadContainer";
 
@@ -42,19 +39,11 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
 }));
 
 type PackListPopsType = {}
-type headCellsIDsType = 'name' | 'cardsCount' | 'lastUpdate' | 'createdBy' | 'actions'
-type sortModeType = { sortBy: headCellsIDsType, direction: boolean }
-type headCellsType = {
-    id: headCellsIDsType
-    label: string,
-    align?: string,
-}
 
 export const PackList: React.FC<PackListPopsType> = () => {
     const dispatch = useAppDispatch();
     const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn);
     const packs = useAppSelector(state => state.packs.cardPacks);
-    const [sortMode, setSortMode] = useState<sortModeType>({sortBy: 'lastUpdate', direction: true});
 
     const myId = useAppSelector(state => state.auth.user._id);
 
@@ -66,46 +55,6 @@ export const PackList: React.FC<PackListPopsType> = () => {
         dispatch(updatePackName(id, newPackName));
     };
 
-    const onSortModeChangeHandler = (id: headCellsIDsType) => {
-//what?
-
-        setSortMode({
-            sortBy: id,
-            direction: id === sortMode.sortBy ? !sortMode.direction : true
-        });
-
-    };
-
-    const headCells: headCellsType[] = [
-        {
-            id: 'name',
-            label: 'Name',
-            align: 'left',
-
-        },
-        {
-            id: 'cardsCount',
-            label: 'Cards count',
-
-        },
-        {
-            id: 'lastUpdate',
-            label: 'last update',
-
-        },
-        {
-            id: 'createdBy',
-            label: 'Created by',
-
-        },
-        {
-            id: 'actions',
-            label: 'Actions',
-
-        },
-
-    ];
-
     return (
         <div>{packs.length > 0 ?
             <div>
@@ -114,50 +63,9 @@ export const PackList: React.FC<PackListPopsType> = () => {
                     :
                     <TableContainer component={Paper} style={{width: '80%', margin: '0 auto'}}>
                         <Table sx={{minWidth: 700}} aria-label="customized table">
-
-
-                                    <PacksTableHeadContainer/>
-
-                                    {/*{headCells.map(headCell => <TableCell*/}
-                                    {/*        key={headCell.id}*/}
-                                    {/*        // onClick={f => console.log(f.currentTarget.id)}*/}
-                                    {/*        // align={'right'}*/}
-                                    {/*        // padding={'normal'}*/}
-                                    {/*        // sortDirection={orderBy === headCell.id ? order : false}*/}
-                                    {/*        // style={{fontWeight: 'bold', width: headCell.width}}*/}
-                                    {/*    >*/}
-                                    {/*        <TableSortLabel*/}
-                                    {/*            disabled={headCell.id === 'actions'}*/}
-                                    {/*            active={headCell.id === sortMode.sortBy}*/}
-                                    {/*            direction={sortMode.direction ? 'asc' : 'desc'}*/}
-                                    {/*            onClick={() => onSortModeChangeHandler(headCell.id)}*/}
-                                    {/*        >*/}
-                                    {/*            {headCell.label}*/}
-
-                                    {/*        </TableSortLabel>*/}
-                                    {/*    </TableCell>*/}
-                                    {/*)*/}
-                                    {/*}*/}
-
-                                    {/*<StyledTableCell>*/}
-                                    {/*    <span style={{cursor: 'pointer'}}>Name</span>*/}
-                                    {/*</StyledTableCell>*/}
-                                    {/*<StyledTableCell align="right">Cards</StyledTableCell>*/}
-                                    {/*<StyledTableCell align="right">Last Update</StyledTableCell>*/}
-                                    {/*<StyledTableCell align="right">Create By</StyledTableCell>*/}
-                                    {/*<StyledTableCell align="right">Action</StyledTableCell>*/}
-
-                                    {/*<TableCell>*/}
-                                    {/*    <span style={{cursor: 'pointer'}}>Name</span>*/}
-                                    {/*</TableCell>*/}
-                                    {/*<TableCell align="right">Cards</TableCell>*/}
-                                    {/*<TableCell align="right">Last Update</TableCell>*/}
-                                    {/*<TableCell align="right">Create By</TableCell>*/}
-                                    {/*<TableCell align="right">Action</TableCell>*/}
-
-
+                            <PacksTableHeadContainer/>
                             <TableBody>
-                                {packs.map((pack: Pack, index) => (
+                                {packs.map((pack: Pack) => (
                                     <StyledTableRow key={pack._id}>
                                         <TableCell component="th" scope="row">
                                             <NavLink to={'/packs/' + pack._id}>{pack.name}</NavLink>
