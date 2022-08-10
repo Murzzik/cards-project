@@ -19,6 +19,7 @@ import {convertDate} from '../../../utilities/parsData';
 import s from './PackList.module.css';
 import {TableSortLabel} from '@mui/material';
 import PacksPaginationContainer from './PacksPaginationContainer';
+import PacksTableHeadContainer from "../PacksTableHeadContainer";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -113,30 +114,30 @@ export const PackList: React.FC<PackListPopsType> = () => {
                     :
                     <TableContainer component={Paper} style={{width: '80%', margin: '0 auto'}}>
                         <Table sx={{minWidth: 700}} aria-label="customized table">
-                            <TableHead>
-                                <TableRow>
 
 
-                                    {headCells.map(headCell => <TableCell
-                                            key={headCell.id}
-                                            // onClick={f => console.log(f.currentTarget.id)}
-                                            // align={'right'}
-                                            // padding={'normal'}
-                                            // sortDirection={orderBy === headCell.id ? order : false}
-                                            // style={{fontWeight: 'bold', width: headCell.width}}
-                                        >
-                                            <TableSortLabel
-                                                disabled={headCell.id === 'actions'}
-                                                active={headCell.id === sortMode.sortBy}
-                                                direction={sortMode.direction ? 'asc' : 'desc'}
-                                                onClick={() => onSortModeChangeHandler(headCell.id)}
-                                            >
-                                                {headCell.label}
+                                    <PacksTableHeadContainer/>
 
-                                            </TableSortLabel>
-                                        </TableCell>
-                                    )
-                                    }
+                                    {/*{headCells.map(headCell => <TableCell*/}
+                                    {/*        key={headCell.id}*/}
+                                    {/*        // onClick={f => console.log(f.currentTarget.id)}*/}
+                                    {/*        // align={'right'}*/}
+                                    {/*        // padding={'normal'}*/}
+                                    {/*        // sortDirection={orderBy === headCell.id ? order : false}*/}
+                                    {/*        // style={{fontWeight: 'bold', width: headCell.width}}*/}
+                                    {/*    >*/}
+                                    {/*        <TableSortLabel*/}
+                                    {/*            disabled={headCell.id === 'actions'}*/}
+                                    {/*            active={headCell.id === sortMode.sortBy}*/}
+                                    {/*            direction={sortMode.direction ? 'asc' : 'desc'}*/}
+                                    {/*            onClick={() => onSortModeChangeHandler(headCell.id)}*/}
+                                    {/*        >*/}
+                                    {/*            {headCell.label}*/}
+
+                                    {/*        </TableSortLabel>*/}
+                                    {/*    </TableCell>*/}
+                                    {/*)*/}
+                                    {/*}*/}
 
                                     {/*<StyledTableCell>*/}
                                     {/*    <span style={{cursor: 'pointer'}}>Name</span>*/}
@@ -154,8 +155,7 @@ export const PackList: React.FC<PackListPopsType> = () => {
                                     {/*<TableCell align="right">Create By</TableCell>*/}
                                     {/*<TableCell align="right">Action</TableCell>*/}
 
-                                </TableRow>
-                            </TableHead>
+
                             <TableBody>
                                 {packs.map((pack: Pack, index) => (
                                     <StyledTableRow key={pack._id}>
