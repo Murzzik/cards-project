@@ -49,6 +49,7 @@ export const Header = () => {
                 <button className={s.navigationContainer} onClick={dropdownNavigateHandler}>
                     <img src={projectLogo} alt="IT-INCUBATOR" />
                     <div className={dropdownMenu}>
+                        <NavLink to="/" className={s.navElement}>Main page</NavLink>
                         <NavLink to="/authorization" className={s.navElement}>Authorization page</NavLink>
                         <NavLink to="/registration" className={s.navElement}>Registration page</NavLink>
                         <NavLink to="/packs" className={s.navElement}>Packs page</NavLink>

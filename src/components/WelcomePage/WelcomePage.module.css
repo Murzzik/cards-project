@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Luckiest+Guy&display=swap');
+
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+}
+
+.welcomeLogo {
+    justify-items: left;
+    margin-top: 50px;
+    width: 750px;
+    transform: scaleX(-1);
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.head_title {
+    color: #ffffff;
+    font-size: 91px;
+    font-family: 'Luckiest Guy', cursive;
+    -webkit-text-stroke: 1px #000c17;
+}
+
+.welcome_description {
+    background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
+    box-shadow: 1px 1px 3px 3px rgb(41, 56, 63), -1px -1px 2px rgb(41, 56, 63);
+    border-radius: 60px 0;
+    padding: 10px;
+    margin-top: 20px;
+    width: 500px;
+}
+
+.welcome_description > p {
+    margin: 10px 0 10px 0;
+    text-align: center;
+    color: #ffffff;
+    font-size: 29px;
+    font-family: 'Luckiest Guy', cursive;
+    -webkit-text-stroke: 1px #000c17;
+}
+
+.welcome_description > p > span {
+    font-size: 34px;
+    margin-right: 10px;
+    color: #f30606;
+}
+
+.welcome_description p:nth-child(1) {
+    border-bottom: 1px solid #C0D8C0;
+}
+
+.start_container {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.start_container span {
+    font-size: 32px;
+    margin: 0 20px 0 20px;
+    color: #ffffff;
+    font-family: 'Luckiest Guy', cursive;
+    -webkit-text-stroke: 1px #000c17;
+}
+
+.start_container button {
+    width: 150px;
+    border: 1px solid #9f9f9f;
+    box-shadow: 0 0 1px 2px #C0D8C0;
+    color: #ffffff;
+    font-size: 18px;
+    height: 50px;
+    cursor: pointer;
+    font-family: 'Luckiest Guy', cursive;
+    transition: .5s;
+    -webkit-text-stroke: 1px #000;
+}
+
+.start_container button:hover {
+    background: #a7f8ce;
+    box-shadow: 0 0 1px 2px #a7f8ce;
+}
+
+.welcome_btn_sign_in {
+    background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
+    border-radius: 25px 0;
+}
+
+.welcome_btn_sign_up {
+    background: linear-gradient(to left, #2C5364, #203A43, #0F2027);
+    border-radius: 0 25px;
+}
+
+
