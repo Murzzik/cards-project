@@ -5,11 +5,11 @@ import {Modal} from 'antd';
 type UniversalModalPropsType = {
     children: ReactNode,
     nameButton: string,
-    someFunction: () => void,
+    callBackFunction: () => void,
     clickElement: ReactNode
 }
 
-const UniversalModal: React.FC<UniversalModalPropsType> = ({children, nameButton, someFunction, clickElement}) => {
+const UniversalModal: React.FC<UniversalModalPropsType> = ({children, nameButton, callBackFunction, clickElement}) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
@@ -17,7 +17,7 @@ const UniversalModal: React.FC<UniversalModalPropsType> = ({children, nameButton
     };
 
     const handleOk = () => {
-        someFunction();
+        callBackFunction();
         setIsModalVisible(false);
     };
 

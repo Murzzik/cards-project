@@ -20,7 +20,7 @@ const AddNewPackModal: React.FC = () => {
         dispatch(addNewPack(name, check));
     };
     return (
-        <UniversalModal nameButton="Add New Pack" someFunction={newPackHandler} children={
+        <UniversalModal nameButton="Add New Pack" callBackFunction={newPackHandler} children={
             <div>
                 <TextField style={{width: '100%'}} type="text" value={name} onChange={onChangeHandler} variant="outlined"/>
 
