@@ -52,7 +52,7 @@ const TablesContainer: React.FC = () => {
                                 <TableCell>{convertDate(pack.updated)}</TableCell>
                                 <TableCell>{pack.user_name}</TableCell>
                                 <TableCell>
-                                    <IconGroup ownerPack={pack.user_id} packId={pack._id}/>
+                                    <IconGroup ownerPack={pack.user_id} packId={pack._id} packName={pack.name} />
                                 </TableCell>
                             </StyledTableRow>
                         ))}
