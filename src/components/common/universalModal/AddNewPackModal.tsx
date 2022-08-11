@@ -25,7 +25,7 @@ const AddNewPackModal: React.FC = () => {
                 <TextField style={{width: '100%'}} type="text" value={name} onChange={onChangeHandler} variant="outlined"/>
 
                 <Checkbox checked={check} onChange={onChangeCheck} color="primary"/>
-                <span>Privat</span>
+                <span>Private</span>
             </div>
         } clickElement={<Button type="primary">Add new Pack</Button>}/>
     );
