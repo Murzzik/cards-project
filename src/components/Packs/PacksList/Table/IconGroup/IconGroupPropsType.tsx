@@ -17,22 +17,16 @@ const IconGroup: React.FC<IconGroupPropsType> = ({ownerPack, packId, packName}) 
     const isMyPacks = myId === ownerPack;
     return (
         <div>
-            {isMyPacks ?
+            <IconButton>
+                <SchoolIcon/>
+            </IconButton>
+            {isMyPacks &&
                 <div>
-                    <IconButton>
-                        <SchoolIcon/>
-                    </IconButton>
                     <IconButton>
                         <DeletePackModal packId={packId} packName={packName}/>
                     </IconButton>
                     <IconButton>
                         <EditPackModal packId={packId} packName={packName}/>
-                    </IconButton>
-                </div>
-                :
-                <div>
-                    <IconButton>
-                        <SchoolIcon/>
                     </IconButton>
                 </div>
             }
