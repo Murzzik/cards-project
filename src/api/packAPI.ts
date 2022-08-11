@@ -6,8 +6,8 @@ export const packAPI = {
     getPacks(args: GetCardsType) {
         return instance.get<GetCardsPackResponseType>('cards/pack', {params: args});
     },
-    addNewPack(name: string) {
-        return instance.post<GetCardsPackResponseType>('cards/pack', {cardsPack: {name}});
+    addNewPack(name: string, visibility: boolean) {
+        return instance.post<GetCardsPackResponseType>('cards/pack', {cardsPack: {name, private: visibility}});
     },
     deletePack(id: string) {
         return instance.delete<GetCardsResponseType>('/cards/pack', {params: {id}});

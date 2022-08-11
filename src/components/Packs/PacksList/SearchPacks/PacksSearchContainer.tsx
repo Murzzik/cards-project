@@ -1,12 +1,11 @@
 import React from 'react';
 import style from './SearchParameters.module.css';
-import {Button} from '@material-ui/core';
 import NameFilter from './NameFilter/NameFilter';
 import OwnerFilter from './OwnerFilter/OwnerFilter';
 import QuantityFilter from './QuantityFilter/QuantityFilter';
 import {addNewPack} from '../../../../store/reducers/packs-reducer';
 import {useAppDispatch} from '../../../../store/store';
-
+import AddNewPackModal from '../../../common/universalModal/AddNewPackModal';
 
 const PacksSearchContainer: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -20,13 +19,15 @@ const PacksSearchContainer: React.FC = () => {
         <div className={style.searchBlock}>
             <div className={style.searchHeader}>
                 <h2>Packs list</h2>
-                <Button variant={'contained'} color={'primary'} onClick={newPackHandler}>Add new pack</Button>
+
+               <AddNewPackModal/>
             </div>
             <div className={style.parametersBlock}>
                 <NameFilter/>
                 <OwnerFilter/>
                 <QuantityFilter/>
             </div>
+
         </div>
     );
 };
