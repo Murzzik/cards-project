@@ -23,16 +23,15 @@ const AddNewPackModal: React.FC = () => {
     return (
         <UniversalModal
             callBackFunction={newPackHandler}
+            clickElement={<Button type="primary">Add new Pack</Button>}
+            modalName="Add new Pack"
             children={
                 <div>
                     <Input placeholder="Pack name" value={name} onChange={onChangeHandler}/>
                     <Checkbox checked={check} onChange={onChangeCheck}>Private</Checkbox>
                 </div>
             }
-            clickElement={
-                <Button type="primary">Add new Pack</Button>
-            }
-            modalName="Add new Pack"/>
+        />
     );
 };
 

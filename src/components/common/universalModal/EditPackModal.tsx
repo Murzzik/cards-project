@@ -24,15 +24,17 @@ const EditPackModal: React.FC<EditePackModalPropsType> = ({packId, packName}) =>
         dispatch(updatePackName(packId, name, check));
     };
     return (
-        <UniversalModal callBackFunction={updatePackHandler}
-                        clickElement={<EditIcon/>}
-                        modalName="Edit pack"
-                        children={
-                            <div>
-                                <Input placeholder="Pack name" value={name} onChange={onChangeHandler}/>
-                                <Checkbox checked={check} onChange={onChangeCheck}>Private</Checkbox>
-                            </div>
-                        }/>
+        <UniversalModal
+            callBackFunction={updatePackHandler}
+            clickElement={<EditIcon/>}
+            modalName="Edit pack"
+            children={
+                <div>
+                    <Input placeholder="Pack name" value={name} onChange={onChangeHandler}/>
+                    <Checkbox checked={check} onChange={onChangeCheck}>Private</Checkbox>
+                </div>
+            }
+        />
     );
 };
 

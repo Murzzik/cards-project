@@ -16,15 +16,16 @@ const DeletePackModal: React.FC<DeletePackModalPropsType> = ({packId, packName})
     };
 
     return (
-        <UniversalModal callBackFunction={deletePackHandler}
-                        clickElement={
-                            <DeleteForeverIcon/>
-                        } modalName="Delete Pack"
-                        children={
-                            <h3>Are you sure you want to remove the pack
-                                "<b style={{color: 'red'}}>{packName}</b>"?
-                            </h3>
-                        }/>
+        <UniversalModal
+            callBackFunction={deletePackHandler}
+            clickElement={<DeleteForeverIcon/>}
+            modalName="Delete Pack"
+            children={
+                <h3>Are you sure you want to remove the pack
+                    "<b style={{color: 'red'}}>{packName}</b>"?
+                </h3>
+            }
+        />
     );
 };
 
