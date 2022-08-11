@@ -4,12 +4,12 @@ import {Modal} from 'antd';
 
 type UniversalModalPropsType = {
     children: ReactNode,
-    nameButton: string,
     callBackFunction: () => void,
-    clickElement: ReactNode
+    clickElement: ReactNode,
+    modalName: string
 }
 
-const UniversalModal: React.FC<UniversalModalPropsType> = ({children, nameButton, callBackFunction, clickElement}) => {
+const UniversalModal: React.FC<UniversalModalPropsType> = ({children, callBackFunction, clickElement, modalName}) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
@@ -26,11 +26,10 @@ const UniversalModal: React.FC<UniversalModalPropsType> = ({children, nameButton
     };
     return (
         <>
-            {/*<Button type="primary" onClick={showModal}>{nameButton}</Button>*/}
             <div onClick={showModal}>
                 {clickElement}
             </div>
-            <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+            <Modal title={modalName} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                 {children}
             </Modal>
         </>
