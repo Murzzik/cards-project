@@ -15,6 +15,7 @@ import Preloader from '../common/Preloader/Preloader';
 export const WelcomePage = () => {
     const dispatch = useAppDispatch();
     const userProfileName = useAppSelector(state => state.auth.user.name);
+    const isLoading = useAppSelector(state => state.app.status) === 'loading';
 
     if (!userProfileName) {
         dispatch(authorizationUser());
@@ -22,6 +23,7 @@ export const WelcomePage = () => {
 
     return (
         <div className={s.wrapper}>
+            {isLoading && <Preloader/>}
             <Zoom left>
                 <div className={s.textContainer}>
                     <img src={play_learn} alt="" />
