@@ -13,6 +13,10 @@ export const cardsAPI = {
     updateCard: (_id: string, question: string) => {
         return instance.put<GetCardsResponseType>('/cards/card', {card: {_id, question}});
     },
+    gradeCard: (card: CardToBeGraded) => {
+        console.log(card)
+        return instance.put<CardToBeGraded>('/cards/grade', card)
+    }
 };
 
 export type GetCardType = {
@@ -46,3 +50,7 @@ export type GetCardsResponseType = {
     packUserId: string
 }
 
+export type CardToBeGraded = {
+    grade: number
+    card_id: string
+}

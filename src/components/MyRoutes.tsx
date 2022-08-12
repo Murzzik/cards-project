@@ -10,6 +10,7 @@ import CheckEmailContainer from './passRecovery/checkEmail/CheckEmailContainer';
 import PassRecoveryContainer from './passRecovery/PassRecoveryContainer';
 import CardsContainer from './Packs/CardsListContainer/CardsContainer';
 import { WelcomePage } from './WelcomePage/WelcomePage';
+import LearnContainer from "./Learn/LearnContainer";
 
 export const MyRoutes = () => {
     return (
@@ -24,6 +25,7 @@ export const MyRoutes = () => {
             <Route path="/error404" element={<ErrorPage />} />
             <Route path="/check-email" element={<CheckEmailContainer />} />
             <Route path="/passrecovery" element={<PassRecoveryContainer />} />
+            <Route path="/learn/:cardsPack_id" element={<LearnContainer />} />
         </Routes>
     );
 };
