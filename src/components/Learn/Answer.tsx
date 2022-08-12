@@ -31,7 +31,6 @@ const Answer: React.FC<PropsType> = ({card, getNewRandomCard,setGradeToState}) =
             <button style={{color: "black"}} onClick={getNewRandomCard}>Next
             </button>
 
-
         </div>
     );
 };

@@ -16,7 +16,6 @@ const LearnContainer: React.FC<PropsType> = () => {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const isLoading = useAppSelector(state => state.app.status) === 'loading'
     const cards = useAppSelector(state => state.learn.cards)
-
     const [randomCard, setNewRandomCard] = useState<CardsType | undefined>()
 
     useEffect(() => {
@@ -25,17 +24,12 @@ const LearnContainer: React.FC<PropsType> = () => {
     }, [cardsPack_id])
 
     const cardsArrayWithRandomCoefficient = useMemo( () =>createArrayWithRandomCoefficient(cards),[cards] )
-    //const cardsArrayWithRandomCoefficient = createArrayWithRandomCoefficient(cards)
     const getNewRandomCard = () => {
         setNewRandomCard({...getRandomCard(cardsArrayWithRandomCoefficient)})
     }
 
-    // console.log("I", cards)
-    // console.log("II", cardsArrayWithRandomCoefficient)
-
     return !isLoading
         ? <div style={{color: 'white'}}>
-            L E A R N
             <LearnPage originalCards={cards} getNewRandomCard={getNewRandomCard} card={randomCard}/>
         </div>
         : <Preloader/>
