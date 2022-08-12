@@ -3,3 +3,7 @@
     text-align: center;
     font-size: 58px;
 }
+
+.table_icons div{
+    display: flex;
+}

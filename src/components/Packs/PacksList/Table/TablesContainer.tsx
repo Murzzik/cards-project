@@ -14,6 +14,8 @@ import {styled} from '@mui/material/styles';
 import TableRow from '@mui/material/TableRow';
 import IconGroup from './IconGroup/IconGroupPropsType';
 
+import s from '../PackList.module.css'
+
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
@@ -51,7 +53,7 @@ const TablesContainer: React.FC = () => {
                                 <TableCell>{pack.cardsCount}</TableCell>
                                 <TableCell>{convertDate(pack.updated)}</TableCell>
                                 <TableCell>{pack.user_name}</TableCell>
-                                <TableCell>
+                                <TableCell className={s.table_icons}>
                                     <IconGroup ownerPack={pack.user_id} packId={pack._id} packName={pack.name} />
                                 </TableCell>
                             </StyledTableRow>

@@ -1,8 +1,7 @@
 import React from 'react';
 import UniversalModal from './UniversalModal';
-import {useAppDispatch} from '../../../store/store';
-import {deletePack} from '../../../store/reducers/packs-reducer';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useAppDispatch } from '../../../store/store';
+import { deletePack } from '../../../store/reducers/packs-reducer';
 
 type DeletePackModalPropsType = {
     packId: string,
@@ -18,7 +17,6 @@ const DeletePackModal: React.FC<DeletePackModalPropsType> = ({packId, packName})
     return (
         <UniversalModal
             callBackFunction={deletePackHandler}
-            clickElement={<DeleteForeverIcon/>}
             modalName="Delete Pack"
             children={
                 <h3>Are you sure you want to remove the pack

@@ -10,8 +10,6 @@ import { styled } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { Rating } from '@mui/material';
 import { convertDate } from '../../../utilities/parsData';
-import { updateCard } from '../../../store/reducers/cards-reducer';
-import { useAppDispatch } from '../../../store/store';
 import { IconButton } from '@material-ui/core';
 import EditIcon from '@mui/icons-material/Edit';
 import s from './CardsList.module.css';
@@ -19,6 +17,7 @@ import CardsPaginationContainer from './CardsPaginationContainer';
 import { DeleteCard } from '../../common/universalModal/CardsModal/DeleteCard';
 import { EditCard } from '../../common/universalModal/CardsModal/EditCard';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useAppSelector } from '../../../store/store';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -45,6 +44,10 @@ type CardsListPropsType = {
 }
 
 const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
+
+    const myId = useAppSelector(state => state.auth.user._id);
+    const isMyPacks = useAppSelector(state => state.packsParameter.user_id) === myId;
+
     return (
         <div>
             <TableContainer component={Paper} style={{width: '80%', margin: '0 auto'}}>
@@ -67,16 +70,20 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                                 <StyledTableCell align="right">{convertDate(card.updated)}</StyledTableCell>
                                 <StyledTableCell align="right">
                                     <div className={s.editRow}>
-                                        <IconButton>
-                                            <EditIcon>
-                                                <EditCard id={card._id} packID={card.cardsPack_id} />
-                                            </EditIcon>
-                                        </IconButton>
-                                        <IconButton>
-                                            <DeleteForeverIcon>
-                                                <DeleteCard id={card._id} packID={card.cardsPack_id} />
-                                            </DeleteForeverIcon>
-                                        </IconButton>
+                                        {   isMyPacks ?
+                                            <>
+                                                <IconButton>
+                                                    <EditIcon>
+                                                        <EditCard id={card._id} packID={card.cardsPack_id} />
+                                                    </EditIcon>
+                                                </IconButton>
+                                                <IconButton>
+                                                    <DeleteForeverIcon>
+                                                        <DeleteCard id={card._id} packID={card.cardsPack_id} />
+                                                    </DeleteForeverIcon>
+                                                </IconButton>
+                                            </> : <></>
+                                        }
                                         <Rating name="half-rating-read" defaultValue={card.grade} precision={0.5}
                                                 readOnly />
                                     </div>
