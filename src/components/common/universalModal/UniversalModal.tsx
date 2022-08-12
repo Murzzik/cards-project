@@ -3,9 +3,9 @@ import 'antd/dist/antd.css';
 import {Modal} from 'antd';
 
 type UniversalModalPropsType = {
-    children: ReactNode,
+    children?: ReactNode,
     callBackFunction: () => void,
-    clickElement: ReactNode,
+    clickElement?: ReactNode,
     modalName: string
 }
 

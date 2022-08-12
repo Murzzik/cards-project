@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../store/store';
 import { NavLink } from 'react-router-dom';
 import logout from '../../assets/images/logout.png';
 import { logOut } from '../../store/reducers/authorization-reducer';
+import Preloader from '../common/Preloader/Preloader';
 
 export const Header = () => {
     const userName = useAppSelector(state => state.auth.user.name);
@@ -42,6 +43,7 @@ export const Header = () => {
         <a href="#/authorization">
             <button className={s.signInBtn}>Sign in</button>
         </a>;
+
 
     return (
         <div className={s.header}>

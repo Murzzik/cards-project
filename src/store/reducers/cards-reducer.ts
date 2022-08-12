@@ -79,10 +79,10 @@ export const deleteCard = (id: string, packID: string): AppThunk => (dispatch, g
     });
 };
 
-export const updateCard = (id: string, question: string, packID: string): AppThunk => (dispatch, getState) => {
+export const updateCard = (id: string, question: string, answer: string, packID: string): AppThunk => (dispatch, getState) => {
     const pageCount = getState().cardsParameter.pageCount;
     dispatch(setPreloaderStatus('loading'));
-    cardsAPI.updateCard(id, question).then((res) => {
+    cardsAPI.updateCard(id, question, answer).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
         dispatch(initializedCards({cardsPack_id: packID, pageCount}));
     }).catch(e => {

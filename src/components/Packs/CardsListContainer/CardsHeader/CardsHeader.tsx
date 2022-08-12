@@ -1,10 +1,10 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import useDebounce from 'usehooks-ts/dist/esm/useDebounce/useDebounce';
-import {Button, IconButton, TextField} from '@material-ui/core';
-import {SearchOutlined} from '@material-ui/icons';
+import { IconButton, TextField } from '@material-ui/core';
+import { SearchOutlined } from '@material-ui/icons';
 import style from './CardsHeader.module.css';
-import {useAppDispatch, useAppSelector} from '../../../../store/store';
-import {addNewCard} from '../../../../store/reducers/cards-reducer';
+import { useAppDispatch, useAppSelector } from '../../../../store/store';
+import { AddCard } from '../../../common/universalModal/CardsModal/AddCard';
 
 type CardsHeaderPropsType = {
     cardsPack_id: string
@@ -20,19 +20,14 @@ const CardsHeader: React.FC<CardsHeaderPropsType> = ({cardsPack_id}) => {
     };
 
     const pack = useAppSelector(state => state.packs.cardPacks.find(p => p._id === cardsPack_id));
+    const cards = useAppSelector(state => state.cards.cards);
     let packName = '';
-    if (pack) {
+    if(pack) {
         packName = pack.name;
     }
 
-    const addPackHandler = (id: string) => {
-        const question = 'Who is your boss baby';
-        const answer = 'You are, my papa';
-        dispatch(addNewCard(id, question, answer));
-    };
-
     useEffect(() => {
-        if (packName !== name) {
+        if(packName !== name) {
             // dispatch(setCarsParameter({...parameters, packName}));
         }
     }, [debouncedName]);
@@ -51,14 +46,13 @@ const CardsHeader: React.FC<CardsHeaderPropsType> = ({cardsPack_id}) => {
                     InputProps={{
                         endAdornment: (
                             <IconButton disabled>
-                                <SearchOutlined/>
+                                <SearchOutlined />
                             </IconButton>
                         ),
                     }}
                 />
             </div>
-            <Button variant={'contained'} color={'primary'} onClick={() => addPackHandler(cardsPack_id)}>Add new
-                card</Button>
+            {!!cards.length && <AddCard packID={cardsPack_id} />}
         </div>
     );
 };

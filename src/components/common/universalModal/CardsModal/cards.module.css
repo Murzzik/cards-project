@@ -1,0 +1,9 @@
+.cards_modal_input {
+    margin: 10px 0 10px 0;
+}
+
+.add_pack_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

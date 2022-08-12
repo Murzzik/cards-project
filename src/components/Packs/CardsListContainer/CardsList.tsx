@@ -1,22 +1,24 @@
 import React from 'react';
-import {CardsType} from '../../../api/cardsAPI';
+import { CardsType } from '../../../api/cardsAPI';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
-import {styled} from '@mui/material/styles';
-import TableCell, {tableCellClasses} from '@mui/material/TableCell';
-import {Rating} from '@mui/material';
-import {convertDate} from '../../../utilities/parsData';
-import {deleteCard, updateCard} from '../../../store/reducers/cards-reducer';
-import {useAppDispatch} from '../../../store/store';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import {IconButton} from '@material-ui/core';
+import { styled } from '@mui/material/styles';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { Rating } from '@mui/material';
+import { convertDate } from '../../../utilities/parsData';
+import { updateCard } from '../../../store/reducers/cards-reducer';
+import { useAppDispatch } from '../../../store/store';
+import { IconButton } from '@material-ui/core';
 import EditIcon from '@mui/icons-material/Edit';
 import s from './CardsList.module.css';
 import CardsPaginationContainer from './CardsPaginationContainer';
+import { DeleteCard } from '../../common/universalModal/CardsModal/DeleteCard';
+import { EditCard } from '../../common/universalModal/CardsModal/EditCard';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -43,17 +45,6 @@ type CardsListPropsType = {
 }
 
 const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
-    const dispatch = useAppDispatch();
-    const deleteCardHandler = (id: string, packID: string) => {
-        dispatch(deleteCard(id, packID));
-    };
-
-
-    const updateCardHandler = (id: string, packID: string) => {
-        const newQuestion = 'Test for name change before modal implemented';
-        dispatch(updateCard(id, newQuestion, packID));
-    };
-
     return (
         <div>
             <TableContainer component={Paper} style={{width: '80%', margin: '0 auto'}}>
@@ -77,17 +68,17 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                                 <StyledTableCell align="right">
                                     <div className={s.editRow}>
                                         <IconButton>
-                                            <EditIcon onClick={() => {
-                                                updateCardHandler(card._id, card.cardsPack_id);
-                                            }}/>
+                                            <EditIcon>
+                                                <EditCard id={card._id} packID={card.cardsPack_id} />
+                                            </EditIcon>
                                         </IconButton>
-                                        <IconButton onClick={() => {
-                                            deleteCardHandler(card._id, card.cardsPack_id);
-                                        }}>
-                                            <DeleteForeverIcon/>
+                                        <IconButton>
+                                            <DeleteForeverIcon>
+                                                <DeleteCard id={card._id} packID={card.cardsPack_id} />
+                                            </DeleteForeverIcon>
                                         </IconButton>
                                         <Rating name="half-rating-read" defaultValue={card.grade} precision={0.5}
-                                                readOnly/>
+                                                readOnly />
                                     </div>
                                 </StyledTableCell>
                             </StyledTableRow>
@@ -95,7 +86,7 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <CardsPaginationContainer/>
+            <CardsPaginationContainer />
         </div>
 
     );
