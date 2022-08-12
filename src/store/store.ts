@@ -1,12 +1,13 @@
-import { applyMiddleware, combineReducers, legacy_createStore as createStore } from 'redux';
-import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import { ActionTypeFoAuthReducer, authorizationReducer } from './reducers/authorization-reducer';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { ActionTypeForAppReducer, appReducer } from './reducers/app-reducer';
-import { ActionTypeForPacksReducer, packsReducer } from './reducers/packs-reducer';
-import { ActionTypeForCards, cardsReducer } from './reducers/cards-reducer';
+import {applyMiddleware, combineReducers, legacy_createStore as createStore} from 'redux';
+import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
+import {ActionTypeFoAuthReducer, authorizationReducer} from './reducers/authorization-reducer';
+import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
+import {ActionTypeForAppReducer, appReducer} from './reducers/app-reducer';
+import {ActionTypeForPacksReducer, packsReducer} from './reducers/packs-reducer';
+import {ActionTypeForCards, cardsReducer} from './reducers/cards-reducer';
 import {ActionForPacksParameter, packsParameterReducer} from './reducers/packsParameterReducer';
 import {ActionForCardsParameter, cardsParametersReducer} from './reducers/cardsParametersReducer';
+import {ActionsLearnType, learnReducer} from "./reducers/learnReducer";
 
 const rootReducer = combineReducers({
     auth: authorizationReducer,
@@ -14,12 +15,19 @@ const rootReducer = combineReducers({
     packs: packsReducer,
     cards: cardsReducer,
     packsParameter: packsParameterReducer,
-    cardsParameter: cardsParametersReducer
+    cardsParameter: cardsParametersReducer,
+    learn: learnReducer
 
 });
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
-type AppActionsType = ActionTypeForAppReducer | ActionTypeFoAuthReducer | ActionTypeForPacksReducer | ActionTypeForCards | ActionForPacksParameter | ActionForCardsParameter
+type AppActionsType = ActionTypeForAppReducer
+    | ActionTypeFoAuthReducer
+    | ActionTypeForPacksReducer
+    | ActionTypeForCards
+    | ActionForPacksParameter
+    | ActionForCardsParameter
+    | ActionsLearnType
 
 export type AppRootStateType = ReturnType<typeof store.getState>
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AppActionsType>
