@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import welcomePageLogo from '../../assets/images/welcomPageLogo.png';
 import play_learn from '../../assets/images/play_learn_logo.png';
@@ -15,13 +15,17 @@ import Preloader from '../common/Preloader/Preloader';
 export const WelcomePage = () => {
     const dispatch = useAppDispatch();
     const userProfileName = useAppSelector(state => state.auth.user.name);
+    const isLoading = useAppSelector(state => state.app.status) === 'loading';
 
-    if (!userProfileName) {
-        dispatch(authorizationUser());
-    }
+    useEffect(() => {
+        if (!userProfileName) {
+            dispatch(authorizationUser());
+        }
+    }, []);
 
     return (
         <div className={s.wrapper}>
+            {isLoading && <Preloader/>}
             <Zoom left>
                 <div className={s.textContainer}>
                     <img src={play_learn} alt="" />
