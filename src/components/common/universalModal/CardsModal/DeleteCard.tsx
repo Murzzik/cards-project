@@ -18,7 +18,7 @@ export const DeleteCard: React.FC<DeleteCard> = ({id, packID}) => {
     };
 
     return (
-        <UniversalModal callBackFunction={deleteCardHandler} modalName='Delete card'>
+        <UniversalModal callBackFunction={deleteCardHandler} modalName='Delete card' clickElement={<DeleteForeverIcon />}>
             <div>
                 <span>Are you sure you want to delete this card?</span>
             </div>

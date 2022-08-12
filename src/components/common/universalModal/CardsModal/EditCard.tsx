@@ -31,7 +31,7 @@ export const EditCard: React.FC<EditCard> = ({id, packID}) => {
     };
 
     return (
-        <UniversalModal callBackFunction={editCardInformation} modalName="Edit card information">
+        <UniversalModal callBackFunction={editCardInformation} modalName="Edit card information" clickElement={<EditIcon />}>
             <Input className={s.cards_modal_input} placeholder="Change card question" onChange={onChangeCardQuestion}
                    name={cardQuestion} />
             <Input className={s.cards_modal_input} placeholder="Change card answer" onChange={onChangeCardAnswer}

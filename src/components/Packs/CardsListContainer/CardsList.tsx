@@ -73,14 +73,10 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                                         {   isMyPacks ?
                                             <>
                                                 <IconButton>
-                                                    <EditIcon>
                                                         <EditCard id={card._id} packID={card.cardsPack_id} />
-                                                    </EditIcon>
                                                 </IconButton>
                                                 <IconButton>
-                                                    <DeleteForeverIcon>
                                                         <DeleteCard id={card._id} packID={card.cardsPack_id} />
-                                                    </DeleteForeverIcon>
                                                 </IconButton>
                                             </> : <></>
                                         }

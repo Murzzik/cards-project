@@ -5,8 +5,7 @@ import { useAppSelector } from '../../../../../store/store';
 import DeletePackModal from '../../../../common/universalModal/DeletePackModal';
 import EditPackModal from '../../../../common/universalModal/EditPackModal';
 import { useNavigate } from 'react-router-dom';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import EditIcon from '@mui/icons-material/Edit';
+
 
 type IconGroupPropsType = {
     ownerPack: string,
@@ -32,14 +31,10 @@ const IconGroup: React.FC<IconGroupPropsType> = ({ownerPack, packId, packName}) 
             {isMyPacks &&
                 <div>
                     <IconButton>
-                        <DeleteForeverIcon>
                             <DeletePackModal packId={packId} packName={packName} />
-                        </DeleteForeverIcon>
                     </IconButton>
                     <IconButton>
-                        <EditIcon>
                             <EditPackModal packId={packId} packName={packName} />
-                        </EditIcon>
                     </IconButton>
                 </div>
             }
