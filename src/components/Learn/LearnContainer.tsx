@@ -7,6 +7,8 @@ import {createArrayWithRandomCoefficient, getRandomCard} from "../../utilities/c
 import LearnPage from './LearnPage';
 import {CardsType} from "../../api/cardsAPI";
 
+import s from './Learn.module.css'
+
 
 type PropsType = {}
 
@@ -29,7 +31,7 @@ const LearnContainer: React.FC<PropsType> = () => {
     }
 
     return !isLoading
-        ? <div style={{color: 'white'}}>
+        ? <div className={s.learn_container}>
             <LearnPage originalCards={cards} getNewRandomCard={getNewRandomCard} card={randomCard}/>
         </div>
         : <Preloader/>

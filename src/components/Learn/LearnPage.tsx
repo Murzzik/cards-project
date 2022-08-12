@@ -5,6 +5,8 @@ import Answer from "./Answer";
 import {gradeCard} from "../../store/reducers/learnReducer";
 import {useAppDispatch} from "../../store/store";
 
+import s from './Learn.module.css'
+
 type PropsType = {
     getNewRandomCard: () => void
     card: CardsType | undefined
@@ -34,7 +36,7 @@ const LearnPage: React.FC<PropsType> = ({getNewRandomCard, card, originalCards})
     }
 
     return card && card._id ?
-        <div>
+        <div className={s.question_answer_block}>
             {!showAnswer
                 ? <Question card={card} showAnswerHandler={showAnswerHandler}/>
                 : <Answer getNewRandomCard={getNextCard} card={card} setGradeToState={setGradeToState}/>}

@@ -1,7 +1,9 @@
 import React from 'react';
-import {CardsType} from "../../api/cardsAPI";
-import RadioForm from "./RadioForm";
-import {useNavigate} from "react-router-dom";
+import { CardsType } from '../../api/cardsAPI';
+import RadioForm from './RadioForm';
+import { useNavigate } from 'react-router-dom';
+
+import s from './Learn.module.css';
 
 type PropsType = {
     card: CardsType
@@ -9,28 +11,27 @@ type PropsType = {
     getNewRandomCard: () => void
 }
 
-const Answer: React.FC<PropsType> = ({card, getNewRandomCard,setGradeToState}) => {
-    const navigate = useNavigate()
+const Answer: React.FC<PropsType> = ({card, getNewRandomCard, setGradeToState}) => {
+    const navigate = useNavigate();
     return (
         <div>
-            <div>
-                <div>Question</div>
-                {card.question}
+            <div className={s.question_block}>
+                <span className={s.hide_span}>Question:</span>
+                <span>❔ {card.question}</span>
+            </div>️
+            <div className={s.answer_block}>
+                <span className={s.hide_span}>Answer:</span>
+                <span>❕{card.answer}</span>
             </div>
 
-            <div>Answer
-                <div>{card.answer}</div>
+            <div className={s.rate_your_self}>
+                <span className={s.rate_span}>How do you feel after this question?</span>
+                <RadioForm radioFromHandler={setGradeToState} />
             </div>
-
-            <div>
-                Rate yourself
+            <div className={s.learn_btn_block}>
+                <button style={{color: 'black'}} onClick={() => navigate(-1)}>Back</button>
+                <button style={{color: 'black'}} onClick={getNewRandomCard}>Next</button>
             </div>
-
-            <RadioForm radioFromHandler={setGradeToState}/>
-            <button style={{color: "black"}} onClick={() => navigate(-1)}>Back</button>
-            <button style={{color: "black"}} onClick={getNewRandomCard}>Next
-            </button>
-
         </div>
     );
 };
