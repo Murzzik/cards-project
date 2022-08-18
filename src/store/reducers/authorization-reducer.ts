@@ -86,10 +86,10 @@ export const logOut = (): AppThunk => (dispatch) => {
     });
 };
 
-export const updateUserData = (name: string): AppThunk =>
+export const updateUserData = (name: string, avatar: string): AppThunk =>
     (dispatch) => {
         dispatch(setPreloaderStatus('loading'));
-        authAPI.updateUserName(name).then((res) => {
+        authAPI.updateUserInformation(name, avatar).then((res) => {
             dispatch(setUserInfo(res.data.updatedUser));
             dispatch(setPreloaderStatus('succeeded'));
         }).finally(() => {

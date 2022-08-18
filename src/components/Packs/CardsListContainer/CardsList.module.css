@@ -4,3 +4,7 @@
     align-items: center;
     flex-direction: revert;
 }
+
+.editRow div {
+    display: flex;
+}

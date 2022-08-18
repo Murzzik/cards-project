@@ -14,6 +14,7 @@ export const Profile = () => {
     const userProfileName = useAppSelector(state => state.auth.user.name);
     const userProfileEmail = useAppSelector(state => state.auth.user.email);
     const isInitialized = useAppSelector(state => state.app.isInitialized);
+    const userProfileAvatar = useAppSelector(state => state.auth.user.avatar) as string;
 
     const dispatch = useAppDispatch();
     const [editMode, setEditMode] = useState(false);
@@ -33,7 +34,7 @@ export const Profile = () => {
 
     // Submit
     const submitUserName = () => {
-        dispatch(updateUserData(userName));
+        dispatch(updateUserData(userName, userProfileAvatar));
         setEditMode(false);
     };
 

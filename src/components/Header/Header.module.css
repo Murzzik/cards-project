@@ -154,7 +154,7 @@
 
 .userName {
     font-size: 21px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .userPhoto {
@@ -162,6 +162,7 @@
     height: 41px;
     margin-left: 10px;
     border-radius: 50%;
+    border: 1px solid #0c1849;
     object-fit: cover;
     cursor: pointer;
 }

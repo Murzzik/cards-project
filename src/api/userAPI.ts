@@ -18,8 +18,8 @@ export const authAPI = {
     setNewPassword(password: string, resetPasswordToken: string | undefined) {
         return instance.post<SetNewPasswordRes>('auth/set-new-password', {password, resetPasswordToken});
     },
-    updateUserName(name: string) {
-        return instance.put<UpdateMeRes>('/auth/me', {name});
+    updateUserInformation(name: string, avatar: string) {
+        return instance.put<UpdateMeRes>('/auth/me', {name, avatar});
     },
     getUserInfo() {
         return instance.post<MeRes>('/auth/me');

@@ -3,7 +3,7 @@
     width: 80%;
     margin: 30px auto;
     border-radius: 5px;
-    z-index: 1;
+    z-index: -1;
 }
 
 .searchHeader {

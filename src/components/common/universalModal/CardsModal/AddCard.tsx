@@ -2,18 +2,29 @@ import React, { ChangeEvent, useState } from 'react';
 import UniversalModal from '../UniversalModal';
 import { useAppDispatch } from '../../../../store/store';
 import { addNewCard } from '../../../../store/reducers/cards-reducer';
-import { Button, Input } from 'antd';
+import { Button, Cascader, Input, Select } from 'antd';
 
 import s from './cards.module.css';
+import { ImageLoader } from '../../imageModalLoader/ImageLoader';
 
 type AddCard = {
     packID: string
 }
 
-export const AddCard: React.FC<AddCard> = ({packID}) => {
+export const AddCard: React.FC<AddCard> = ({ packID }) => {
     const dispatch = useAppDispatch();
     const [cardQuestion, setCardQuestion] = useState('');
     const [cardAnswer, setCardAnswer] = useState('');
+
+    const [questionVariant, setQuestionVariant] = useState(true)
+
+    const handleChange = (value: string) => {
+        if(value === "Text question") {
+            setQuestionVariant(true)
+        } else {
+            setQuestionVariant(false)
+        }
+    };
 
     const onChangeCardQuestion = (e: ChangeEvent<HTMLInputElement>) => {
         setCardQuestion(e.currentTarget.value);
@@ -31,12 +42,31 @@ export const AddCard: React.FC<AddCard> = ({packID}) => {
         setCardAnswer('');
     };
 
+    const { Option } = Select;
+
     return (
         <UniversalModal modalName="Create new card" callBackFunction={createNewCard} clickElement={createCardBtn}>
-            <Input className={s.cards_modal_input} placeholder="Write card question" onChange={onChangeCardQuestion}
-                   name={cardQuestion} />
-            <Input className={s.cards_modal_input} placeholder="Write card answer" onChange={onChangeCardAnswer}
-                   name={cardAnswer} />
+            <Input.Group compact>
+                <Select className={s.cards_modal_select} defaultValue="Text question" onChange={handleChange}>
+                    <Option value="Text question">Text question</Option>
+                    <Option value="Image question">Image question</Option>
+                </Select>
+            </Input.Group>
+            {questionVariant ?
+                <div>
+                    <Input className={s.cards_modal_input} placeholder="Write card question"
+                           onChange={onChangeCardQuestion}
+                           name={cardQuestion} />
+                    <Input className={s.cards_modal_input} placeholder="Write card answer" onChange={onChangeCardAnswer}
+                           name={cardAnswer} />
+                </div>
+                :
+                <div>
+                    <ImageLoader />
+                    <Input className={s.cards_modal_input} placeholder="Write card answer" onChange={onChangeCardAnswer}
+                           name={cardAnswer} />
+                </div>
+            }
         </UniversalModal>
     );
 };

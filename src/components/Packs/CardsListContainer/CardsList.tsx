@@ -70,15 +70,15 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                                 <StyledTableCell align="right">{convertDate(card.updated)}</StyledTableCell>
                                 <StyledTableCell align="right">
                                     <div className={s.editRow}>
-                                        {   isMyPacks ?
-                                            <>
+                                        {   isMyPacks &&
+                                            <div>
                                                 <IconButton>
                                                         <EditCard id={card._id} packID={card.cardsPack_id} />
                                                 </IconButton>
                                                 <IconButton>
                                                         <DeleteCard id={card._id} packID={card.cardsPack_id} />
                                                 </IconButton>
-                                            </> : <></>
+                                            </div>
                                         }
                                         <Rating name="half-rating-read" defaultValue={card.grade} precision={0.5}
                                                 readOnly />

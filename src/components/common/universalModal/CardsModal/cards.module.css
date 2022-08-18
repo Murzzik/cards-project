@@ -7,3 +7,7 @@
     justify-content: center;
     align-items: center;
 }
+
+.cards_modal_select {
+    width: 100%;
+}

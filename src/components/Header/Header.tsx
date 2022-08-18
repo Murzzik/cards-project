@@ -65,7 +65,7 @@ export const Header = () => {
                     <div className={dropdownProfile}>
                         <NavLink to="/profile" className={s.navProfileElement}>Profile page</NavLink>
                         <div className={s.navProfileElement} onClick={logoutHandler}>
-                            <img src={logout} alt="Logout button" className={s.logoutIcon} />
+                            <img src={logout} alt="Logout button" className={s.logoutIcon}/>
                             <span>Log out</span>
                         </div>
                     </div>
