@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {getAllCardsFromPackToLearn} from "../../store/reducers/learnReducer";
 import Preloader from "../common/Preloader/Preloader";
-import {createArrayWithRandomCoefficient, getRandomCard} from "../../utilities/cards";
+import {createArrayWithRandomCoefficient, getRandomCard} from "../../utils/cards";
 import LearnPage from './LearnPage';
 import {CardsType} from "../../api/cardsAPI";
 

@@ -11,3 +11,13 @@
 .cards_modal_select {
     width: 100%;
 }
+
+.deleteAttentionText {
+    font-weight: 700;
+}
+
+.deletedCardName {
+    text-transform: uppercase;
+    color: #f30606;
+    font-weight: 700;
+}

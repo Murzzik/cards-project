@@ -2,10 +2,12 @@ import React, { ChangeEvent, useState } from 'react';
 import UniversalModal from '../UniversalModal';
 import { useAppDispatch } from '../../../../store/store';
 import { addNewCard } from '../../../../store/reducers/cards-reducer';
-import { Button, Cascader, Input, Select } from 'antd';
+import { Button, Input, Select } from 'antd';
 
 import s from './cards.module.css';
 import { ImageLoader } from '../../imageModalLoader/ImageLoader';
+import { uploadPhoto } from '../../../../utils/uploadPhoto';
+import { updateUserData } from '../../../../store/reducers/authorization-reducer';
 
 type AddCard = {
     packID: string
@@ -42,6 +44,12 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
         setCardAnswer('');
     };
 
+    const uploadQuestionImage = (e: ChangeEvent<HTMLInputElement>) => {
+        uploadPhoto(e, (file64: string) => {
+            dispatch(addNewCard(packID, cardQuestion, cardAnswer, file64));
+        });
+    };
+
     const { Option } = Select;
 
     return (
@@ -56,15 +64,16 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
                 <div>
                     <Input className={s.cards_modal_input} placeholder="Write card question"
                            onChange={onChangeCardQuestion}
-                           name={cardQuestion} />
+                           value={cardQuestion} defaultValue="Text question"/>
                     <Input className={s.cards_modal_input} placeholder="Write card answer" onChange={onChangeCardAnswer}
-                           name={cardAnswer} />
+                           value={cardAnswer} />
                 </div>
                 :
                 <div>
                     <ImageLoader />
+                    <input type="file" onChange={uploadQuestionImage} />
                     <Input className={s.cards_modal_input} placeholder="Write card answer" onChange={onChangeCardAnswer}
-                           name={cardAnswer} />
+                           value={cardAnswer} />
                 </div>
             }
         </UniversalModal>

@@ -4,8 +4,8 @@ export const cardsAPI = {
     getCards: (args: GetCardType) => {
         return instance.get<GetCardsResponseType>('/cards/card', {params: args});
     },
-    addNewCard: (cardsPack_id: string, question: string, answer: string) => {
-        return instance.post<GetCardsResponseType>('/cards/card', {card: {cardsPack_id, question, answer}});
+    addNewCard: (cardsPack_id: string, question: string, answer: string, questionImg?: string) => {
+        return instance.post<GetCardsResponseType>('/cards/card', {card: {cardsPack_id, question, answer, questionImg}});
     },
     deleteCard: (id: string) => {
         return instance.delete<GetCardsResponseType>(`/cards/card?id=${id}`);
@@ -32,6 +32,7 @@ export type GetCardType = {
 export type CardsType = {
     answer: string
     question: string
+    questionImg?: string
     cardsPack_id: string
     grade: number
     shots: number

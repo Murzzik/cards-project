@@ -42,10 +42,10 @@ export const initializedCards = (args: GetCardType): AppThunk => (dispatch) => {
     });
 };
 
-export const addNewCard = (packID: string, question: string, answer: string): AppThunk => (dispatch, getState) => {
+export const addNewCard = (packID: string, question: string, answer: string, questionImg?: string): AppThunk => (dispatch, getState) => {
     dispatch(setPreloaderStatus('loading'));
     const pageCount = getState().cardsParameter.pageCount;
-    cardsAPI.addNewCard(packID, question, answer).then((res) => {
+    cardsAPI.addNewCard(packID, question, answer, questionImg).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
         dispatch(initializedCards({cardsPack_id: packID, pageCount}));
     }).catch(e => {

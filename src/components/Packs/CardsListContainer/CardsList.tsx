@@ -9,7 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import { styled } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { Rating } from '@mui/material';
-import { convertDate } from '../../../utilities/parsData';
+import { convertDate } from '../../../utils/parsData';
 import { IconButton } from '@material-ui/core';
 import EditIcon from '@mui/icons-material/Edit';
 import s from './CardsList.module.css';
@@ -65,7 +65,11 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                     <TableBody>
                         {cards.map((card) => (
                             <StyledTableRow key={card._id}>
-                                <StyledTableCell component="th" scope="row">{card.question}</StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    {     // @ts-ignore
+                                        cards.includes(card.questionImg) ? card.question : <img src={card.questionImg} alt="" />
+                                    }
+                                </StyledTableCell>
                                 <StyledTableCell align="right">{card.answer}</StyledTableCell>
                                 <StyledTableCell align="right">{convertDate(card.updated)}</StyledTableCell>
                                 <StyledTableCell align="right">
@@ -73,10 +77,15 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                                         {   isMyPacks &&
                                             <div>
                                                 <IconButton>
-                                                        <EditCard id={card._id} packID={card.cardsPack_id} />
+                                                        <EditCard id={card._id}
+                                                                  packID={card.cardsPack_id}
+                                                                  questionValue={card.question}
+                                                                  answerValue={card.answer}/>
                                                 </IconButton>
                                                 <IconButton>
-                                                        <DeleteCard id={card._id} packID={card.cardsPack_id} />
+                                                        <DeleteCard id={card._id}
+                                                                    packID={card.cardsPack_id}
+                                                                    cardName={card.question}/>
                                                 </IconButton>
                                             </div>
                                         }

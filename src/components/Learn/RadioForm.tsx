@@ -25,7 +25,7 @@ const RadioForm: React.FC<PropsType> = ({radioFromHandler}) => {
                     <FormControlLabel value="1" control={<Radio/>} label="Did not know"/>
                     <FormControlLabel value="2" control={<Radio/>} label="Forgot"/>
                     <FormControlLabel value="3" control={<Radio/>} label="A lot of thought"/>
-                    <FormControlLabel value="4" control={<Radio/>} label="Сonfused"/>
+                    <FormControlLabel value="4" control={<Radio/>} label="Confused"/>
                     <FormControlLabel value="5" control={<Radio/>} label="Knew the answer"/>
 
                 </RadioGroup>

@@ -3,7 +3,7 @@ import editPhoto from '../../../assets/images/changePhoto.png';
 import s from './BadgeAvatars.module.css';
 import React, { ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../store/store';
-import { uploadPhoto } from '../../../utilities/uploadPhoto';
+import { uploadPhoto } from '../../../utils/uploadPhoto';
 import { updateUserData } from '../../../store/reducers/authorization-reducer';
 
 export const BadgeAvatars = () => {

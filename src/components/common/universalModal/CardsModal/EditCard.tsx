@@ -9,14 +9,15 @@ import { updateCard } from '../../../../store/reducers/cards-reducer';
 type EditCard = {
     id: string
     packID: string
-
+    questionValue: string
+    answerValue: string
 }
 
-export const EditCard: React.FC<EditCard> = ({id, packID}) => {
+export const EditCard: React.FC<EditCard> = ({id, packID, questionValue, answerValue}) => {
     const dispatch = useAppDispatch();
 
-    const [cardQuestion, setCardQuestion] = useState('');
-    const [cardAnswer, setCardAnswer] = useState('');
+    const [cardQuestion, setCardQuestion] = useState(questionValue);
+    const [cardAnswer, setCardAnswer] = useState(answerValue);
 
     const onChangeCardQuestion = (e: ChangeEvent<HTMLInputElement>) => {
         setCardQuestion(e.currentTarget.value);
@@ -33,9 +34,9 @@ export const EditCard: React.FC<EditCard> = ({id, packID}) => {
     return (
         <UniversalModal callBackFunction={editCardInformation} modalName="Edit card information" clickElement={<EditIcon />}>
             <Input className={s.cards_modal_input} placeholder="Change card question" onChange={onChangeCardQuestion}
-                   name={cardQuestion} />
+                   name={cardQuestion} value={cardQuestion}/>
             <Input className={s.cards_modal_input} placeholder="Change card answer" onChange={onChangeCardAnswer}
-                   name={cardAnswer} />
+                   name={cardAnswer} value={cardAnswer}/>
         </UniversalModal>
     );
 };

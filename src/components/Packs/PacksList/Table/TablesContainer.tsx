@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import {Pack} from '../../../../store/reducers/packs-reducer';
 import TableCell, {tableCellClasses} from '@mui/material/TableCell';
 import {NavLink} from 'react-router-dom';
-import {convertDate} from '../../../../utilities/parsData';
+import {convertDate} from '../../../../utils/parsData';
 import PacksPaginationContainer from './PacksPaginationContainer';
 import {useAppSelector} from '../../../../store/store';
 import {styled} from '@mui/material/styles';
