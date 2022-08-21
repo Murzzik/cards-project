@@ -8,3 +8,7 @@
 .editRow div {
     display: flex;
 }
+
+.card_question_image {
+    width: 100px;
+}

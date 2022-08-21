@@ -17,11 +17,11 @@ const Answer: React.FC<PropsType> = ({card, getNewRandomCard, setGradeToState}) 
         <div>
             <div className={s.question_block}>
                 <span className={s.hide_span}>Question:</span>
-                <span>❔ {card.question}</span>
+                <span>{card.question}</span>
             </div>️
             <div className={s.answer_block}>
                 <span className={s.hide_span}>Answer:</span>
-                <span>❕{card.answer}</span>
+                <span>{card.answer}</span>
             </div>
 
             <div className={s.rate_your_self}>

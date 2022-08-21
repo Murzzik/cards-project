@@ -11,12 +11,10 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { Rating } from '@mui/material';
 import { convertDate } from '../../../utils/parsData';
 import { IconButton } from '@material-ui/core';
-import EditIcon from '@mui/icons-material/Edit';
 import s from './CardsList.module.css';
 import CardsPaginationContainer from './CardsPaginationContainer';
 import { DeleteCard } from '../../common/universalModal/CardsModal/DeleteCard';
 import { EditCard } from '../../common/universalModal/CardsModal/EditCard';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useAppSelector } from '../../../store/store';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
@@ -54,8 +52,9 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                 <Table sx={{minWidth: 700}} aria-label="customized table">
                     <TableHead>
                         <TableRow>
+                            <StyledTableCell align="left">Question image</StyledTableCell>
                             <StyledTableCell>
-                                <span style={{cursor: 'pointer'}}>Question</span>
+                                <span style={{cursor: 'pointer'}}>Question text</span>
                             </StyledTableCell>
                             <StyledTableCell align="right">Answer</StyledTableCell>
                             <StyledTableCell align="right">Last Update</StyledTableCell>
@@ -65,11 +64,8 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                     <TableBody>
                         {cards.map((card) => (
                             <StyledTableRow key={card._id}>
-                                <StyledTableCell component="th" scope="row">
-                                    {     // @ts-ignore
-                                        cards.includes(card.questionImg) ? card.question : <img src={card.questionImg} alt="" />
-                                    }
-                                </StyledTableCell>
+                                <StyledTableCell component="th" scope="row"><img className={s.card_question_image} src={card.questionImg} alt="" /></StyledTableCell>
+                                <StyledTableCell component="th" scope="row">{card.question}</StyledTableCell>
                                 <StyledTableCell align="right">{card.answer}</StyledTableCell>
                                 <StyledTableCell align="right">{convertDate(card.updated)}</StyledTableCell>
                                 <StyledTableCell align="right">

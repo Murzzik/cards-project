@@ -25,6 +25,7 @@
 }
 
 .question_block span {
+    margin: 20px 0;
     font-size: 23px;
     font-weight: 700;
 }

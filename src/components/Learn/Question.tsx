@@ -8,19 +8,22 @@ type PropsType = {
     showAnswerHandler: () => void
 }
 
-const Question: React.FC<PropsType> = ({card, showAnswerHandler}) => {
+const Question: React.FC<PropsType> = ({ card, showAnswerHandler }) => {
     const navigate = useNavigate();
+
+    const questionImage = card.questionImg ? <img src={card.questionImg} alt="" /> : '';
 
     return (
         <div>
             <div className={s.question_block}>
                 <span>Question:</span>
-                <span>❔{card.question}</span>
+                <span>{card.question}</span>
+                {questionImage}
             </div>
             <br />
             <div className={s.learn_btn_block}>
-                <button style={{color: 'black'}} onClick={() => navigate(-1)}>Back</button>
-                <button style={{color: 'black'}} onClick={showAnswerHandler}>Show Answer</button>
+                <button style={{ color: 'black' }} onClick={() => navigate(-1)}>Back</button>
+                <button style={{ color: 'black' }} onClick={showAnswerHandler}>Show Answer</button>
             </div>
         </div>
     );
