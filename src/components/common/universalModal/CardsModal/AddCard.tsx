@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import UniversalModal from '../UniversalModal';
 import { useAppDispatch } from '../../../../store/store';
-import { addNewCard } from '../../../../store/reducers/cards-reducer';
+import { addNewCard, addQuestionImage } from '../../../../store/reducers/cards-reducer';
 import { Button, Input, Select } from 'antd';
 
 import s from './cards.module.css';
@@ -46,7 +46,7 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
 
     const uploadQuestionImage = (e: ChangeEvent<HTMLInputElement>) => {
         uploadPhoto(e, (file64: string) => {
-            dispatch(addNewCard(packID, cardQuestion, cardAnswer, file64));
+            dispatch(addQuestionImage(packID, file64));
         });
     };
 

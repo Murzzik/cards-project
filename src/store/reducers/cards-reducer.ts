@@ -1,6 +1,7 @@
 import {cardsAPI, CardsType, GetCardsResponseType, GetCardType} from '../../api/cardsAPI';
 import {AppThunk} from '../store';
 import {setError, setPreloaderStatus} from './app-reducer';
+import { setQuestionImg } from './cardsParametersReducer';
 
 const initialState: initialStateType = {
     cards: [],
@@ -49,6 +50,18 @@ export const addNewCard = (packID: string, question: string, answer: string, que
         dispatch(setPreloaderStatus('succeeded'));
         dispatch(initializedCards({cardsPack_id: packID, pageCount}));
     }).catch(e => {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        dispatch(setError(error));
+        alert(error);
+        dispatch(setPreloaderStatus('failed'));
+    });
+};
+
+export const addQuestionImage = (packID: string, questionImg: string): AppThunk => (dispatch, getState) => {
+    cardsAPI.addQuestionImage(packID, questionImg).then((res) => {
+    dispatch(setQuestionImg(questionImg))}).catch(e => {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
