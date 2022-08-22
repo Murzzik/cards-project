@@ -53,7 +53,6 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
     };
 
     const { Option } = Select;
-
     return (
         <UniversalModal modalName="Create new card" callBackFunction={createNewCard} clickElement={createCardBtn}>
             <Input.Group compact>
