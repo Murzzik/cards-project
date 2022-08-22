@@ -1,13 +1,13 @@
 import React, { ChangeEvent, useState } from 'react';
 import UniversalModal from '../UniversalModal';
 import { useAppDispatch } from '../../../../store/store';
-import { addNewCard, addQuestionImage } from '../../../../store/reducers/cards-reducer';
-import { Button, Input, Select } from 'antd';
-
-import s from './cards.module.css';
-import { ImageLoader } from '../../imageModalLoader/ImageLoader';
+import { addNewCard } from '../../../../store/reducers/cards-reducer';
 import { uploadPhoto } from '../../../../utils/uploadPhoto';
-import { updateUserData } from '../../../../store/reducers/authorization-reducer';
+
+import { Button, Input, Select } from 'antd';
+import s from './cards.module.css';
+import baseQuestionImage from '../../../../assets/images/questionImagePlug.png'
+
 
 type AddCard = {
     packID: string
@@ -17,8 +17,9 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
     const dispatch = useAppDispatch();
     const [cardQuestion, setCardQuestion] = useState('');
     const [cardAnswer, setCardAnswer] = useState('');
-
     const [questionVariant, setQuestionVariant] = useState(true)
+    const [questionImage, setQuestionImage] = useState(baseQuestionImage)
+
 
     const handleChange = (value: string) => {
         if(value === "Text question") {
@@ -38,16 +39,17 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
 
     const createCardBtn = <Button type="primary">Create new card</Button>;
 
-    const createNewCard = () => {
-        dispatch(addNewCard(packID, cardQuestion, cardAnswer));
-        setCardQuestion('');
-        setCardAnswer('');
-    };
-
     const uploadQuestionImage = (e: ChangeEvent<HTMLInputElement>) => {
         uploadPhoto(e, (file64: string) => {
-            dispatch(addQuestionImage(packID, file64));
+            setQuestionImage(file64)
         });
+        console.log(questionImage)
+    };
+
+    const createNewCard = () => {
+        dispatch(addNewCard(packID, cardQuestion, cardAnswer, questionImage));
+        setCardQuestion('');
+        setCardAnswer('');
     };
 
     const { Option } = Select;
@@ -69,9 +71,12 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
                            value={cardAnswer} />
                 </div>
                 :
-                <div>
-                    <ImageLoader />
-                    <input type="file" onChange={uploadQuestionImage} />
+                <div className={s.question_image_block}>
+                    <img src={questionImage} alt="" />
+                    <label className="custom-file-upload">
+                        <input type="file" onChange={uploadQuestionImage} />
+                        Upload image
+                    </label>
                     <Input className={s.cards_modal_input} placeholder="Write card answer" onChange={onChangeCardAnswer}
                            value={cardAnswer} />
                 </div>

@@ -1,7 +1,6 @@
-import {cardsAPI, CardsType, GetCardsResponseType, GetCardType} from '../../api/cardsAPI';
-import {AppThunk} from '../store';
-import {setError, setPreloaderStatus} from './app-reducer';
-import { setQuestionImg } from './cardsParametersReducer';
+import { cardsAPI, CardsType, GetCardsResponseType, GetCardType } from '../../api/cardsAPI';
+import { AppThunk } from '../store';
+import { setError, setPreloaderStatus } from './app-reducer';
 
 const initialState: initialStateType = {
     cards: [],
@@ -12,10 +11,10 @@ const initialState: initialStateType = {
     pageCount: 4,
     packUserId: '',
     triggerAddNewCard: false,
-    triggerUpdateCard: false
+    triggerUpdateCard: false,
 };
 export const cardsReducer = (state = initialState, action: ActionTypeForCards): initialStateType => {
-    switch (action.type) {
+    switch(action.type) {
         case 'cards-setCardsData': {
             return {...action.cardsData};
         }
@@ -59,23 +58,11 @@ export const addNewCard = (packID: string, question: string, answer: string, que
     });
 };
 
-export const addQuestionImage = (packID: string, questionImg: string): AppThunk => (dispatch, getState) => {
-    cardsAPI.addQuestionImage(packID, questionImg).then((res) => {
-    dispatch(setQuestionImg(questionImg))}).catch(e => {
-        const error = e.response
-            ? e.response.data.error
-            : (e.message + ', more details in the console');
-        dispatch(setError(error));
-        alert(error);
-        dispatch(setPreloaderStatus('failed'));
-    });
-};
-
 export const deleteCard = (id: string, packID: string): AppThunk => (dispatch, getState) => {
     let page = getState().cardsParameter.page;
     const pageCount = getState().cardsParameter.pageCount;
     const items = getState().cards.cards.length;
-    if (items === 1 && page) {
+    if(items === 1 && page) {
         page = page - 1;
     }
     dispatch(setPreloaderStatus('loading'));

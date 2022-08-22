@@ -1,5 +1,10 @@
+.cards_modal_select {
+    margin: 10px 0;
+}
+
+
 .cards_modal_input {
-    margin: 10px 0 10px 0;
+    margin: 10px 0;
 }
 
 .add_pack_btn {
@@ -20,4 +25,32 @@
     text-transform: uppercase;
     color: #f30606;
     font-weight: 700;
+}
+
+.question_image_block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.question_image_block img {
+    margin: 1rem 0;
+    width: 8rem;
+}
+
+.question_image_block label {
+    margin: 10px 0;
+    border: 1px solid #dddddd;
+    padding: 5px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.question_image_block label:hover {
+    background: rgba(129, 153, 253, 0.44);
 }

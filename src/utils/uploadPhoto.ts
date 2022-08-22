@@ -12,8 +12,7 @@ export const uploadPhoto = (e: ChangeEvent<HTMLInputElement>, callBack: (file64:
                 console.error('Error: ', 'Файл слишком большого размера');
             }
         }
-    }
-;
+    };
 
 const convertFileToBase64 = (file: File, callBack: (value: string) => void) => {
     const reader = new FileReader();
