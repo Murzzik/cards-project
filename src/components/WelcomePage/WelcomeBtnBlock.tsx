@@ -14,7 +14,7 @@ export const WelcomeBtnBlock = () => {
                         <button className={s.welcome_btn_continue}><span>Continue your education</span></button>
                     </NavLink>
                 :
-                    <>
+                    <div>
                         <NavLink to="/authorization">
                             <button className={s.welcome_btn_sign_in}>Sign in</button>
                         </NavLink>
@@ -22,7 +22,7 @@ export const WelcomeBtnBlock = () => {
                         <NavLink to="/registration">
                             <button className={s.welcome_btn_sign_up}>Sign up</button>
                         </NavLink>
-                    </>
+                    </div>
             }
         </div>
     );

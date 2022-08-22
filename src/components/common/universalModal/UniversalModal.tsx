@@ -24,15 +24,21 @@ const UniversalModal: React.FC<UniversalModalPropsType> = ({children, callBackFu
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+
     return (
-        <>
+        <div>
             <div onClick={showModal}>
                 {clickElement}
             </div>
-            <Modal title={modalName} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                {children}
+            <Modal title={modalName}
+                   visible={isModalVisible}
+                   onOk={handleOk}
+                   onCancel={handleCancel}
+                   destroyOnClose={true}
+            >
+                    {children}
             </Modal>
-        </>
+        </div>
     );
 };
 

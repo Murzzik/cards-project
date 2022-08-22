@@ -8,14 +8,10 @@ import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import { styled } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import { Rating } from '@mui/material';
 import { convertDate } from '../../../utils/parsData';
-import { IconButton } from '@material-ui/core';
 import s from './CardsList.module.css';
 import CardsPaginationContainer from './CardsPaginationContainer';
-import { DeleteCard } from '../../common/universalModal/CardsModal/DeleteCard';
-import { EditCard } from '../../common/universalModal/CardsModal/EditCard';
-import { useAppSelector } from '../../../store/store';
+import { IconsCardsGroup } from '../PacksList/Table/IconGroup/IconsCardsGroup';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -42,10 +38,6 @@ type CardsListPropsType = {
 }
 
 const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
-
-    const myId = useAppSelector(state => state.auth.user._id);
-    const isMyPacks = useAppSelector(state => state.packsParameter.user_id) === myId;
-
     return (
         <div>
             <TableContainer component={Paper} style={{width: '80%', margin: '0 auto'}}>
@@ -70,23 +62,12 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                                 <StyledTableCell align="right">{convertDate(card.updated)}</StyledTableCell>
                                 <StyledTableCell align="right">
                                     <div className={s.editRow}>
-                                        {   isMyPacks &&
-                                            <div>
-                                                <IconButton>
-                                                        <EditCard id={card._id}
-                                                                  packID={card.cardsPack_id}
-                                                                  questionValue={card.question}
-                                                                  answerValue={card.answer}/>
-                                                </IconButton>
-                                                <IconButton>
-                                                        <DeleteCard id={card._id}
-                                                                    packID={card.cardsPack_id}
-                                                                    cardName={card.question}/>
-                                                </IconButton>
-                                            </div>
-                                        }
-                                        <Rating name="half-rating-read" defaultValue={card.grade} precision={0.5}
-                                                readOnly />
+                                        <IconsCardsGroup ownerPack={card.user_id}
+                                                         cardsPack_id={card.cardsPack_id}
+                                                         question={card.question}
+                                                         answer={card.answer}
+                                                         id={card._id}
+                                                         grade={card.grade}/>
                                     </div>
                                 </StyledTableCell>
                             </StyledTableRow>

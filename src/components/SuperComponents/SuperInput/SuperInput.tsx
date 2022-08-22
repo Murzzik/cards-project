@@ -35,7 +35,7 @@ export const SuperInput: React.FC<SuperInputType> = (
     const finalInputClassName = `${s.mainInput} ${error ? s.error : s.mainInput} ${className}`;
 
     return (
-        <>
+        <div>
             <input
                 type={'text'}
                 onChange={onChangeCallback}
@@ -45,6 +45,6 @@ export const SuperInput: React.FC<SuperInputType> = (
                 {...restProps}
             />
             {error && <span className={finalSpanClassName}>{error}</span>}
-        </>
+        </div>
     );
 };

@@ -35,10 +35,10 @@ export const Header = () => {
 
     const UserAuthStatus = isLoggedIn
         ?
-        <>
+        <div>
             <span className={s.userName}>{userName}</span>
             <img src={userProfileAvatar} alt="USER PHOTO" className={s.userPhoto} onClick={dropdownProfileHandler} />
-        </>
+        </div>
         :
         <a href="#/authorization">
             <button className={s.signInBtn}>Sign in</button>

@@ -18,7 +18,7 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
     const [cardQuestion, setCardQuestion] = useState('');
     const [cardAnswer, setCardAnswer] = useState('');
     const [questionVariant, setQuestionVariant] = useState(true)
-    const [questionImage, setQuestionImage] = useState(baseQuestionImage)
+    const [questionImage, setQuestionImage] = useState('')
 
 
     const handleChange = (value: string) => {
@@ -50,6 +50,7 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
         dispatch(addNewCard(packID, cardQuestion, cardAnswer, questionImage));
         setCardQuestion('');
         setCardAnswer('');
+        setQuestionImage('');
     };
 
     const { Option } = Select;
@@ -72,11 +73,14 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
                 </div>
                 :
                 <div className={s.question_image_block}>
-                    <img src={questionImage} alt="" />
+                    <img src={questionImage} alt=""/>
+                    {/*// @ts-ignore*/}
                     <label className="custom-file-upload">
                         <input type="file" onChange={uploadQuestionImage} />
                         Upload image
                     </label>
+                    <Input className={s.cards_modal_input} placeholder="Write card question" onChange={onChangeCardQuestion}
+                           value={cardQuestion} />
                     <Input className={s.cards_modal_input} placeholder="Write card answer" onChange={onChangeCardAnswer}
                            value={cardAnswer} />
                 </div>

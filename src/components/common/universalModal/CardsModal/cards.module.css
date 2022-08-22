@@ -34,7 +34,7 @@
     flex-direction: column;
 }
 
-input[type="file"] {
+.question_image_block button {
     display: none;
 }
 
