@@ -14,7 +14,8 @@ import {styled} from '@mui/material/styles';
 import TableRow from '@mui/material/TableRow';
 import IconGroup from './IconGroup/IconGroupPropsType';
 
-import s from '../PackList.module.css'
+import s from '../PackList.module.css';
+import baseQuestionImage from '../../../../assets/images/questionImagePlug.png';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -47,6 +48,13 @@ const TablesContainer: React.FC = () => {
                     <TableBody>
                         {packs.map((pack: Pack) => (
                             <StyledTableRow key={pack._id}>
+                                <TableCell>
+                                    {pack.deckCover ?
+                                        <img className={s.card_question_image} src={pack.deckCover} alt=""/>
+                                        :
+                                        <img className={s.card_question_image} src={baseQuestionImage} alt=""/>
+                                    }
+                                </TableCell>
                                 <TableCell component="th" scope="row">
                                     <NavLink to={'/packs/' + pack._id}>{pack.name}</NavLink>
                                 </TableCell>
@@ -54,7 +62,7 @@ const TablesContainer: React.FC = () => {
                                 <TableCell>{convertDate(pack.updated)}</TableCell>
                                 <TableCell>{pack.user_name}</TableCell>
                                 <TableCell className={s.table_icons}>
-                                    <IconGroup ownerPack={pack.user_id} packId={pack._id} packName={pack.name} />
+                                    <IconGroup ownerPack={pack.user_id} packId={pack._id} packName={pack.name}/>
                                 </TableCell>
                             </StyledTableRow>
                         ))}

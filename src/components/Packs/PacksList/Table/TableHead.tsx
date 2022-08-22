@@ -1,36 +1,35 @@
 import React, {useState} from 'react';
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
-import {TableSortLabel} from "@mui/material";
-import s from "../PackList.module.css";
+import {TableSortLabel} from '@mui/material';
+import s from '../PackList.module.css';
 
 export type sortModeType = { sortBy: string, direction: 'asc' | 'desc' }
 export type headCellsType = {
     id: string
     label: string,
-    align?: "left" | "center" | "right" | "justify" | "inherit" | undefined
-    padding?: "checkbox" | "none" | "normal" | undefined
+    align?: 'left' | 'center' | 'right' | 'justify' | 'inherit' | undefined
+    padding?: 'checkbox' | 'none' | 'normal' | undefined
     width?: string
 }
 type PropsType = {
     headCells: headCellsType[]
-    sortCallBack: (mode:sortModeType) => void
+    sortCallBack: (mode: sortModeType) => void
 }
 
-
 const CommonTableHead: React.FC<PropsType> = ({headCells, sortCallBack}) => {
-    const [sortMode, setSortMode] = useState<sortModeType>({sortBy: 'updated', direction: 'desc'})
+    const [sortMode, setSortMode] = useState<sortModeType>({sortBy: 'updated', direction: 'desc'});
 
     const onSortModeChangeHandler = (id: string) => () => {
-        const isAsc = id === sortMode.sortBy && sortMode.direction === 'asc'
+        const isAsc = id === sortMode.sortBy && sortMode.direction === 'asc';
         const mode: sortModeType = {
             sortBy: id,
             direction: isAsc ? 'desc' : 'asc'
-        }
-        setSortMode(mode)
-        sortCallBack(mode)
-    }
+        };
+        setSortMode(mode);
+        sortCallBack(mode);
+    };
 
     return (
         <TableHead>

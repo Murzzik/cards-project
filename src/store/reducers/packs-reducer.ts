@@ -88,11 +88,11 @@ export const deletePack = (id: string): AppThunk => (dispatch, getState) => {
     });
 };
 
-export const updatePackName = (id: string, name: string, visibility: boolean): AppThunk => (dispatch, getState) => {
+export const updatePack = (id: string, name: string, visibility: boolean, deckCover?: string): AppThunk => (dispatch, getState) => {
     const pageCount = getState().packsParameter.pageCount;
     const user_id = getState().packsParameter.user_id;
     dispatch(setPreloaderStatus('loading'));
-    packAPI.updatePack(id, name, visibility).then((res) => {
+    packAPI.updatePack(id, name, visibility, deckCover).then((res) => {
         dispatch(setPreloaderStatus('succeeded'));
         dispatch(initializedPacks({user_id, pageCount}));
     }).catch(e => {

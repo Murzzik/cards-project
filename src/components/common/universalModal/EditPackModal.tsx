@@ -1,19 +1,31 @@
-import React, { ChangeEvent, ReactNode, useState } from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import UniversalModal from './UniversalModal';
-import { useAppDispatch } from '../../../store/store';
-import { updatePackName } from '../../../store/reducers/packs-reducer';
-import { Checkbox, Input } from 'antd';
-import { CheckboxChangeEvent } from 'antd/lib/checkbox';
+import {useAppDispatch, useAppSelector} from '../../../store/store';
+import {updatePack} from '../../../store/reducers/packs-reducer';
+import {Checkbox, Input} from 'antd';
+import {CheckboxChangeEvent} from 'antd/lib/checkbox';
 import EditIcon from '@mui/icons-material/Edit';
+import baseQuestionImage from '../../../assets/images/questionImagePlug.png';
+import s from './CardsModal/cards.module.css';
+import {uploadPhoto} from '../../../utils/uploadPhoto';
 
 type EditePackModalPropsType = {
     packId: string,
     packName: string
 }
 const EditPackModal: React.FC<EditePackModalPropsType> = ({packId, packName}) => {
+    const pack = useAppSelector(state => state.packs.cardPacks.find(p => p._id === packId));
+    let packImg = baseQuestionImage;
+    if (pack) {
+        if (pack.deckCover) {
+            packImg = pack.deckCover;
+        }
+    }
     const dispatch = useAppDispatch();
     const [name, setName] = useState(packName);
     const [check, setCheck] = useState(true);
+    const [packImage, setPackImage] = useState(packImg);
+
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.currentTarget.value);
     };
@@ -21,16 +33,30 @@ const EditPackModal: React.FC<EditePackModalPropsType> = ({packId, packName}) =>
         setCheck(e.target.checked);
     };
     const updatePackHandler = () => {
-        dispatch(updatePackName(packId, name, check));
+        dispatch(updatePack(packId, name, check, packImage));
+    };
+
+    const uploadPackImage = (e: ChangeEvent<HTMLInputElement>) => {
+        uploadPhoto(e, (file64: string) => {
+            setPackImage(file64);
+        });
+
     };
     return (
         <UniversalModal
             callBackFunction={updatePackHandler}
             modalName="Edit pack"
-            clickElement={<EditIcon />}
+            clickElement={<EditIcon/>}
             children={
                 <div>
-                    <Input placeholder="Pack name" value={name} onChange={onChangeHandler} />
+                    <Input placeholder="Pack name" value={name} onChange={onChangeHandler}/>
+                    <div className={s.question_image_block}>
+                        <img src={packImage} alt=""/>
+                        <label className="custom-file-upload">
+                            <input type="file" onChange={uploadPackImage}/>
+                            Upload image
+                        </label>
+                    </div>
                     <Checkbox checked={check} onChange={onChangeCheck}>Private</Checkbox>
                 </div>
             }

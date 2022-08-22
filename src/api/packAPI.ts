@@ -12,8 +12,8 @@ export const packAPI = {
     deletePack(id: string) {
         return instance.delete<GetCardsResponseType>('/cards/pack', {params: {id}});
     },
-    updatePack(_id: string, name: string, visibility: boolean) {
-        return instance.put<GetCardsResponseType>('/cards/pack', {cardsPack: {_id, name, private: visibility}});
+    updatePack(_id: string, name: string, visibility: boolean, deckCover?: string) {
+        return instance.put<GetCardsResponseType>('/cards/pack', {cardsPack: {_id, name, private: visibility, deckCover}});
     },
 };
 
