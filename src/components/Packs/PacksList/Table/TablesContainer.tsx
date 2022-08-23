@@ -49,7 +49,7 @@ const TablesContainer: React.FC = () => {
                         {packs.map((pack: Pack) => (
                             <StyledTableRow key={pack._id}>
                                 <TableCell>
-                                    {pack.deckCover ?
+                                    {(pack.deckCover && pack.deckCover.includes('data:image'))?
                                         <img className={s.card_question_image} src={pack.deckCover} alt=""/>
                                         :
                                         <img className={s.card_question_image} src={baseQuestionImage} alt=""/>
