@@ -36,6 +36,10 @@ const EditPackModal: React.FC<EditePackModalPropsType> = ({packId, packName}) =>
         dispatch(updatePack(packId, name, check, packImage));
     };
 
+    const clearData = () => {
+        setName('');
+        setPackImage(packImg);
+    };
     const uploadPackImage = (e: ChangeEvent<HTMLInputElement>) => {
         uploadPhoto(e, (file64: string) => {
             setPackImage(file64);
@@ -47,6 +51,7 @@ const EditPackModal: React.FC<EditePackModalPropsType> = ({packId, packName}) =>
             callBackFunction={updatePackHandler}
             modalName="Edit pack"
             clickElement={<EditIcon/>}
+            clearData={clearData}
             children={
                 <div>
                     <Input placeholder="Pack name" value={name} onChange={onChangeHandler}/>

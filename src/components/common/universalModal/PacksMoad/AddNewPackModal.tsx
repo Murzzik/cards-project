@@ -20,10 +20,13 @@ const AddNewPackModal: React.FC = () => {
         setCheck(e.target.checked);
     };
 
+    const clearData = () => {
+        setName('');
+        setPackImage(defaultPackImage);
+    };
+
     const newPackHandler = () => {
         dispatch(addNewPack(name, check, packImage));
-        setName('');
-        setPackImage('');
     };
 
     const uploadPackImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -37,6 +40,7 @@ const AddNewPackModal: React.FC = () => {
             callBackFunction={newPackHandler}
             clickElement={<Button type="primary">Add new Pack</Button>}
             modalName="Add new Pack"
+            clearData={clearData}
             children={
                 <div>
                     <Input placeholder="Pack name" value={name} onChange={onChangeHandler}/>
