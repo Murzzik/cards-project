@@ -5,14 +5,14 @@ import {useAppDispatch} from '../../../../store/store';
 import {Button, Checkbox, Input} from 'antd';
 import {CheckboxChangeEvent} from 'antd/lib/checkbox';
 import s from '../CardsModal/cards.module.css';
-import baseQuestionImage from '../../../../assets/images/questionImagePlug.png';
+import defaultPackImage from '../../../../assets/images/project-logo.png';
 import {uploadPhoto} from '../../../../utils/uploadPhoto';
 
 const AddNewPackModal: React.FC = () => {
     const dispatch = useAppDispatch();
     const [name, setName] = useState('');
     const [check, setCheck] = useState(true);
-    const [packImage, setPackImage] = useState(baseQuestionImage);
+    const [packImage, setPackImage] = useState(defaultPackImage);
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.currentTarget.value);
     };

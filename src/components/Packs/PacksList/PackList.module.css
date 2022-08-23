@@ -8,8 +8,13 @@
     display: flex;
 }
 
-.card_question_image {
+.pack_image {
     width: 100px;
     height: 100px;
+    object-fit: cover;
+}
+.pack_image_default {
+    width: 100px;
+    height: 20px;
     object-fit: cover;
 }

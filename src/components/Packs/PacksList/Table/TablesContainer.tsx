@@ -15,7 +15,7 @@ import TableRow from '@mui/material/TableRow';
 import IconGroup from './IconGroup/IconGroupPropsType';
 
 import s from '../PackList.module.css';
-import baseQuestionImage from '../../../../assets/images/questionImagePlug.png';
+import defaultPackImage from '../../../../assets/images/project-logo.png';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -50,9 +50,9 @@ const TablesContainer: React.FC = () => {
                             <StyledTableRow key={pack._id}>
                                 <TableCell>
                                     {(pack.deckCover && pack.deckCover.includes('data:image'))?
-                                        <img className={s.card_question_image} src={pack.deckCover} alt=""/>
+                                        <img className={s.pack_image} src={pack.deckCover} alt=""/>
                                         :
-                                        <img className={s.card_question_image} src={baseQuestionImage} alt=""/>
+                                        <img className={s.pack_image_default} src={defaultPackImage} alt=""/>
                                     }
                                 </TableCell>
                                 <TableCell component="th" scope="row">
