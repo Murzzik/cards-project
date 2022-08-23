@@ -2,8 +2,8 @@ import React from 'react';
 import { IconButton } from '@material-ui/core';
 import SchoolIcon from '@mui/icons-material/School';
 import { useAppSelector } from '../../../../../store/store';
-import DeletePackModal from '../../../../common/universalModal/DeletePackModal';
-import EditPackModal from '../../../../common/universalModal/EditPackModal';
+import DeletePackModal from '../../../../common/universalModal/PacksMoad/DeletePackModal';
+import EditPackModal from '../../../../common/universalModal/PacksMoad/EditPackModal';
 import { useNavigate } from 'react-router-dom';
 
 

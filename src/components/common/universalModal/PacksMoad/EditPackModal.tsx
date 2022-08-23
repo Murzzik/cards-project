@@ -1,13 +1,13 @@
 import React, {ChangeEvent, useState} from 'react';
-import UniversalModal from './UniversalModal';
-import {useAppDispatch, useAppSelector} from '../../../store/store';
-import {updatePack} from '../../../store/reducers/packs-reducer';
+import UniversalModal from '../UniversalModal';
+import {useAppDispatch, useAppSelector} from '../../../../store/store';
+import {updatePack} from '../../../../store/reducers/packs-reducer';
 import {Checkbox, Input} from 'antd';
 import {CheckboxChangeEvent} from 'antd/lib/checkbox';
 import EditIcon from '@mui/icons-material/Edit';
-import baseQuestionImage from '../../../assets/images/questionImagePlug.png';
-import s from './CardsModal/cards.module.css';
-import {uploadPhoto} from '../../../utils/uploadPhoto';
+import baseQuestionImage from '../../../../assets/images/questionImagePlug.png';
+import s from '../CardsModal/cards.module.css';
+import {uploadPhoto} from '../../../../utils/uploadPhoto';
 
 type EditePackModalPropsType = {
     packId: string,

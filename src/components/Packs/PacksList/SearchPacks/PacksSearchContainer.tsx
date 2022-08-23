@@ -3,7 +3,7 @@ import style from './SearchParameters.module.css';
 import NameFilter from './NameFilter/NameFilter';
 import OwnerFilter from './OwnerFilter/OwnerFilter';
 import QuantityFilter from './QuantityFilter/QuantityFilter';
-import AddNewPackModal from '../../../common/universalModal/AddNewPackModal';
+import AddNewPackModal from '../../../common/universalModal/PacksMoad/AddNewPackModal';
 
 const PacksSearchContainer: React.FC = () => {
 

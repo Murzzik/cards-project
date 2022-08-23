@@ -1,12 +1,12 @@
 import React, {ChangeEvent, useState} from 'react';
-import UniversalModal from './UniversalModal';
-import {addNewPack} from '../../../store/reducers/packs-reducer';
-import {useAppDispatch} from '../../../store/store';
+import UniversalModal from '../UniversalModal';
+import {addNewPack} from '../../../../store/reducers/packs-reducer';
+import {useAppDispatch} from '../../../../store/store';
 import {Button, Checkbox, Input} from 'antd';
 import {CheckboxChangeEvent} from 'antd/lib/checkbox';
-import s from './CardsModal/cards.module.css';
-import baseQuestionImage from '../../../assets/images/questionImagePlug.png';
-import {uploadPhoto} from '../../../utils/uploadPhoto';
+import s from '../CardsModal/cards.module.css';
+import baseQuestionImage from '../../../../assets/images/questionImagePlug.png';
+import {uploadPhoto} from '../../../../utils/uploadPhoto';
 
 const AddNewPackModal: React.FC = () => {
     const dispatch = useAppDispatch();
