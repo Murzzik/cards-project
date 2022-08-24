@@ -12,9 +12,9 @@ const CardsPaginationContainer: React.FC = () => {
     let parameters = useAppSelector(state => state.packsParameter);
     const dispatch = useAppDispatch();
     const changeCardsPaginationData = (page: number, pageCount: number) => {
-       if (cardsPack_id) {
-           dispatch(setCardsParameter({...parameters, page, pageCount, cardsPack_id}));
-       }
+        if (cardsPack_id) {
+            dispatch(setCardsParameter({parameters: {...parameters, page, pageCount, cardsPack_id}}));
+        }
     };
     return (
         <UniversalPagination totalItems={totalItems} page={page} pageCount={pageCount} changePaginationData={changeCardsPaginationData}/>
