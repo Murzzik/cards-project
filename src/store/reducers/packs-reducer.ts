@@ -1,4 +1,4 @@
-import {GetCardsPackResponseType, GetCardsType, packAPI} from '../../api/packAPI';
+import {GetCardsPackResponseType, GetPackType, packAPI} from '../../api/packAPI';
 import {AppThunk} from '../store';
 import {setError, setPreloaderStatus} from './app-reducer';
 import {setIsLoggedIn} from './authorization-reducer';
@@ -27,7 +27,7 @@ export const setPacksData = (packsData: GetCardsPackResponseType) => {
     return {type: 'packs-setPacksData', packsData} as const;
 };
 
-export const initializedPacks = (args: GetCardsType = {}): AppThunk => (dispatch, getState) => {
+export const initializedPacks = (args: GetPackType = {}): AppThunk => (dispatch, getState) => {
     dispatch(setPreloaderStatus('loading'));
     packAPI.getPacks(args).then(res => {
         dispatch(setPreloaderStatus('succeeded'));

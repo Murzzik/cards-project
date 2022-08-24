@@ -3,7 +3,7 @@ import {Pack} from '../store/reducers/packs-reducer';
 import {GetCardsResponseType} from './cardsAPI';
 
 export const packAPI = {
-    getPacks(args: GetCardsType) {
+    getPacks(args: GetPackType) {
         return instance.get<GetCardsPackResponseType>('cards/pack', {params: args});
     },
     addNewPack(name: string, visibility: boolean, deckCover?: string) {
@@ -23,7 +23,7 @@ export type AddNewCardType = {
     private?: boolean
 }
 
-export type GetCardsType = {
+export type GetPackType = {
     packName?: string | null
     min?: number
     max?: number

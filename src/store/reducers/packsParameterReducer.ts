@@ -1,7 +1,7 @@
-import {GetCardsType} from '../../api/packAPI';
+import {GetPackType} from '../../api/packAPI';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-const initialState: GetCardsType = {
+const initialState: GetPackType = {
     packName: '',
     min: 0,
     max: 110,
@@ -15,7 +15,7 @@ const slice = createSlice({
     name: 'packsParameter',
     initialState: initialState,
     reducers: {
-        setPacksParameter(state, action: PayloadAction<{ parameters: GetCardsType }>) {
+        setPacksParameter(state, action: PayloadAction<{ parameters: GetPackType }>) {
             return action.payload.parameters;
             // return state = action.payload.parameters;
         }
