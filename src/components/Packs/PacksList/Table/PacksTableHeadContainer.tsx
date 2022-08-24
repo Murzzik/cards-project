@@ -53,7 +53,7 @@ const PacksTableHeadContainer = () => {
 
     const setSearchParams = (sortMode: sortModeType) => {
         const sortPacks = `${sortMode.direction === 'asc' ? '0' : '1'}${sortMode.sortBy}`;
-        dispatch(setPacksParameter({...parameters, sortPacks}));
+        dispatch(setPacksParameter({parameters: {...parameters, sortPacks}}));
     };
 
     return (
