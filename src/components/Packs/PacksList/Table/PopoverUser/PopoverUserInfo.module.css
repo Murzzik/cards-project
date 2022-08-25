@@ -1,0 +1,13 @@
+.popoverBlock {
+    min-height: 200px;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.avatar {
+    margin: 10px auto;
+}
