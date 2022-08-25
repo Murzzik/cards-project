@@ -40,7 +40,7 @@ const PopoverUserInfoContainer: React.FC<PopoverUserInfoPropsType> = ({user_name
                 <div className={style.popoverBlock}>
                     {isLoading === 'loading' ?
                         <Spin tip="Loading..." size="small"
-                              style={{top: '50%', left: '50%', position: 'absolute', marginRight: '-50%', width: '45px', transform: 'translate(-50%, -50%)'}}
+                              className={style.spin}
                         />
                         :
                         <div>
