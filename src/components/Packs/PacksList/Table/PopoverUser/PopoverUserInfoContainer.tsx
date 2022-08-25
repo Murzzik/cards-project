@@ -61,7 +61,7 @@ const PopoverUserInfoContainer: React.FC<PopoverUserInfoPropsType> = ({user_name
             visible={visible}
             onVisibleChange={handleVisibleChange}
         >
-            {user_name}
+            <span className={style.popoverTrigger}>{user_name}</span>
         </Popover>
     );
 };

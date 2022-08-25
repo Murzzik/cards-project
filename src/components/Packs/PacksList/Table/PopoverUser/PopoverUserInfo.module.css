@@ -11,3 +11,12 @@
 .avatar {
     margin: 10px auto;
 }
+
+.popoverTrigger {
+    cursor: pointer;
+}
+.popoverTrigger:hover {
+    color: #860488;
+    font-weight: 600;
+    font-size: 13.5px;
+}

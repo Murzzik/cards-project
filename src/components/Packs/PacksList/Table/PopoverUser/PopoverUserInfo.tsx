@@ -23,9 +23,9 @@ const PopoverUserInfo: React.FC<PopoverUserInfoPropsType> = ({user_name, user_av
             }
             <div>
                 <h3>Name: {user_name}</h3>
-                <h3>Email: {user_email}</h3>
+                <h3>Email: <a>{user_email}</a></h3>
                 <h3>Registration: {firstRegistrationDate}</h3>
-                <h3>Count Packs: {countPacks}</h3>
+                <h3>Count public Packs: {countPacks}</h3>
             </div>
 
         </div>
