@@ -16,6 +16,7 @@ import IconGroup from './IconGroup/IconGroupPropsType';
 
 import s from '../PackList.module.css';
 import defaultPackImage from '../../../../assets/images/project-logo.png';
+import PopoverUserInfoContainer from './PopoverUser/PopoverUserInfoContainer';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -49,7 +50,7 @@ const TablesContainer: React.FC = () => {
                         {packs.map((pack: Pack) => (
                             <StyledTableRow key={pack._id}>
                                 <TableCell>
-                                    {(pack.deckCover && pack.deckCover.includes('data:image'))?
+                                    {(pack.deckCover && pack.deckCover.includes('data:image')) ?
                                         <img className={s.pack_image} src={pack.deckCover} alt=""/>
                                         :
                                         <img className={s.pack_image_default} src={defaultPackImage} alt=""/>
@@ -60,7 +61,12 @@ const TablesContainer: React.FC = () => {
                                 </TableCell>
                                 <TableCell>{pack.cardsCount}</TableCell>
                                 <TableCell>{convertDate(pack.updated)}</TableCell>
-                                <TableCell>{pack.user_name}</TableCell>
+                                <TableCell>
+                                    <PopoverUserInfoContainer
+                                        user_name={pack.user_name}
+                                        user_id={pack.user_id}
+                                    />
+                                </TableCell>
                                 <TableCell className={s.table_icons}>
                                     <IconGroup ownerPack={pack.user_id} packId={pack._id} packName={pack.name}/>
                                 </TableCell>
