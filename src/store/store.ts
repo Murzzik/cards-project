@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, legacy_createStore as createStore} from 'redux';
+import {combineReducers} from 'redux';
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {ActionTypeFoAuthReducer, authorizationReducer} from './reducers/authorization-reducer';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
@@ -7,7 +7,8 @@ import {ActionTypeForPacksReducer, packsReducer} from './reducers/packs-reducer'
 import {ActionTypeForCards, cardsReducer} from './reducers/cards-reducer';
 import {ActionForPacksParameter, packsParameterReducer} from './reducers/packsParameterReducer';
 import {ActionForCardsParameter, cardsParametersReducer} from './reducers/cardsParametersReducer';
-import {ActionsLearnType, learnReducer} from "./reducers/learnReducer";
+import {ActionsLearnType, learnReducer} from './reducers/learnReducer';
+import {configureStore} from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({
     auth: authorizationReducer,
@@ -19,7 +20,10 @@ const rootReducer = combineReducers({
     learn: learnReducer
 
 });
-export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+export const store = configureStore({
+    reducer: rootReducer,
+    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
+});
 
 type AppActionsType = ActionTypeForAppReducer
     | ActionTypeFoAuthReducer

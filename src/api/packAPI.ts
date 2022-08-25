@@ -3,17 +3,17 @@ import {Pack} from '../store/reducers/packs-reducer';
 import {GetCardsResponseType} from './cardsAPI';
 
 export const packAPI = {
-    getPacks(args: GetCardsType) {
+    getPacks(args: GetPackType) {
         return instance.get<GetCardsPackResponseType>('cards/pack', {params: args});
     },
-    addNewPack(name: string, visibility: boolean) {
-        return instance.post<GetCardsPackResponseType>('cards/pack', {cardsPack: {name, private: visibility}});
+    addNewPack(name: string, visibility: boolean, deckCover?: string) {
+        return instance.post<GetCardsPackResponseType>('cards/pack', {cardsPack: {name, private: visibility, deckCover}});
     },
     deletePack(id: string) {
         return instance.delete<GetCardsResponseType>('/cards/pack', {params: {id}});
     },
-    updatePack(_id: string, name: string, visibility: boolean) {
-        return instance.put<GetCardsResponseType>('/cards/pack', {cardsPack: {_id, name, private: visibility}});
+    updatePack(_id: string, name: string, visibility: boolean, deckCover?: string) {
+        return instance.put<GetCardsResponseType>('/cards/pack', {cardsPack: {_id, name, private: visibility, deckCover}});
     },
 };
 
@@ -23,7 +23,7 @@ export type AddNewCardType = {
     private?: boolean
 }
 
-export type GetCardsType = {
+export type GetPackType = {
     packName?: string | null
     min?: number
     max?: number

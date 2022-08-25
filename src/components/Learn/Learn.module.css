@@ -39,6 +39,10 @@
     font-size: 18px;
     font-weight: 500;
 }
+.question_block img {
+    width: 100%;
+    border-radius: 10px;
+}
 
 .answer_block {
     display: flex;

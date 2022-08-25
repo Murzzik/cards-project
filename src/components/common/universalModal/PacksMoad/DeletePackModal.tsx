@@ -1,7 +1,7 @@
 import React from 'react';
-import UniversalModal from './UniversalModal';
-import { useAppDispatch } from '../../../store/store';
-import { deletePack } from '../../../store/reducers/packs-reducer';
+import UniversalModal from '../UniversalModal';
+import { useAppDispatch } from '../../../../store/store';
+import { deletePack } from '../../../../store/reducers/packs-reducer';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 type DeletePackModalPropsType = {

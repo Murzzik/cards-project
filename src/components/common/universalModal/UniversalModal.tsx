@@ -6,10 +6,11 @@ type UniversalModalPropsType = {
     children?: ReactNode,
     callBackFunction: () => void,
     clickElement?: ReactNode,
-    modalName: string
+    modalName: string,
+    clearData?: () => void,
 }
 
-const UniversalModal: React.FC<UniversalModalPropsType> = ({children, callBackFunction, clickElement, modalName}) => {
+const UniversalModal: React.FC<UniversalModalPropsType> = ({children, callBackFunction, clickElement, modalName, clearData}) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
@@ -19,10 +20,12 @@ const UniversalModal: React.FC<UniversalModalPropsType> = ({children, callBackFu
     const handleOk = () => {
         callBackFunction();
         setIsModalVisible(false);
+        clearData && clearData();
     };
 
     const handleCancel = () => {
         setIsModalVisible(false);
+        clearData && clearData();
     };
 
     return (

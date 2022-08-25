@@ -1,6 +1,6 @@
 import React from 'react';
 import {useAppSelector} from '../../../store/store';
-import AddNewPackModal from '../../common/universalModal/AddNewPackModal';
+import AddNewPackModal from '../../common/universalModal/PacksMoad/AddNewPackModal';
 
 const ButtonOrText: React.FC = () => {
     const myId = useAppSelector(state => state.auth.user._id);

@@ -3,7 +3,6 @@ import useDebounce from 'usehooks-ts/dist/esm/useDebounce/useDebounce';
 import {useAppDispatch, useAppSelector} from '../../../../../store/store';
 import {setPacksParameter} from '../../../../../store/reducers/packsParameterReducer';
 
-
 type NameFilterPropsType = {}
 
 const NameFilter: React.FC<NameFilterPropsType> = () => {
@@ -19,7 +18,7 @@ const NameFilter: React.FC<NameFilterPropsType> = () => {
 
     useEffect(() => {
         if (packName !== name) {
-            dispatch(setPacksParameter({...parameters, packName}));
+            dispatch(setPacksParameter({parameters: {...parameters, packName}}));
         }
     }, [debouncedName]);
 

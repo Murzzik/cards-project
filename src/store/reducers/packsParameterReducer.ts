@@ -1,6 +1,7 @@
-import {GetCardsType} from '../../api/packAPI';
+import {GetPackType} from '../../api/packAPI';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-const initialState: GetCardsType = {
+const initialState: GetPackType = {
     packName: '',
     min: 0,
     max: 110,
@@ -10,19 +11,18 @@ const initialState: GetCardsType = {
     user_id: ''
 };
 
-export const packsParameterReducer = (state = initialState, action: ActionForPacksParameter) => {
-    switch (action.type) {
-        case 'packsParameter-setPacksParameter': {
-            return action.parameters;
+const slice = createSlice({
+    name: 'packsParameter',
+    initialState: initialState,
+    reducers: {
+        setPacksParameter(state, action: PayloadAction<{ parameters: GetPackType }>) {
+            return action.payload.parameters;
+            // return state = action.payload.parameters;
         }
-        default :
-            return state;
-
     }
-};
+});
 
-export const setPacksParameter = (args: GetCardsType) => {
-    return {type: 'packsParameter-setPacksParameter', parameters: args} as const;
-};
+export const packsParameterReducer = slice.reducer;
+export const setPacksParameter = slice.actions.setPacksParameter;
 
 export type ActionForPacksParameter = ReturnType<typeof setPacksParameter>
