@@ -9,6 +9,7 @@ import {ActionForPacksParameter, packsParameterReducer} from './reducers/packsPa
 import {ActionForCardsParameter, cardsParametersReducer} from './reducers/cardsParametersReducer';
 import {ActionsLearnType, learnReducer} from './reducers/learnReducer';
 import {configureStore} from '@reduxjs/toolkit';
+import {ActionForUsersProfileReducer, userProfileReducer, usersProfileReducer} from './reducers/usersProfileReducer';
 
 const rootReducer = combineReducers({
     auth: authorizationReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     cards: cardsReducer,
     packsParameter: packsParameterReducer,
     cardsParameter: cardsParametersReducer,
-    learn: learnReducer
+    learn: learnReducer,
+    usersInfo: usersProfileReducer
 
 });
 export const store = configureStore({
@@ -32,6 +34,7 @@ type AppActionsType = ActionTypeForAppReducer
     | ActionForPacksParameter
     | ActionForCardsParameter
     | ActionsLearnType
+    | ActionForUsersProfileReducer
 
 export type AppRootStateType = ReturnType<typeof store.getState>
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AppActionsType>
