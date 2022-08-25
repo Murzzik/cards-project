@@ -37,7 +37,7 @@ const EditPackModal: React.FC<EditePackModalPropsType> = ({packId, packName}) =>
     };
 
     const clearData = () => {
-        setName('');
+        setName(packName);
         setPackImage(packImg);
         if (uploadRef.current) {
             uploadRef.current.value = '';
