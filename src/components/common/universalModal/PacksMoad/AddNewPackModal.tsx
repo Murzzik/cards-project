@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useRef, useState} from 'react';
 import UniversalModal from '../UniversalModal';
 import {addNewPack} from '../../../../store/reducers/packs-reducer';
 import {useAppDispatch} from '../../../../store/store';
@@ -13,6 +13,7 @@ const AddNewPackModal: React.FC = () => {
     const [name, setName] = useState('');
     const [check, setCheck] = useState(true);
     const [packImage, setPackImage] = useState(defaultPackImage);
+    const uploadRef = useRef<HTMLInputElement>(null);
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.currentTarget.value);
     };
@@ -23,6 +24,17 @@ const AddNewPackModal: React.FC = () => {
     const clearData = () => {
         setName('');
         setPackImage(defaultPackImage);
+        // const reader = new FileReader();
+        // reader.onloadend = () => {
+        //     const file64 = reader.result as string;
+        // };
+        // // @ts-ignore
+        // reader.readAsDataURL(defaultPackImage);
+        // console.log(uploadRef.current);
+        // // @ts-ignore
+        if (uploadRef.current) {
+            uploadRef.current.value = '';
+        }
     };
 
     const newPackHandler = () => {
@@ -33,7 +45,7 @@ const AddNewPackModal: React.FC = () => {
         uploadPhoto(e, (file64: string) => {
             setPackImage(file64);
         });
-
+        console.log(e);
     };
     return (
         <UniversalModal
@@ -47,7 +59,7 @@ const AddNewPackModal: React.FC = () => {
                     <div className={s.question_image_block}>
                         <img src={packImage} alt=""/>
                         <label className="custom-file-upload">
-                            <input type="file" onChange={uploadPackImage}/>
+                            <input type="file" onChange={uploadPackImage} ref={uploadRef}/>
                             Upload image
                         </label>
                     </div>
