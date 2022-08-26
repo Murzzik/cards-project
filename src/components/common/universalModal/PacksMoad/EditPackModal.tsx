@@ -5,7 +5,7 @@ import {updatePack} from '../../../../store/reducers/packs-reducer';
 import {Checkbox, Input} from 'antd';
 import {CheckboxChangeEvent} from 'antd/lib/checkbox';
 import EditIcon from '@mui/icons-material/Edit';
-import baseQuestionImage from '../../../../assets/images/questionImagePlug.png';
+import baseQuestionImage from '../../../../assets/images/project-logo.png';
 import s from '../CardsModal/cards.module.css';
 import {uploadPhoto} from '../../../../utils/uploadPhoto';
 
@@ -47,8 +47,8 @@ const EditPackModal: React.FC<EditePackModalPropsType> = ({packId, packName}) =>
         uploadPhoto(e, (file64: string) => {
             setPackImage(file64);
         });
-
     };
+
     return (
         <UniversalModal
             callBackFunction={updatePackHandler}
@@ -62,7 +62,6 @@ const EditPackModal: React.FC<EditePackModalPropsType> = ({packId, packName}) =>
                         <img src={packImage} alt=""/>
                         <label className="custom-file-upload">
                             <input type="file" onChange={uploadPackImage} ref={uploadRef}/>
-                            Upload image
                         </label>
                     </div>
                     <Checkbox checked={check} onChange={onChangeCheck}>Private</Checkbox>

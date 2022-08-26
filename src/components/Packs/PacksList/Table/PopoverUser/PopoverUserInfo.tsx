@@ -17,15 +17,15 @@ const PopoverUserInfo: React.FC<PopoverUserInfoPropsType> = ({user_name, user_av
     return (
         <div className={style.userInfo}>
             {(user_avatar && user_avatar.includes('data:image')) ?
-                <img className={style.avatar} src={user_avatar} alt="" style={{width: '100px', height: '100px', borderRadius: '50%'}}/>
+                <img className={style.avatar} src={user_avatar} alt="Personal user avatar"/>
                 :
-                <img className={style.avatar} src={userDefaultPhoto} alt=""/>
+                <img className={style.avatar} src={userDefaultPhoto} alt="Default user avatar"/>
             }
             <div>
-                <h3>Name: {user_name}</h3>
-                <h3>Email: <a>{user_email}</a></h3>
-                <h3>Registration: {firstRegistrationDate}</h3>
-                <h3>Count public Packs: {countPacks}</h3>
+                <div><span>Name: </span> {user_name}</div>
+                <div><span>Email: </span> <a href={`mailto:${user_email}`}>{user_email}</a></div>
+                <div><span>Registration: </span>{firstRegistrationDate}</div>
+                <div><span>Count of public packs: </span> {countPacks}</div>
             </div>
 
         </div>

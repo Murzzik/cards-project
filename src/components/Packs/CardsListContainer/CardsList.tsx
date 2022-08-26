@@ -13,6 +13,8 @@ import s from './CardsList.module.css';
 import CardsPaginationContainer from './CardsPaginationContainer';
 import { IconsCardsGroup } from '../PacksList/Table/IconGroup/IconsCardsGroup';
 
+import defaultImage from '../../../assets/images/project-logo.png';
+
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
@@ -56,7 +58,14 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                     <TableBody>
                         {cards.map((card) => (
                             <StyledTableRow key={card._id}>
-                                <StyledTableCell component="th" scope="row"><img className={s.pack_image} src={card.questionImg} alt="" /></StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    {
+                                        (card.questionImg && card.questionImg.includes('data:image')) ?
+                                        <img className={s.question_image} src={card.questionImg} alt="Personal question image" />
+                                        :
+                                        <img className={s.question_image_default} src={defaultImage} alt="Default question image" />
+                                    }
+                                </StyledTableCell>
                                 <StyledTableCell component="th" scope="row">{card.question}</StyledTableCell>
                                 <StyledTableCell align="right">{card.answer}</StyledTableCell>
                                 <StyledTableCell align="right">{convertDate(card.updated)}</StyledTableCell>

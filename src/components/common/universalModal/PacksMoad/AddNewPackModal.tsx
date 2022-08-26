@@ -24,14 +24,6 @@ const AddNewPackModal: React.FC = () => {
     const clearData = () => {
         setName('');
         setPackImage(defaultPackImage);
-        // const reader = new FileReader();
-        // reader.onloadend = () => {
-        //     const file64 = reader.result as string;
-        // };
-        // // @ts-ignore
-        // reader.readAsDataURL(defaultPackImage);
-        // console.log(uploadRef.current);
-        // // @ts-ignore
         if (uploadRef.current) {
             uploadRef.current.value = '';
         }

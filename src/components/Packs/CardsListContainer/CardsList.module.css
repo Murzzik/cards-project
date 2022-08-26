@@ -9,8 +9,14 @@
     display: flex;
 }
 
-.pack_image {
+.question_image {
     width: 100px;
     height: 100px;
+    object-fit: cover;
+}
+
+.question_image_default {
+    width: 100px;
+    height: 20px;
     object-fit: cover;
 }

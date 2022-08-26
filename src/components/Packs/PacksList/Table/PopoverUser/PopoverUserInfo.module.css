@@ -17,11 +17,20 @@
     justify-content: space-between;
 }
 
+.userInfo span {
+    font-weight: 500;
+}
+
 .avatar {
     margin: 10px auto;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .popoverTrigger {
+    font-weight: 700;
     cursor: pointer;
 }
 

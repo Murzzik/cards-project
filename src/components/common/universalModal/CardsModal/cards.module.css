@@ -33,23 +33,11 @@
     flex-direction: column;
 }
 
-.question_image_block button {
-    display: none;
-}
-
 .question_image_block img {
     margin: 1rem 0;
     width: 8rem;
 }
 
-.question_image_block label {
-    margin: 10px 0;
-    border: 1px solid #dddddd;
-    padding: 5px;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.question_image_block label:hover {
-    background: rgba(129, 153, 253, 0.44);
+.question_image_block button {
+    display: flex;
 }

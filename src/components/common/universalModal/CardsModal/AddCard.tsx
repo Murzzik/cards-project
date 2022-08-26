@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import UniversalModal from '../UniversalModal';
 import { useAppDispatch } from '../../../../store/store';
 import { addNewCard } from '../../../../store/reducers/cards-reducer';
@@ -6,7 +6,8 @@ import { uploadPhoto } from '../../../../utils/uploadPhoto';
 
 import { Button, Input, Select } from 'antd';
 import s from './cards.module.css';
-import baseQuestionImage from '../../../../assets/images/questionImagePlug.png'
+
+import defaultImage from '../../../../assets/images/project-logo.png';
 
 
 type AddCard = {
@@ -18,7 +19,9 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
     const [cardQuestion, setCardQuestion] = useState('');
     const [cardAnswer, setCardAnswer] = useState('');
     const [questionVariant, setQuestionVariant] = useState(true)
-    const [questionImage, setQuestionImage] = useState('')
+    const [questionImage, setQuestionImage] = useState(defaultImage)
+
+    const uploadRef = useRef<HTMLInputElement>(null);
 
 
     const handleChange = (value: string) => {
@@ -46,6 +49,15 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
         console.log(questionImage)
     };
 
+    const clearData = () => {
+        setCardQuestion('');
+        setCardAnswer('');
+        setQuestionImage(defaultImage);
+        if (uploadRef.current) {
+            uploadRef.current.value = '';
+        }
+    };
+
     const createNewCard = () => {
         dispatch(addNewCard(packID, cardQuestion, cardAnswer, questionImage));
         setCardQuestion('');
@@ -55,7 +67,7 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
 
     const { Option } = Select;
     return (
-        <UniversalModal modalName="Create new card" callBackFunction={createNewCard} clickElement={createCardBtn}>
+        <UniversalModal modalName="Create new card" callBackFunction={createNewCard} clickElement={createCardBtn} clearData={clearData}>
             <Input.Group compact>
                 <Select className={s.cards_modal_select} defaultValue="Text question" onChange={handleChange}>
                     <Option value="Text question">Text question</Option>
@@ -66,17 +78,15 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
                 <div>
                     <Input className={s.cards_modal_input} placeholder="Write card question"
                            onChange={onChangeCardQuestion}
-                           value={cardQuestion} defaultValue="Text question"/>
+                           value={cardQuestion} />
                     <Input className={s.cards_modal_input} placeholder="Write card answer" onChange={onChangeCardAnswer}
                            value={cardAnswer} />
                 </div>
                 :
                 <div className={s.question_image_block}>
                     <img src={questionImage} alt=""/>
-                    {/*// @ts-ignore*/}
                     <label className="custom-file-upload">
                         <input type="file" onChange={uploadQuestionImage} />
-                        Upload image
                     </label>
                     <Input className={s.cards_modal_input} placeholder="Write card question" onChange={onChangeCardQuestion}
                            value={cardQuestion} />
