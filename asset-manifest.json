@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/cards-project/static/css/main.e183a156.css",
+    "main.js": "/cards-project/static/js/main.71de017b.js",
+    "static/js/787.d2ce132a.chunk.js": "/cards-project/static/js/787.d2ce132a.chunk.js",
+    "static/media/welcomPageLogo.png": "/cards-project/static/media/welcomPageLogo.19da9baeeefb2a96e8e9.png",
+    "static/media/play_learn_logo.png": "/cards-project/static/media/play_learn_logo.ebd72fd26adb12ccd3ca.png",
+    "static/media/project-logo.png": "/cards-project/static/media/project-logo.d185bf758208c520f39a.png",
+    "static/media/userPhoto.png": "/cards-project/static/media/userPhoto.5974632cbf5d7edfaf82.png",
+    "static/media/Double Ring-1s-111px.svg": "/cards-project/static/media/Double Ring-1s-111px.f0676d6b528494b03bf33e2bebc302ca.svg",
+    "index.html": "/cards-project/index.html",
+    "main.e183a156.css.map": "/cards-project/static/css/main.e183a156.css.map",
+    "main.71de017b.js.map": "/cards-project/static/js/main.71de017b.js.map",
+    "787.d2ce132a.chunk.js.map": "/cards-project/static/js/787.d2ce132a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e183a156.css",
+    "static/js/main.71de017b.js"
+  ]
+}
