@@ -1,5 +1,5 @@
 import React from 'react';
-import userDefaultPhoto from '../../../../../assets/images/userPhoto.png';
+import userDefaultPhoto from '../../../../../assets/images/icons8-user-100.png';
 import style from './PopoverUserInfo.module.css';
 import {convertDate} from '../../../../../utils/parsData';
 
