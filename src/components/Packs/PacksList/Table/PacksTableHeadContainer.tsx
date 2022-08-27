@@ -10,12 +10,7 @@ const PacksTableHeadContainer = () => {
 
     const headCells: headCellsType[] = [
         // id's must match query params
-        {
-            id: 'deckCover',
-            label: `Pack's image`,
-            align: 'left',
-            width: '15%'
-        },
+
         {
             id: 'name',
             label: 'Name',

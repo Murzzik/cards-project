@@ -8,7 +8,7 @@ import s from '../PackList.module.css';
 export type sortModeType = { sortBy: string, direction: 'asc' | 'desc' }
 export type headCellsType = {
     id: string
-    label: string,
+    label?: string,
     align?: 'left' | 'center' | 'right' | 'justify' | 'inherit' | undefined
     padding?: 'checkbox' | 'none' | 'normal' | undefined
     width?: string
@@ -34,6 +34,7 @@ const CommonTableHead: React.FC<PropsType> = ({headCells, sortCallBack}) => {
     return (
         <TableHead>
             <TableRow>
+                <TableCell> Pack's image</TableCell>
                 {headCells.map(cell =>
                     <TableCell
                         key={`TableCell${cell.id}`}
