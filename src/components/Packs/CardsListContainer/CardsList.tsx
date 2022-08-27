@@ -3,6 +3,8 @@ import {CardsType} from '../../../api/cardsAPI';
 import {Table} from 'antd';
 import {IconsCardsGroup} from '../PacksList/Table/IconGroup/IconsCardsGroup';
 import {convertDate} from '../../../utils/parsData';
+import CardsPaginationContainer from './CardsPaginationContainer';
+import defaultPackImage from '../../../assets/images/project-logo.png';
 
 const columns = [
     {
@@ -14,7 +16,7 @@ const columns = [
         dataIndex: 'question',
         sorter: {
             // compare: (a, b) => a.chinese - b.chinese,
-            multiple: 3,
+            // multiple: 3,
         },
     },
     {
@@ -22,7 +24,7 @@ const columns = [
         dataIndex: 'answer',
         sorter: {
             // compare: (a, b) => a.math - b.math,
-            multiple: 2,
+            // multiple: 2,
         },
     },
     {
@@ -30,7 +32,7 @@ const columns = [
         dataIndex: 'update',
         sorter: {
             // compare: (a, b) => a.english - b.english,
-            multiple: 1,
+            // multiple: 1,
         },
     },
     {
@@ -38,7 +40,7 @@ const columns = [
         dataIndex: 'grade',
         sorter: {
             compare: (a: any, b: any) => a.grade - b.grade,
-            multiple: 1,
+            // multiple: 1,
         },
     },
 ];
@@ -51,7 +53,8 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
 
     const data = cards.map((card) => ({
         key: card._id,
-        questionImage: <img src={card.questionImg} alt="" style={{width: '100px'}}/>,
+        questionImage: (card.questionImg && card.questionImg.includes('data:image')) ? <img src={card.questionImg} alt="" style={{width: '100px'}}/> :
+            <img src={defaultPackImage} alt="" style={{width: '100px'}}/>,
         question: card.question,
         answer: card.answer,
         update: convertDate(card.updated),
@@ -118,11 +121,16 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
         //     </TableContainer>
         //     <CardsPaginationContainer />
         // </div>
-        <Table columns={columns}
-               dataSource={data}
-               onChange={onChange}
-               style={{width: '80%', margin: '0 auto'}}
-        />
+        <div>
+            <Table columns={columns}
+                   dataSource={data}
+                   onChange={onChange}
+                   style={{width: '80%', margin: '0 auto'}}
+                   pagination={false}
+
+            />
+            <CardsPaginationContainer/>
+        </div>
     );
 };
 
