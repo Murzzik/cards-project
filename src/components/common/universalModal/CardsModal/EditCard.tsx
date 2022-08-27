@@ -1,12 +1,12 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, {ChangeEvent, useRef, useState} from 'react';
 import UniversalModal from '../UniversalModal';
-import EditIcon from '@mui/icons-material/Edit';
-import { useAppDispatch } from '../../../../store/store';
-import { Input } from 'antd';
+import {useAppDispatch} from '../../../../store/store';
+import {Button, Input} from 'antd';
 import s from './cards.module.css';
-import { updateCard } from '../../../../store/reducers/cards-reducer';
+import {updateCard} from '../../../../store/reducers/cards-reducer';
 import defaultImage from '../../../../assets/images/project-logo.png';
-import { uploadPhoto } from '../../../../utils/uploadPhoto';
+import {uploadPhoto} from '../../../../utils/uploadPhoto';
+import {EditOutlined} from '@ant-design/icons';
 
 type EditCard = {
     id: string
@@ -20,7 +20,7 @@ export const EditCard: React.FC<EditCard> = ({id, packID, questionValue, answerV
 
     const [cardQuestion, setCardQuestion] = useState(questionValue);
     const [cardAnswer, setCardAnswer] = useState(answerValue);
-    const [questionImage, setQuestionImage] = useState(defaultImage)
+    const [questionImage, setQuestionImage] = useState(defaultImage);
     const uploadRef = useRef<HTMLInputElement>(null);
 
     const onChangeCardQuestion = (e: ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +37,7 @@ export const EditCard: React.FC<EditCard> = ({id, packID, questionValue, answerV
 
     const clearData = () => {
         setCardQuestion(questionValue);
-        setCardAnswer(cardAnswer)
+        setCardAnswer(cardAnswer);
         setQuestionImage(defaultImage);
         if (uploadRef.current) {
             uploadRef.current.value = '';
@@ -51,11 +51,16 @@ export const EditCard: React.FC<EditCard> = ({id, packID, questionValue, answerV
     };
 
     return (
-        <UniversalModal callBackFunction={editCardInformation} modalName="Edit card information" clickElement={<EditIcon />} clearData={clearData}>
+        <UniversalModal callBackFunction={editCardInformation}
+                        modalName="Edit card information"
+                        clickElement={
+                            <Button shape="circle" icon={<EditOutlined style={{fontSize: '20px', color: 'green'}}/>}/>
+                        }
+                        clearData={clearData}>
             <div className={s.question_image_block}>
                 <img src={questionImage} alt=""/>
                 <label className="custom-file-upload">
-                    <input type="file" onChange={uploadPackImage} />
+                    <input type="file" onChange={uploadPackImage}/>
                 </label>
             </div>
             <Input className={s.cards_modal_input} placeholder="Change card question" onChange={onChangeCardQuestion}

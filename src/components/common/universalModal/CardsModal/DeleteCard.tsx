@@ -1,10 +1,10 @@
 import React from 'react';
 import UniversalModal from '../UniversalModal';
-import { useAppDispatch } from '../../../../store/store';
-import s from './cards.module.css'
-
-import { deleteCard } from '../../../../store/reducers/cards-reducer';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import {useAppDispatch} from '../../../../store/store';
+import s from './cards.module.css';
+import {Button} from 'antd';
+import {deleteCard} from '../../../../store/reducers/cards-reducer';
+import {DeleteOutlined} from '@ant-design/icons';
 
 type DeleteCard = {
     id: string
@@ -20,7 +20,11 @@ export const DeleteCard: React.FC<DeleteCard> = ({id, packID, cardName}) => {
     };
 
     return (
-        <UniversalModal callBackFunction={deleteCardHandler} modalName='Delete card' clickElement={<DeleteForeverIcon />}>
+        <UniversalModal callBackFunction={deleteCardHandler}
+                        modalName="Delete card"
+                        clickElement={
+                            <Button shape="circle" icon={<DeleteOutlined style={{fontSize: '20px', color: 'red'}}/>}/>
+                        }>
             <div>
                 <span className={s.deleteAttentionText}>
                     Are you sure you want to delete this <span className={s.deletedCardName}>"{cardName}"</span> question?

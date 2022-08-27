@@ -3,10 +3,16 @@
     justify-content: right;
     align-items: center;
     flex-direction: revert;
+    gap: 20px;
 }
 
 .editRow div {
     display: flex;
+}
+
+.iconGroup {
+    display: flex;
+    gap: 10px;
 }
 
 .question_image {

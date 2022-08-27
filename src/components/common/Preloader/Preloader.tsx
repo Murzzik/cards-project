@@ -4,7 +4,9 @@ import style from './Preloader.module.css';
 
 const Preloader: React.FC = () => {
     return (
-        <Spin className={style.preloader} size={'large'}/>
+      <div className={style.preloader}>
+          <Spin  size={'large'}/>
+      </div>
 
     );
 };
