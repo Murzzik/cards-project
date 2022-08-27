@@ -45,6 +45,7 @@ const PopoverUserInfoContainer: React.FC<PopoverUserInfoPropsType> = ({user_name
                         :
                         <div>
                             {user && <PopoverUserInfo
+                                user_id = {user_id}
                                 user_name={user_name}
                                 user_email={user.email}
                                 user_avatar={user.avatar}
