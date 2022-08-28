@@ -3,10 +3,12 @@ import {Pagination} from 'antd';
 
 type PaginationPropsType = {
     totalItems: number,
+    page: number | undefined,
+    pageCount: number | undefined
     changePaginationData: (page: number, size: number) => void
 }
 
-const UniversalPagination: React.FC<PaginationPropsType> = ({totalItems, changePaginationData}) => {
+const UniversalPagination: React.FC<PaginationPropsType> = ({totalItems, page, pageCount, changePaginationData}) => {
     const showTotal = (totalItems: number) => `Total ${totalItems} items`;
     const onChangeHandlerPage = (page: number, size = 4) => {
         changePaginationData(page, size);

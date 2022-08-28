@@ -5,13 +5,15 @@ import {setPacksParameter} from '../../../../store/reducers/packsParameterReduce
 
 const PacksPaginationContainer: React.FC = () => {
     const totalItems = useAppSelector(state => state.packs.cardPacksTotalCount);
+    let page = useAppSelector(state => state.packs.page);
+    let pageCount = useAppSelector(state => state.packs.pageCount);
     let parameters = useAppSelector(state => state.packsParameter);
     const dispatch = useAppDispatch();
     const changePacksPaginationData = (page: number, pageCount: number) => {
         dispatch(setPacksParameter({parameters: {...parameters, page, pageCount}}));
     };
     return (
-        <UniversalPagination totalItems={totalItems} changePaginationData={changePacksPaginationData}/>
+        <UniversalPagination page={page} totalItems={totalItems} pageCount={pageCount} changePaginationData={changePacksPaginationData}/>
     );
 };
 

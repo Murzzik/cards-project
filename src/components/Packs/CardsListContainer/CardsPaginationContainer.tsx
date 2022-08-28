@@ -7,6 +7,8 @@ import {setCardsParameter} from '../../../store/reducers/cardsParametersReducer'
 const CardsPaginationContainer: React.FC = () => {
     const {cardsPack_id} = useParams();
     const totalItems = useAppSelector(state => state.cards.cardsTotalCount);
+    let page = useAppSelector(state => state.cards.page);
+    let pageCount = useAppSelector(state => state.cards.pageCount);
     let parameters = useAppSelector(state => state.packsParameter);
     const dispatch = useAppDispatch();
     const changeCardsPaginationData = (page: number, pageCount: number) => {
@@ -15,7 +17,7 @@ const CardsPaginationContainer: React.FC = () => {
         }
     };
     return (
-        <UniversalPagination totalItems={totalItems} changePaginationData={changeCardsPaginationData}/>
+        <UniversalPagination totalItems={totalItems} page={page} pageCount={pageCount} changePaginationData={changeCardsPaginationData}/>
     );
 };
 

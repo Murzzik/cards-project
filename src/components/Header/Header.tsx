@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import s from '../Header/Header.module.css';
 import projectLogo from '../../assets/images/project-logo.png';
-import { useAppDispatch, useAppSelector } from '../../store/store';
-import { NavLink } from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../store/store';
+import {NavLink} from 'react-router-dom';
 import logout from '../../assets/images/logout.png';
-import { logOut } from '../../store/reducers/authorization-reducer';
-import Preloader from '../common/Preloader/Preloader';
+import {logOut} from '../../store/reducers/authorization-reducer';
+import {setPacksParameter} from '../../store/reducers/packsParameterReducer';
 
 export const Header = () => {
     const userName = useAppSelector(state => state.auth.user.name);
@@ -37,24 +37,25 @@ export const Header = () => {
         ?
         <div>
             <span className={s.userName}>{userName}</span>
-            <img src={userProfileAvatar} alt="USER PHOTO" className={s.userPhoto} onClick={dropdownProfileHandler} />
+            <img src={userProfileAvatar} alt="USER PHOTO" className={s.userPhoto} onClick={dropdownProfileHandler}/>
         </div>
         :
         <a href="#/authorization">
             <button className={s.signInBtn}>Sign in</button>
         </a>;
 
-
     return (
         <div className={s.header}>
             <div className={s.dropdown}>
                 <button className={s.navigationContainer} onClick={dropdownNavigateHandler}>
-                    <img src={projectLogo} alt="IT-INCUBATOR" />
+                    <img src={projectLogo} alt="IT-INCUBATOR"/>
                     <div className={dropdownMenu}>
                         <NavLink to="/" className={s.navElement}>Main page</NavLink>
                         <NavLink to="/authorization" className={s.navElement}>Authorization page</NavLink>
                         <NavLink to="/registration" className={s.navElement}>Registration page</NavLink>
-                        <NavLink to="/packs" className={s.navElement}>Packs page</NavLink>
+                        <NavLink to="/packs" className={s.navElement} onClick={() => {
+                            dispatch(setPacksParameter({parameters: {}}))
+                        }}>Packs page</NavLink>
                         <NavLink to="/profile" className={s.navElement}>Profile page</NavLink>
                     </div>
                 </button>
