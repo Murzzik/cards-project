@@ -3,7 +3,6 @@ import {CardsType} from '../../../api/cardsAPI';
 import {Table} from 'antd';
 import {IconsCardsGroup} from '../PacksList/Table/IconGroup/IconsCardsGroup';
 import {convertDate} from '../../../utils/parsData';
-import CardsPaginationContainer from './CardsPaginationContainer';
 import defaultPackImage from '../../../assets/images/project-logo.png';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
 import {setCardsParameter} from '../../../store/reducers/cardsParametersReducer';
@@ -44,9 +43,11 @@ type CardsListPropsType = {
 }
 
 const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
+    const {cardsPack_id} = useParams();
     const dispatch = useAppDispatch();
     const parameters = useAppSelector(state => state.cardsParameter);
-    const {cardsPack_id} = useParams();
+    const totalItems = useAppSelector(state => state.cards.cardsTotalCount);
+
     const data = cards.map((card) => ({
         key: card._id,
         questionImage:
@@ -67,12 +68,19 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
         />
 
     }));
-
+    const showTotal = (totalItems: number) => `Total ${totalItems} items`;
     const onChange = (pagination: any, filters: any, sorter: any) => {
+
         const sortCards = `${sorter.order === 'ascend' ? '0' : '1'}${sorter.field}`;
         if (sorter.order && cardsPack_id) {
             console.log(parameters);
             dispatch(setCardsParameter({parameters: {...parameters, sortCards, cardsPack_id}}));
+        }
+    };
+
+    const changeCardsPaginationData = (page: number, pageCount: number) => {
+        if (cardsPack_id) {
+            dispatch(setCardsParameter({parameters: {...parameters, page, pageCount, cardsPack_id}}));
         }
     };
 
@@ -82,9 +90,18 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                    dataSource={data}
                    onChange={onChange}
                    style={{width: '80%', margin: '0 auto'}}
-                   pagination={false}
+                   pagination={{
+                       size: 'small',
+                       total: totalItems,
+                       showTotal: showTotal,
+                       onChange: changeCardsPaginationData,
+                       defaultPageSize: 4,
+                       pageSizeOptions: [4, 10, 20, 50],
+                       showQuickJumper: true,
+                       showSizeChanger: true
+                   }}
             />
-            <CardsPaginationContainer/>
+            {/*<CardsPaginationContainer/>*/}
         </div>
     );
 };
