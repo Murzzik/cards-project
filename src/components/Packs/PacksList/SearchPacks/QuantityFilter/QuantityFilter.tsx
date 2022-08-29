@@ -34,12 +34,13 @@ const QuantityFilter: React.FC<QuantityFilterPropsType> = () => {
     };
 
     useEffect(() => {
-        if (min !== value[0]) {
-            dispatch(setPacksParameter({parameters: {...parameters, min: debouncedMin, max: debouncedMax}}));
-        }
         if (max !== value[1]) {
-            dispatch(setPacksParameter({parameters: {...parameters, min: debouncedMin, max: debouncedMax}}));
+            dispatch(setPacksParameter({parameters: {...parameters,  max: debouncedMax}}));
         }
+        if (min !== value[0]) {
+            dispatch(setPacksParameter({parameters: {...parameters, min: debouncedMin}}));
+        }
+
     }, [debouncedMin, debouncedMax]);
 
     return (

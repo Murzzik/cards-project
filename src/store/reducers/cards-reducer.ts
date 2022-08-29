@@ -1,6 +1,6 @@
-import { cardsAPI, CardsType, GetCardsResponseType, GetCardType } from '../../api/cardsAPI';
-import { AppThunk } from '../store';
-import { setError, setPreloaderStatus } from './app-reducer';
+import {cardsAPI, CardsType, GetCardsResponseType, GetCardType} from '../../api/cardsAPI';
+import {AppThunk} from '../store';
+import {setError, setPreloaderStatus} from './app-reducer';
 
 const initialState: initialStateType = {
     cards: [],
@@ -8,13 +8,15 @@ const initialState: initialStateType = {
     maxGrade: 0,
     minGrade: 0,
     page: 1,
+    packName: '',
+    packDeckCover:'',
     pageCount: 4,
     packUserId: '',
     triggerAddNewCard: false,
     triggerUpdateCard: false,
 };
 export const cardsReducer = (state = initialState, action: ActionTypeForCards): initialStateType => {
-    switch(action.type) {
+    switch (action.type) {
         case 'cards-setCardsData': {
             return {...action.cardsData};
         }
@@ -62,7 +64,7 @@ export const deleteCard = (id: string, packID: string): AppThunk => (dispatch, g
     let page = getState().cardsParameter.page;
     const pageCount = getState().cardsParameter.pageCount;
     const items = getState().cards.cards.length;
-    if(items === 1 && page) {
+    if (items === 1 && page) {
         page = page - 1;
     }
     dispatch(setPreloaderStatus('loading'));
@@ -101,6 +103,8 @@ type initialStateType = {
     maxGrade: number
     minGrade: number
     page: number
+    packName: string
+    packDeckCover: string
     pageCount: number
     packUserId: string
     triggerAddNewCard?: boolean,

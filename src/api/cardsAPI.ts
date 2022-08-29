@@ -51,6 +51,8 @@ export type GetCardsResponseType = {
     maxGrade: number
     minGrade: number
     page: number
+    packDeckCover: string
+    packName: string
     pageCount: number
     packUserId: string
 }

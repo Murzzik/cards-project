@@ -30,6 +30,7 @@ export const IconsCardsGroup: React.FC<IconsCardsGroup> = ({ownerPack, cardsPack
 
     return (
         <div className={s.editRow}>
+            <Rate value={grade} character={({index = grade}) => customIcons[index + 1]} disabled/>
             {isMyPacks &&
                 <div className={s.iconGroup}>
                     <EditCard id={id}
@@ -41,7 +42,7 @@ export const IconsCardsGroup: React.FC<IconsCardsGroup> = ({ownerPack, cardsPack
                                 cardName={question}/>
                 </div>
             }
-            <Rate value={grade} character={({index = grade}) => customIcons[index + 1]} disabled/>
+
         </div>
     );
 };

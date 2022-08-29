@@ -1,34 +1,32 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, {ChangeEvent, useRef, useState} from 'react';
 import UniversalModal from '../UniversalModal';
-import { useAppDispatch } from '../../../../store/store';
-import { addNewCard } from '../../../../store/reducers/cards-reducer';
-import { uploadPhoto } from '../../../../utils/uploadPhoto';
+import {useAppDispatch} from '../../../../store/store';
+import {addNewCard} from '../../../../store/reducers/cards-reducer';
+import {uploadPhoto} from '../../../../utils/uploadPhoto';
 
-import { Button, Input, Select } from 'antd';
+import {Button, Input, Select} from 'antd';
 import s from './cards.module.css';
 
 import defaultImage from '../../../../assets/images/project-logo.png';
-
 
 type AddCard = {
     packID: string
 }
 
-export const AddCard: React.FC<AddCard> = ({ packID }) => {
+export const AddCard: React.FC<AddCard> = ({packID}) => {
     const dispatch = useAppDispatch();
     const [cardQuestion, setCardQuestion] = useState('');
     const [cardAnswer, setCardAnswer] = useState('');
-    const [questionVariant, setQuestionVariant] = useState(true)
-    const [questionImage, setQuestionImage] = useState(defaultImage)
+    const [questionVariant, setQuestionVariant] = useState(true);
+    const [questionImage, setQuestionImage] = useState(defaultImage);
 
     const uploadRef = useRef<HTMLInputElement>(null);
 
-
     const handleChange = (value: string) => {
-        if(value === "Text question") {
-            setQuestionVariant(true)
+        if (value === 'Text question') {
+            setQuestionVariant(true);
         } else {
-            setQuestionVariant(false)
+            setQuestionVariant(false);
         }
     };
 
@@ -44,9 +42,9 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
 
     const uploadQuestionImage = (e: ChangeEvent<HTMLInputElement>) => {
         uploadPhoto(e, (file64: string) => {
-            setQuestionImage(file64)
+            setQuestionImage(file64);
         });
-        console.log(questionImage)
+        console.log(questionImage);
     };
 
     const clearData = () => {
@@ -65,7 +63,7 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
         setQuestionImage('');
     };
 
-    const { Option } = Select;
+    const {Option} = Select;
     return (
         <UniversalModal modalName="Create new card" callBackFunction={createNewCard} clickElement={createCardBtn} clearData={clearData}>
             <Input.Group compact>
@@ -78,20 +76,20 @@ export const AddCard: React.FC<AddCard> = ({ packID }) => {
                 <div>
                     <Input className={s.cards_modal_input} placeholder="Write card question"
                            onChange={onChangeCardQuestion}
-                           value={cardQuestion} />
+                           value={cardQuestion}/>
                     <Input className={s.cards_modal_input} placeholder="Write card answer" onChange={onChangeCardAnswer}
-                           value={cardAnswer} />
+                           value={cardAnswer}/>
                 </div>
                 :
                 <div className={s.question_image_block}>
                     <img src={questionImage} alt=""/>
                     <label className="custom-file-upload">
-                        <input type="file" onChange={uploadQuestionImage} />
+                        <input type="file" onChange={uploadQuestionImage}/>
                     </label>
                     <Input className={s.cards_modal_input} placeholder="Write card question" onChange={onChangeCardQuestion}
-                           value={cardQuestion} />
+                           value={cardQuestion}/>
                     <Input className={s.cards_modal_input} placeholder="Write card answer" onChange={onChangeCardAnswer}
-                           value={cardAnswer} />
+                           value={cardAnswer}/>
                 </div>
             }
         </UniversalModal>

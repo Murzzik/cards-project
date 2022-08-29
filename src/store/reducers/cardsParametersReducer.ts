@@ -5,6 +5,7 @@ const initialState: GetCardType = {
     cardAnswer: '',
     questionImg: '',
     cardsPack_id: '',
+    cardQuestion: '',
     sortCards: '0updated',
     page: 1,
     pageCount: 4

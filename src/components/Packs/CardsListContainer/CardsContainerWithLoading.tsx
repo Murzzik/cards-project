@@ -1,12 +1,12 @@
 import React from 'react';
-import CardsHeader from './CardsHeader/CardsHeader';
 import CardsList from './CardsList';
-import { CardsType } from '../../../api/cardsAPI';
-import { useAppSelector } from '../../../store/store';
+import {CardsType} from '../../../api/cardsAPI';
+import {useAppSelector} from '../../../store/store';
 import Preloader from '../../common/Preloader/Preloader';
-import { AddCard } from '../../common/universalModal/CardsModal/AddCard';
+import {AddCard} from '../../common/universalModal/CardsModal/AddCard';
 
-import s from '../../common/universalModal/CardsModal/cards.module.css'
+import s from '../../common/universalModal/CardsModal/cards.module.css';
+import CardsHeaderContainer from './CardsHeader/CardsHeaderContainer';
 
 type CardsContainerWithLoadingPropsType = {
     cardsPack_id: string,
@@ -19,7 +19,8 @@ const CardsContainerWithLoading: React.FC<CardsContainerWithLoadingPropsType> = 
     return (
         <div>
             {isLoading && <Preloader />}
-            <CardsHeader cardsPack_id={cardsPack_id ? cardsPack_id : ''} />
+            {/*<CardsHeader cardsPack_id={cardsPack_id ? cardsPack_id : ''} />*/}
+            <CardsHeaderContainer/>
             {cards.length > 0 ?
                 <CardsList cards={cards} />
                 :

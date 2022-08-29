@@ -11,7 +11,7 @@ export const Header = () => {
     const userName = useAppSelector(state => state.auth.user.name);
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
     const userProfileAvatar = useAppSelector(state => state.auth.user.avatar);
-
+    let parameters = useAppSelector(state => state.packsParameter);
     const dispatch = useAppDispatch();
 
     const [isActiveNavigate, setIsActiveNavigate] = useState(true);
@@ -54,7 +54,7 @@ export const Header = () => {
                         <NavLink to="/authorization" className={s.navElement}>Authorization page</NavLink>
                         <NavLink to="/registration" className={s.navElement}>Registration page</NavLink>
                         <NavLink to="/packs" className={s.navElement} onClick={() => {
-                            dispatch(setPacksParameter({parameters: {}}))
+                            dispatch(setPacksParameter({parameters: {...parameters, user_id: ''}}));
                         }}>Packs page</NavLink>
                         <NavLink to="/profile" className={s.navElement}>Profile page</NavLink>
                     </div>
