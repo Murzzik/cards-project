@@ -85,24 +85,21 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
     };
 
     return (
-        <div>
-            <Table columns={columns}
-                   dataSource={data}
-                   onChange={onChange}
-                   style={{width: '80%', margin: '0 auto'}}
-                   pagination={{
-                       size: 'small',
-                       total: totalItems,
-                       showTotal: showTotal,
-                       onChange: changeCardsPaginationData,
-                       defaultPageSize: 4,
-                       pageSizeOptions: [4, 10, 20, 50],
-                       showQuickJumper: true,
-                       showSizeChanger: true
-                   }}
-            />
-            {/*<CardsPaginationContainer/>*/}
-        </div>
+        <Table columns={columns}
+               dataSource={data}
+               onChange={onChange}
+               style={{width: '80%', margin: '0 auto'}}
+               pagination={{
+                   size: 'small',
+                   total: totalItems,
+                   showTotal: showTotal,
+                   onChange: changeCardsPaginationData,
+                   defaultPageSize: 4,
+                   pageSizeOptions: [4, 10, 20, 50],
+                   showQuickJumper: true,
+                   showSizeChanger: true
+               }}
+        />
     );
 };
 

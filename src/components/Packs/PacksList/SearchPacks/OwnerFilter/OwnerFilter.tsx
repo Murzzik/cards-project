@@ -17,9 +17,9 @@ const OwnerFilter: React.FC<OwnerFilterPropsType> = () => {
         if (e.currentTarget.dataset.owner) {
             const trigger: string = e.currentTarget.dataset.owner;
             if (trigger === 'my') {
-                dispatch(setPacksParameter({parameters: {...parameters, user_id}}));
+                dispatch(setPacksParameter({parameters: {...parameters, user_id, page: 1}}));
             } else {
-                dispatch(setPacksParameter({parameters: {...parameters, user_id: ''}}));
+                dispatch(setPacksParameter({parameters: {...parameters, user_id: '', page: 1}}));
             }
         }
     };
