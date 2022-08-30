@@ -1,9 +1,8 @@
-import React, { ChangeEvent, useState } from 'react';
-import { Button, TextField } from '@material-ui/core';
+import React, {ChangeEvent, useState} from 'react';
 import style from '../../styles/auth/Auth.module.css';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import Preloader from '../common/Preloader/Preloader';
-import { RequestStatusType } from '../../store/reducers/app-reducer';
+import {RequestStatusType} from '../../store/reducers/app-reducer';
 
 type PassRecoveryPropsType = {
     isLoad: RequestStatusType,
@@ -18,7 +17,7 @@ export const PassRecovery: React.FC<PassRecoveryPropsType> = ({isLoad, repairPas
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let value = e.currentTarget.value;
         setEmail(value);
-        if(correctEmail(value)) {
+        if (correctEmail(value)) {
             setError('Invalid email');
         } else {
             setError('');
@@ -35,19 +34,18 @@ export const PassRecovery: React.FC<PassRecoveryPropsType> = ({isLoad, repairPas
     const blockBtn = correctEmail(email);
     return (
         <div className={style.main_block}>
-            {isLoad === 'loading' && <Preloader />}
+            {isLoad === 'loading' && <Preloader/>}
             <h2>Forgot your password?</h2>
-            <TextField className={style.inputField} onChange={onChangeHandler} label="Email" value={email} type="email"
-                       name="email" />
+            <input className={style.inputField} onChange={onChangeHandler} value={email} type="email" placeholder="Email"
+                   name="email"/>
             <div className={style.errors}>
                 <span>{error}</span>
             </div>
             <p className={style.opacity_text}>Did you remember your password?</p>
             <NavLink className={style.sign_auth_link} to={'/authorization'}>Try login in</NavLink>
-            <Button className={style.auth_button} type={'submit'} variant={'contained'} color={'primary'}
-                    onClick={onClickHandler} disabled={blockBtn}>
-                Send Instructions
-            </Button>
+            <button className={style.auth_button} type={'submit'} color={'primary'}
+                    onClick={onClickHandler} disabled={blockBtn}> Send Instructions
+            </button>
         </div>
     );
 };
