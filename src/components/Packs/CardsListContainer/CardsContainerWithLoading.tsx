@@ -3,9 +3,6 @@ import CardsList from './CardsList';
 import {CardsType} from '../../../api/cardsAPI';
 import {useAppSelector} from '../../../store/store';
 import Preloader from '../../common/Preloader/Preloader';
-import {AddCard} from '../../common/universalModal/CardsModal/AddCard';
-
-import s from '../../common/universalModal/CardsModal/cards.module.css';
 import CardsHeaderContainer from './CardsHeader/CardsHeaderContainer';
 
 type CardsContainerWithLoadingPropsType = {
@@ -14,20 +11,20 @@ type CardsContainerWithLoadingPropsType = {
 }
 
 const CardsContainerWithLoading: React.FC<CardsContainerWithLoadingPropsType> = ({cards, cardsPack_id}) => {
-
     const isLoading = useAppSelector(state => state.app.status) === 'loading';
+
+    const cardsList = cards.length > 0 ?
+        <CardsList cards={cards}/>
+        :
+        <h3 style={{textAlign: 'center', color: 'white'}}>
+            You don't have cards yet. Please add them.
+        </h3>;
+
     return (
         <div>
-            {isLoading && <Preloader />}
-            {/*<CardsHeader cardsPack_id={cardsPack_id ? cardsPack_id : ''} />*/}
+            {isLoading && <Preloader/>}
             <CardsHeaderContainer/>
-            {cards.length > 0 ?
-                <CardsList cards={cards} />
-                :
-                <div className={s.add_pack_btn}>
-                    <AddCard packID={cardsPack_id} />
-                </div>
-            }
+            {cardsList}
         </div>
     );
 };

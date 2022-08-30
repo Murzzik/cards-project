@@ -11,7 +11,8 @@ import {useParams} from 'react-router-dom';
 const columns = [
     {
         title: 'Question image',
-        dataIndex: 'questionImage'
+        dataIndex: 'questionImage',
+        width: '130px'
     },
     {
         title: 'Question text',
@@ -22,11 +23,13 @@ const columns = [
         title: 'Answer',
         dataIndex: 'answer',
         sorter: {},
+        width:'30px'
     },
     {
         title: 'Last Update',
         dataIndex: 'updated',
         sorter: {},
+        width:'150px'
     },
     {
         title: 'Grade',
@@ -35,6 +38,7 @@ const columns = [
             // compare: (a: any, b: any) => a.grade - b.grade,
             // multiple: 1,
         },
+        width:'250px'
     },
 ];
 
@@ -57,7 +61,10 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                 <img src={defaultPackImage} alt="" style={{width: '100px'}}/>,
         question: card.question,
         answer: card.answer,
-        updated: convertDate(card.updated),
+        updated: <div>
+            <p>{convertDate(card.updated)[0]}  {convertDate(card.updated)[1]}</p>
+            {/*<p>{convertDate(pack.updated)[1]}</p>*/}
+        </div>,
         grade: <IconsCardsGroup
             grade={card.grade}
             cardsPack_id={card.cardsPack_id}
@@ -88,6 +95,7 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
         <Table columns={columns}
                dataSource={data}
                onChange={onChange}
+               size={'small'}
                style={{width: '80%', margin: '0 auto'}}
                pagination={{
                    size: 'small',

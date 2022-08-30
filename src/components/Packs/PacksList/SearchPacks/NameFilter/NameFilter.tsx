@@ -2,6 +2,9 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import useDebounce from 'usehooks-ts/dist/esm/useDebounce/useDebounce';
 import {useAppDispatch, useAppSelector} from '../../../../../store/store';
 import {setPacksParameter} from '../../../../../store/reducers/packsParameterReducer';
+import {Input} from 'antd';
+
+const {Search} = Input;
 
 type NameFilterPropsType = {}
 
@@ -25,7 +28,12 @@ const NameFilter: React.FC<NameFilterPropsType> = () => {
     return (
         <div>
             <h3>Search</h3>
-            <input type="text" value={packName} onChange={handleChange}/>
+            <Search value={packName}
+                    placeholder="input search question"
+                    onChange={handleChange}
+                    enterButton size={'middle'}
+                    style={{width:'450px'}}
+            />
         </div>
     );
 };

@@ -46,7 +46,7 @@ const CardsHeader: React.FC<CardsHeaderPropsType> = ({cardsPack_id, packName, is
                                 <Search value={name}
                                         placeholder="input search question"
                                         onChange={handleChange}
-                                        enterButton size={'small'}
+                                        enterButton size={'middle'}
                                 />
                                 {isMyPack && cardsPack_id && <AddCard packID={cardsPack_id}/>}
                             </div>

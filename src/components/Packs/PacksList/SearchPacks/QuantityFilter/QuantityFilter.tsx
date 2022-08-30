@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect} from 'react';
 import style from './QuantityFilter.module.css';
-import Slider from '@mui/material/Slider';
+import {Slider} from 'antd';
 import useDebounce from 'usehooks-ts/dist/esm/useDebounce/useDebounce';
 import {useAppDispatch, useAppSelector} from '../../../../../store/store';
 import {setPacksParameter} from '../../../../../store/reducers/packsParameterReducer';
@@ -17,8 +17,8 @@ const QuantityFilter: React.FC<QuantityFilterPropsType> = () => {
     let max = useAppSelector(state => state.packsParameter.max);
     let parameters = useAppSelector(state => state.packsParameter);
 
-    const handleChange = (event: Event, newValue: number | number[]) => {
-        setValue(newValue as number[]);
+    const handleChange = (value: [number, number]) => {
+        setValue(value as number[]);
     };
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +35,7 @@ const QuantityFilter: React.FC<QuantityFilterPropsType> = () => {
 
     useEffect(() => {
         if (max !== value[1]) {
-            dispatch(setPacksParameter({parameters: {...parameters,  max: debouncedMax}}));
+            dispatch(setPacksParameter({parameters: {...parameters, max: debouncedMax}}));
         }
         if (min !== value[0]) {
             dispatch(setPacksParameter({parameters: {...parameters, min: debouncedMin}}));
@@ -49,11 +49,13 @@ const QuantityFilter: React.FC<QuantityFilterPropsType> = () => {
             <div className={style.quantity_parameters}>
                 <input type="number" value={value[0]} onChange={onChangeHandler} data-quantity="minimum"/>
                 <Slider
-                    getAriaLabel={() => 'Temperature range'}
-                    value={value}
-                    onChange={handleChange}
-                    valueLabelDisplay="auto"
                     max={110}
+                    range={{
+                        draggableTrack: true,
+                    }}
+                    defaultValue={[0, 110]}
+                    onChange={handleChange}
+                    style={{width: '200px'}}
                 />
                 <input value={value[1]} onChange={onChangeHandler} data-quantity="maximum"/>
             </div>
