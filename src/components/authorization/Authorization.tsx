@@ -86,7 +86,6 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
                         </NavLink>
                     </div>
 
-
                     <div style={{display: 'flex'}}>
                         <SuperCheckbox
                             className={style.rememberMe_checkbox}
