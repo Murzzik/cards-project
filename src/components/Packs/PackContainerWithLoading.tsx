@@ -7,6 +7,7 @@ import PacksSearchContainer from './PacksList/SearchPacks/PacksSearchContainer';
 const PackContainerWithLoading: React.FC = () => {
     const isLoading = useAppSelector(state => state.app.status) === 'loading';
     return (
+
         <div>
             {isLoading && <Preloader/>}
             <PacksSearchContainer/>
