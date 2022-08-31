@@ -48,30 +48,39 @@
     border-bottom-color: #b9d0c4;
 }
 
-.inputField span {
-    border: none;
-    outline: none;
+.passwordBlock {
+    display: flex;
 }
 
-.inputFieldANTD input {
-    left: -8px;
-    width: 100%;
-    background-color: transparent;
-    font-size: 16px;
+.passwordToggleIcon {
+    position: absolute;
+    right: 40px;
 }
 
-.inputFieldANTD input::placeholder {
-    color: rgba(185, 208, 196, 0.7);
-}
+/*.inputField span {*/
+/*    border: none;*/
+/*    outline: none;*/
+/*}*/
 
-.inputFieldANTD input:placeholder-shown {
-    left: -8px;
-}
+/*.inputFieldANTD input {*/
+/*    left: -8px;*/
+/*    width: 100%;*/
+/*    background-color: transparent;*/
+/*    font-size: 16px;*/
+/*}*/
 
-.inputFieldANTD svg {
-    display: inline-block;
-    color: #b9d0c4;
-}
+/*.inputFieldANTD input::placeholder {*/
+/*    color: rgba(185, 208, 196, 0.7);*/
+/*}*/
+
+/*.inputFieldANTD input:placeholder-shown {*/
+/*    left: -8px;*/
+/*}*/
+
+/*.inputFieldANTD svg {*/
+/*    display: inline-block;*/
+/*    color: #b9d0c4;*/
+/*}*/
 
 .rememberMe_container {
     pointer-events: none;
@@ -177,3 +186,9 @@ input:-webkit-autofill {
     }
 }
 
+.password-icon {
+    position: absolute;
+    top: 20px;
+    right: 5px;
+    cursor: pointer;
+}

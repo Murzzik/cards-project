@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useFormik} from 'formik';
 import {NavLink} from 'react-router-dom';
 import Preloader from '../common/Preloader/Preloader';
 import style from '../../styles/auth/Auth.module.css';
 import {RequestStatusType} from '../../store/reducers/app-reducer';
-import {Input} from 'antd';
 import {SuperCheckbox} from '../SuperComponents/SuperCheckbox/SuperCheckbox';
+import {EyeInvisibleOutlined, EyeOutlined} from '@ant-design/icons';
 
 export type FormikErrorType = {
     email?: string
@@ -21,6 +21,24 @@ type AuthorizationPropsType = {
 }
 
 export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, authorization, isLoad, isDisabled}) => {
+    const [isVisible, setVisible] = useState(false);
+    const changePass = () => {
+        setVisible(!isVisible);
+
+        // @ts-ignore
+        const x: HTMLInputElement | null = document.getElementById('myPassInput');
+
+        if (x?.type) {
+            if (x.type === 'password') {
+                x.type = 'text';
+                x.focus();
+            } else {
+                x.type = 'password';
+                x.focus();
+            }
+        }
+
+    };
 
     const formik = useFormik({
         initialValues: {
@@ -63,18 +81,20 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
                         {formik.touched.email && formik.errors.email && <span>{formik.errors.email}</span>}
                     </div>
 
-                    <div className={style.inputField}>
-                        <Input.Password placeholder="Input password"
-                                        disabled={isDisabled}
-                                        bordered={false}
-                                        className={style.inputFieldANTD}
-                                        style={{
-                                            backgroundColor: 'transparent'
-                                        }
-                                        }
-                                        {...formik.getFieldProps('password')}
+                    <div className={style.passwordBlock}>
+                        <input
+                            className={style.inputField}
+                            id="myPassInput"
+                            placeholder="Enter password"
+                            type={'password'}
+                            {...formik.getFieldProps('password')}
+
                         />
+                        <span className={style.passwordToggleIcon} onClick={changePass}>
+                                      {isVisible ? <EyeOutlined/> : <EyeInvisibleOutlined/>}
+                        </span>
                     </div>
+
 
                     <div className={style.errors}>
                         {formik.touched.password && formik.errors.password && <span>{formik.errors.password}</span>}
@@ -85,6 +105,7 @@ export const Authorization: React.FC<AuthorizationPropsType> = ({isLoggedIn, aut
                             <span className={style.forgot_title}>Forgot password</span>
                         </NavLink>
                     </div>
+
 
                     <div style={{display: 'flex'}}>
                         <SuperCheckbox

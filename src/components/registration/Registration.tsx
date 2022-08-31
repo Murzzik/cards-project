@@ -1,31 +1,15 @@
-import React from 'react';
-import { useFormik } from 'formik';
-import {
-    Button,
-    FormControl,
-    FormGroup,
-    IconButton,
-    Input,
-    InputAdornment,
-    InputLabel,
-    TextField,
-} from '@material-ui/core';
-import { Navigate, NavLink } from 'react-router-dom';
-import { Visibility, VisibilityOff } from '@material-ui/icons/';
+import React, {useState} from 'react';
+import {useFormik} from 'formik';
+import {Navigate, NavLink} from 'react-router-dom';
 import Preloader from '../common/Preloader/Preloader';
 import style from '../../styles/auth/Auth.module.css';
-import { RequestStatusType } from '../../store/reducers/app-reducer';
+import {RequestStatusType} from '../../store/reducers/app-reducer';
+import {EyeInvisibleOutlined, EyeOutlined} from '@ant-design/icons';
 
 export type FormikErrorType = {
     email?: string
     password?: string
     confirmPassword?: string
-}
-
-interface State {
-    password: string;
-    showPassword: boolean;
-    showConfirmPassword: boolean;
 }
 
 type AuthorizationPropsType = {
@@ -42,24 +26,38 @@ export const Registration: React.FC<AuthorizationPropsType> = ({
                                                                    isDisabled,
                                                                }) => {
 
-    const [values, setValues] = React.useState<State>({
-        password: '',
-        showPassword: false,
-        showConfirmPassword: false,
-    });
+    const [isVisibleEye, setVisibleEye] = useState({passEye: false, confirmEye: false});
 
     const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
+        setVisibleEye({...isVisibleEye, passEye: !isVisibleEye.passEye});
+        // @ts-ignore
+        const x: HTMLInputElement | null = document.getElementById('password_1');
+
+        if (x?.type) {
+            if (x.type === 'password') {
+                x.type = 'text';
+                x.focus();
+            } else {
+                x.type = 'password';
+                x.focus();
+            }
+        }
     };
 
     const handleClickShowConfirmPassword = () => {
-        setValues({
-            ...values,
-            showConfirmPassword: !values.showConfirmPassword,
-        });
+        setVisibleEye({...isVisibleEye, confirmEye: !isVisibleEye.confirmEye});
+        // @ts-ignore
+        const x: HTMLInputElement | null = document.getElementById('password_2');
+
+        if (x?.type) {
+            if (x.type === 'password') {
+                x.type = 'text';
+                x.focus();
+            } else {
+                x.type = 'password';
+                x.focus();
+            }
+        }
     };
 
     const formik = useFormik({
@@ -70,17 +68,17 @@ export const Registration: React.FC<AuthorizationPropsType> = ({
         },
         validate: values => {
             const errors: FormikErrorType = {};
-            if(!values.email) {
+            if (!values.email) {
                 errors.email = 'Required';
-            } else if((!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))) {
+            } else if ((!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))) {
                 errors.email = 'Invalid email address';
             }
-            if(!values.password) {
+            if (!values.password) {
                 errors.password = 'Required';
-            } else if(values.password.length < 7) {
+            } else if (values.password.length < 7) {
                 errors.password = 'Should be 7 symbol minimum';
             }
-            if(values.password !== values.confirmPassword || !values.confirmPassword) {
+            if (values.password !== values.confirmPassword || !values.confirmPassword) {
                 errors.confirmPassword = 'Passwords do not match';
             }
             return errors;
@@ -92,86 +90,69 @@ export const Registration: React.FC<AuthorizationPropsType> = ({
 
     const isBlockButton = Object.keys(formik.errors).length !== 0;
 
-    if(isLoggedIn) return <Navigate to={'/profile'} />;
+    if (isLoggedIn) return <Navigate to={'/profile'}/>;
 
     return <div className={style.main_block}>
-        {isLoad === 'loading' && <Preloader />}
+        {isLoad === 'loading' && <Preloader/>}
         <h2>Sign up</h2>
 
         <form onSubmit={formik.handleSubmit} className={style.form_block}>
-            <FormControl className={style.form_block}>
-                <FormGroup className={style.control_group}>
-                    <TextField label="Email" className={style.inputField} disabled={isDisabled}
-                               {...formik.getFieldProps('email')}
+            <div className={style.form_block}>
+                <div className={style.control_group}>
+                    <input placeholder="Email" className={style.inputField} disabled={isDisabled}
+                           {...formik.getFieldProps('email')}
                     />
                     <div className={style.errors}>
                         {formik.touched.email && formik.errors.email && <span>{formik.errors.email}</span>}
                     </div>
 
-                    <FormControl variant="standard" className={style.inputField}>
-                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                        <Input
-                            id="standard-adornment-password1"
-                            disabled={isDisabled}
-                            type={values.showPassword ? 'text' : 'password'}
+                    <div className={style.inputField}>
+                        <input
+                            className={style.inputField}
+                            id="password_1"
+                            placeholder="Enter password"
+                            type={'password'}
                             {...formik.getFieldProps('password')}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        className={style.showPasswordBtn}
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                        disableRipple={true}
-                                    >
-                                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
+
                         />
-                    </FormControl>
+                        <span className={style.passwordToggleIcon} onClick={handleClickShowPassword}>
+                                      {isVisibleEye.passEye ? <EyeOutlined/> : <EyeInvisibleOutlined/>}
+                        </span>
+
+                    </div>
 
                     <div className={style.errors}>
                         {formik.touched.password && formik.errors.password && <span>{formik.errors.password}</span>}
                     </div>
 
-                    <FormControl variant="standard" className={style.inputField}>
-                        <InputLabel htmlFor="standard-adornment-password2">Confirm password</InputLabel>
-                        <Input
-                            id="standard-adornment-password"
-                            disabled={isDisabled}
-                            type={values.showConfirmPassword ? 'text' : 'password'}
+                    <div className={style.inputField}>
+                        <input
+                            className={style.inputField}
+                            id="password_2"
+                            placeholder="Confirm password"
+                            type={'password'}
                             {...formik.getFieldProps('confirmPassword')}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        className={style.showPasswordBtn}
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowConfirmPassword}
-                                        // onMouseDown={handleClickShowConfirmPassword}
-                                        disableRipple={true}
-                                    >
-                                        {values.showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
+
                         />
-                    </FormControl>
+                        <span className={style.passwordToggleIcon} onClick={handleClickShowConfirmPassword}>
+                                      {isVisibleEye.confirmEye ? <EyeOutlined/> : <EyeInvisibleOutlined/>}
+                        </span>
+                    </div>
 
                     <div className={style.errors}>
                         {formik.touched.password && formik.errors.confirmPassword &&
                             <span>{formik.errors.confirmPassword}</span>}
                     </div>
 
-                    <Button
+                    <button
                         className={style.auth_button}
                         type={'submit'}
-                        variant={'contained'}
                         color={'primary'}
                         disabled={isBlockButton || isDisabled}
                         children={'Register'}
                     />
-                </FormGroup>
-            </FormControl>
+                </div>
+            </div>
         </form>
 
         <div className={style.opacity_text}>
