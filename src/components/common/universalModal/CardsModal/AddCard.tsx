@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useRef, useState} from 'react';
 import UniversalModal from '../UniversalModal';
 import {useAppDispatch} from '../../../../store/store';
-import {addNewCard} from '../../../../store/reducers/cards-reducer';
+import {addNewCard} from '../../../../store/reducers/cardsReducer';
 import {uploadPhoto} from '../../../../utils/uploadPhoto';
 
 import {Button, Input, Select} from 'antd';

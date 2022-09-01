@@ -3,7 +3,7 @@ import UniversalModal from '../UniversalModal';
 import {useAppDispatch} from '../../../../store/store';
 import {Button, Input} from 'antd';
 import s from './cards.module.css';
-import {updateCard} from '../../../../store/reducers/cards-reducer';
+import {updateCard} from '../../../../store/reducers/cardsReducer';
 import defaultImage from '../../../../assets/images/project-logo.png';
 import {uploadPhoto} from '../../../../utils/uploadPhoto';
 import {EditOutlined} from '@ant-design/icons';

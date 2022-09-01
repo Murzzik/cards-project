@@ -4,7 +4,7 @@ import {ActionTypeFoAuthReducer, authorizationReducer} from './reducers/authoriz
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {ActionTypeForAppReducer, appReducer} from './reducers/appReducer';
 import {ActionTypeForPacksReducer, packsReducer} from './reducers/packs-reducer';
-import {ActionTypeForCards, cardsReducer} from './reducers/cards-reducer';
+import {ActionTypeForCards, cardsReducer} from './reducers/cardsReducer';
 import {ActionForPacksParameter, packsParameterReducer} from './reducers/packsParameterReducer';
 import {ActionForCardsParameter, cardsParametersReducer} from './reducers/cardsParametersReducer';
 import {ActionsLearnType, learnReducer} from './reducers/learnReducer';

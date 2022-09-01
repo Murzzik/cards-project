@@ -3,7 +3,7 @@ import UniversalModal from '../UniversalModal';
 import {useAppDispatch} from '../../../../store/store';
 import s from './cards.module.css';
 import {Button} from 'antd';
-import {deleteCard} from '../../../../store/reducers/cards-reducer';
+import {deleteCard} from '../../../../store/reducers/cardsReducer';
 import {DeleteOutlined} from '@ant-design/icons';
 
 type DeleteCard = {
