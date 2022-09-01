@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ApplyNewPass } from './ApplyNewPass';
 import { useAppDispatch } from '../../../store/store';
-import { createNewPassword } from '../../../store/reducers/authorization-reducer';
+import { createNewPassword } from '../../../store/reducers/authorizationReducer';
 
 const ApplyNewPasswordContainer: React.FC = () => {
     const dispatch = useAppDispatch();

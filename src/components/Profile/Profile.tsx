@@ -7,7 +7,7 @@ import {TextField} from '@mui/material';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {Navigate} from 'react-router-dom';
 import Preloader from '../common/Preloader/Preloader';
-import {authorizationUser, logOut, updateUserData} from '../../store/reducers/authorization-reducer';
+import {authorizationUser, logOut, updateUserData} from '../../store/reducers/authorizationReducer';
 
 export const Profile = () => {
     const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn);

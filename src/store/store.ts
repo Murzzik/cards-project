@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
-import {ActionTypeFoAuthReducer, authorizationReducer} from './reducers/authorization-reducer';
+import {ActionTypeFoAuthReducer, authorizationReducer} from './reducers/authorizationReducer';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {ActionTypeForAppReducer, appReducer} from './reducers/appReducer';
 import {ActionTypeForPacksReducer, packsReducer} from './reducers/packs-reducer';

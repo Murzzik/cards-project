@@ -4,7 +4,7 @@ import projectLogo from '../../assets/images/project-logo.png';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {NavLink} from 'react-router-dom';
 import logout from '../../assets/images/logout.png';
-import {logOut} from '../../store/reducers/authorization-reducer';
+import {logOut} from '../../store/reducers/authorizationReducer';
 import {setPacksParameter} from '../../store/reducers/packsParameterReducer';
 
 export const Header = () => {

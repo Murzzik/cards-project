@@ -1,7 +1,7 @@
 import {GetCardsPackResponseType, GetPackType, packAPI} from '../../api/packAPI';
 import {AppThunk} from '../store';
 import {setError, setPreloaderStatus} from './appReducer';
-import {setIsLoggedIn} from './authorization-reducer';
+import {setIsLoggedIn} from './authorizationReducer';
 
 const initialState: initialStateType = {
     cardPacks: [],
@@ -37,9 +37,9 @@ export const initializedPacks = (args: GetPackType = {}): AppThunk => (dispatch,
             ? e.response.data.error
             : (e.message + ', more details in the console');
         dispatch(setError(error));
-        dispatch(setIsLoggedIn(false));
+        dispatch(setIsLoggedIn({parameter: {value: false}}));
         if (error === 'you are not authorized /ᐠ-ꞈ-ᐟ\\\\') {
-            dispatch(setIsLoggedIn(false));
+            dispatch(setIsLoggedIn({parameter: {value: false}}));
         }
         alert(error);
         dispatch(setError({parameter: {error}}));

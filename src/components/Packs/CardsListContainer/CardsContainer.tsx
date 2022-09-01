@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Navigate, useParams} from 'react-router-dom';
 import {initializedCards} from '../../../store/reducers/cards-reducer';
 import {useAppDispatch, useAppSelector} from '../../../store/store';
-import {authorizationUser} from '../../../store/reducers/authorization-reducer';
+import {authorizationUser} from '../../../store/reducers/authorizationReducer';
 import Preloader from '../../common/Preloader/Preloader';
 import CardsContainerWithLoading from './CardsContainerWithLoading';
 

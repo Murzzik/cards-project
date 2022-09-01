@@ -7,7 +7,7 @@ import play_learn from '../../assets/images/play_learn_logo.png';
 import Zoom from 'react-reveal/Zoom';
 import s from './WelcomePage.module.css';
 import { WelcomeBtnBlock } from './WelcomeBtnBlock';
-import { authorizationUser } from '../../store/reducers/authorization-reducer';
+import { authorizationUser } from '../../store/reducers/authorizationReducer';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import Preloader from '../common/Preloader/Preloader';
 

@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from '../../store/store';
 import {initializedPacks} from '../../store/reducers/packs-reducer';
 import 'antd/dist/antd.css';
 import {Navigate} from 'react-router-dom';
-import {authorizationUser} from '../../store/reducers/authorization-reducer';
+import {authorizationUser} from '../../store/reducers/authorizationReducer';
 import Preloader from '../common/Preloader/Preloader';
 import PackContainerWithLoading from './PackContainerWithLoading';
 
