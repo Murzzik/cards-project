@@ -1,6 +1,6 @@
 import {cardsAPI, CardsType, GetCardsResponseType, GetCardType} from '../../api/cardsAPI';
 import {AppThunk} from '../store';
-import {setError, setPreloaderStatus} from './app-reducer';
+import {setError, setPreloaderStatus} from './appReducer';
 
 const initialState: initialStateType = {
     cards: [],
@@ -30,33 +30,33 @@ export const setCardsData = (cardsData: GetCardsResponseType) => {
 };
 
 export const initializedCards = (args: GetCardType): AppThunk => (dispatch) => {
-    dispatch(setPreloaderStatus('loading'));
+    dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     cardsAPI.getCards(args).then(res => {
-        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
         dispatch(setCardsData(res.data));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
-        dispatch(setError(error));
+        dispatch(setError({parameter: {error}}));
         alert(error);
-        dispatch(setPreloaderStatus('failed'));
+        dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
     });
 };
 
 export const addNewCard = (packID: string, question: string, answer: string, questionImg?: string): AppThunk => (dispatch, getState) => {
-    dispatch(setPreloaderStatus('loading'));
+    dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     const pageCount = getState().cardsParameter.pageCount;
     cardsAPI.addNewCard(packID, question, answer, questionImg).then((res) => {
-        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
         dispatch(initializedCards({cardsPack_id: packID, pageCount}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
-        dispatch(setError(error));
+        dispatch(setError({parameter: {error}}));
         alert(error);
-        dispatch(setPreloaderStatus('failed'));
+        dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
     });
 };
 
@@ -67,33 +67,33 @@ export const deleteCard = (id: string, packID: string): AppThunk => (dispatch, g
     if (items === 1 && page) {
         page = page - 1;
     }
-    dispatch(setPreloaderStatus('loading'));
+    dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     cardsAPI.deleteCard(id).then((res) => {
-        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
         dispatch(initializedCards({cardsPack_id: packID, page, pageCount}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
-        dispatch(setError(error));
+        dispatch(setError({parameter: {error}}));
         alert(error);
-        dispatch(setPreloaderStatus('failed'));
+        dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
     });
 };
 
 export const updateCard = (id: string, question: string, answer: string, packID: string, questionImg?: string): AppThunk => (dispatch, getState) => {
     const pageCount = getState().cardsParameter.pageCount;
-    dispatch(setPreloaderStatus('loading'));
+    dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     cardsAPI.updateCard(id, question, answer, questionImg).then((res) => {
-        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
         dispatch(initializedCards({cardsPack_id: packID, pageCount}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
-        dispatch(setError(error));
+        dispatch(setError({parameter: {error}}));
         alert(error);
-        dispatch(setPreloaderStatus('failed'));
+        dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
     });
 };
 

@@ -1,6 +1,6 @@
 import {GetCardsPackResponseType, GetPackType, packAPI} from '../../api/packAPI';
 import {AppThunk} from '../store';
-import {setError, setPreloaderStatus} from './app-reducer';
+import {setError, setPreloaderStatus} from './appReducer';
 import {setIsLoggedIn} from './authorization-reducer';
 
 const initialState: initialStateType = {
@@ -28,9 +28,9 @@ export const setPacksData = (packsData: GetCardsPackResponseType) => {
 };
 
 export const initializedPacks = (args: GetPackType = {}): AppThunk => (dispatch, getState) => {
-    dispatch(setPreloaderStatus('loading'));
+    dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     packAPI.getPacks(args).then(res => {
-        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
         dispatch(setPacksData(res.data));
     }).catch(e => {
         const error = e.response
@@ -42,7 +42,8 @@ export const initializedPacks = (args: GetPackType = {}): AppThunk => (dispatch,
             dispatch(setIsLoggedIn(false));
         }
         alert(error);
-        dispatch(setPreloaderStatus('failed'));
+        dispatch(setError({parameter: {error}}));
+        dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
     });
 };
 
@@ -51,17 +52,17 @@ export const initializedPacks = (args: GetPackType = {}): AppThunk => (dispatch,
 export const addNewPack = (name: string, visibility = false, deckCover?: string): AppThunk => (dispatch, getState) => {
     const user_id = getState().packsParameter.user_id;
     const pageCount = getState().packsParameter.pageCount;
-    dispatch(setPreloaderStatus('loading'));
+    dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     packAPI.addNewPack(name, visibility, deckCover).then((res) => {
-        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
         dispatch(initializedPacks({user_id, pageCount}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
-        dispatch(setError(error));
+        dispatch(setError({parameter: {error}}));
         alert(error);
-        dispatch(setPreloaderStatus('failed'));
+        dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
     });
 };
 
@@ -73,35 +74,35 @@ export const deletePack = (id: string): AppThunk => (dispatch, getState) => {
     if (items === 1 && page) {
         page = page - 1;
     }
-    dispatch(setPreloaderStatus('loading'));
+    dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     packAPI.deletePack(id).then((res) => {
-        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
         dispatch(initializedPacks({user_id, page, pageCount}));
 
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
-        dispatch(setError(error));
+        dispatch(setError({parameter: {error}}));
         alert(error);
-        dispatch(setPreloaderStatus('failed'));
+        dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
     });
 };
 
 export const updatePack = (id: string, name: string, visibility: boolean, deckCover?: string): AppThunk => (dispatch, getState) => {
     const pageCount = getState().packsParameter.pageCount;
     const user_id = getState().packsParameter.user_id;
-    dispatch(setPreloaderStatus('loading'));
+    dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     packAPI.updatePack(id, name, visibility, deckCover).then((res) => {
-        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
         dispatch(initializedPacks({user_id, pageCount}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
-        dispatch(setError(error));
+        dispatch(setError({parameter: {error}}));
         alert(error);
-        dispatch(setPreloaderStatus('failed'));
+        dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
     });
 };
 

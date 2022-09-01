@@ -2,14 +2,14 @@ import {combineReducers} from 'redux';
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {ActionTypeFoAuthReducer, authorizationReducer} from './reducers/authorization-reducer';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
-import {ActionTypeForAppReducer, appReducer} from './reducers/app-reducer';
+import {ActionTypeForAppReducer, appReducer} from './reducers/appReducer';
 import {ActionTypeForPacksReducer, packsReducer} from './reducers/packs-reducer';
 import {ActionTypeForCards, cardsReducer} from './reducers/cards-reducer';
 import {ActionForPacksParameter, packsParameterReducer} from './reducers/packsParameterReducer';
 import {ActionForCardsParameter, cardsParametersReducer} from './reducers/cardsParametersReducer';
 import {ActionsLearnType, learnReducer} from './reducers/learnReducer';
 import {configureStore} from '@reduxjs/toolkit';
-import {ActionForUsersProfileReducer, userProfileReducer, usersProfileReducer} from './reducers/usersProfileReducer';
+import {ActionForUsersProfileReducer, usersProfileReducer} from './reducers/usersProfileReducer';
 
 const rootReducer = combineReducers({
     auth: authorizationReducer,

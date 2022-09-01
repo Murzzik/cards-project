@@ -1,6 +1,6 @@
 import {AppThunk} from '../store';
 import {authAPI} from '../../api/userAPI';
-import {setError, setInitialized, setPreloaderStatus} from './app-reducer';
+import {setError, setInitialized, setPreloaderStatus} from './appReducer';
 import {RegistrationData} from '../../components/registration/RegistrationContainer';
 
 const initialState: initialStateType = {
@@ -45,92 +45,92 @@ export const setUserInfo = (user: User) => ({type: 'auth-setUserInfo', user} as 
 export const setRegisteredUser = (isRegistered: boolean) => ({type: 'set-registrationNewUser', isRegistered} as const);
 
 export const registration = (newUser: RegistrationData): AppThunk => (dispatch) => {
-    dispatch(setPreloaderStatus('loading'));
+    dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     authAPI.registerNewUser(newUser).then(res => {
         dispatch(setRegisteredUser(true));
-        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
         alert(' You are autorized');
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
-        dispatch(setError(error));
+        dispatch(setError({parameter: {error}}));
         alert(error);
-        dispatch(setPreloaderStatus('failed'));
+        dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
     });
 };
 
 export const login = (data: any): AppThunk => (dispatch) => {
-    dispatch(setPreloaderStatus('loading'));
+    dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     authAPI.login(data).then(res => {
         dispatch(setIsLoggedIn(true));
-        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
         dispatch(setUserInfo(res.data));
-        dispatch(setInitialized(true));
+        dispatch(setInitialized({parameter: {isInitialized: true}}));
 
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
         alert(error);
-        dispatch(setError(error));
-        dispatch(setPreloaderStatus('failed'));
+        dispatch(setError({parameter: {error}}));
+        dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
     });
 };
 
 export const logOut = (): AppThunk => (dispatch) => {
-    dispatch(setPreloaderStatus('loading'));
+    dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     authAPI.logout().then(res => {
         dispatch(setIsLoggedIn(false));
-        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
     });
 };
 
 export const updateUserData = (name: string, avatar: string): AppThunk =>
     (dispatch) => {
-        dispatch(setPreloaderStatus('loading'));
+        dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
         authAPI.updateUserInformation(name, avatar).then((res) => {
             dispatch(setUserInfo(res.data.updatedUser));
-            dispatch(setPreloaderStatus('succeeded'));
+            dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
         }).finally(() => {
         });
     };
 
 export const forgotPassword = (email: any): AppThunk => (dispatch) => {
-    dispatch(setPreloaderStatus('loading'));
+    dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     authAPI.forgot(email).then(res => {
-        dispatch(setError(null));
+        dispatch(setError({parameter: {error: null}}));
         dispatch(setIsAutoRedirect(true));
-        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
-        dispatch(setError(error));
+        dispatch(setError({parameter: {error}}));
         alert(error);
-        dispatch(setPreloaderStatus('failed'));
+        dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
     });
 };
 
 export const authorizationUser = (): AppThunk => (dispatch) => {
-    dispatch(setPreloaderStatus('loading'));
+    dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     authAPI.getUserInfo().then(res => {
         dispatch(setUserInfo(res.data));
         dispatch(setIsLoggedIn(true));
     }).finally(() => {
-            dispatch(setPreloaderStatus('succeeded'));
-            dispatch(setInitialized(true));
+            dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
+            dispatch(setInitialized({parameter: {isInitialized: true}}));
         },
     );
 };
 
 export const createNewPassword = (password: string, resetPasswordToken: string | undefined): AppThunk => (dispatch) => {
-    dispatch(setPreloaderStatus('loading'));
+    dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     authAPI.setNewPassword(password, resetPasswordToken).then(res => {
-        dispatch(setPreloaderStatus('succeeded'));
+        dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
     })
         .catch(() => {
-            dispatch(setPreloaderStatus('succeeded'));
+            dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
         });
 };
 

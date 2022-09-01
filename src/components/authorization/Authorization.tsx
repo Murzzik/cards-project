@@ -3,7 +3,7 @@ import {useFormik} from 'formik';
 import {NavLink} from 'react-router-dom';
 import Preloader from '../common/Preloader/Preloader';
 import style from '../../styles/auth/Auth.module.css';
-import {RequestStatusType} from '../../store/reducers/app-reducer';
+import {RequestStatusType} from '../../store/reducers/appReducer';
 import {SuperCheckbox} from '../SuperComponents/SuperCheckbox/SuperCheckbox';
 import {EyeInvisibleOutlined, EyeOutlined} from '@ant-design/icons';
 

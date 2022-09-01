@@ -1,6 +1,6 @@
 import {AppThunk} from "../store";
 import {cardsAPI, CardsType, CardToBeGraded} from "../../api/cardsAPI";
-import {setError, setPreloaderStatus} from "./app-reducer";
+import {setError, setPreloaderStatus} from "./appReducer";
 import {setIsLoggedIn} from "./authorization-reducer";
 
 type StateType = {
@@ -35,24 +35,24 @@ export const setPackCards = (packs: StateType) => (
 )
 
 export const getAllCardsFromPackToLearn = (packId: string): AppThunk => (dispatch, getState) => {
-    dispatch(setPreloaderStatus('loading'));
+    dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     cardsAPI.getCards({cardsPack_id: packId, pageCount: Infinity})
         .then(res => {
             const {cards, cardsTotalCount, packUserId} = res.data
-            dispatch(setPreloaderStatus('succeeded'));
+            dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
             dispatch(setPackCards({cards, cardsTotalCount, packUserId}))
         })
         .catch(e => {
             const error = e.response
                 ? e.response.data.error
                 : (e.message + ', more details in the console');
-            dispatch(setError(error));
+            dispatch(setError({parameter: {error}}));
             dispatch(setIsLoggedIn(false));
             if (error === 'you are not authorized /ᐠ-ꞈ-ᐟ\\\\') {
                 dispatch(setIsLoggedIn(false));
             }
             alert(error);
-            dispatch(setPreloaderStatus('failed'));
+            dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
         })
 }
 
@@ -67,12 +67,12 @@ export const gradeCard = (card: CardToBeGraded): AppThunk => (dispatch) => {
             const error = e.response
                 ? e.response.data.error
                 : (e.message + ', more details in the console');
-            dispatch(setError(error));
+            dispatch(setError({parameter: {error}}));
             dispatch(setIsLoggedIn(false));
             if (error === 'you are not authorized /ᐠ-ꞈ-ᐟ\\\\') {
                 dispatch(setIsLoggedIn(false));
             }
             alert(error);
-            dispatch(setPreloaderStatus('failed'));
+            dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
         })
 }

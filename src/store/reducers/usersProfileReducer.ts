@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AppThunk} from '../store';
 import {profileAPI} from '../../api/profileAPI';
-import {RequestStatusType} from './app-reducer';
+import {RequestStatusType} from './appReducer';
 
 const initialState = {
     users: [] as UserInfo[],
