@@ -20,7 +20,7 @@ const slice = createSlice({
     initialState,
     reducers: {
         setCardsData(state, action: PayloadAction<{ parameters: { cardsData: GetCardsResponseType } }>) {
-            state = action.payload.parameters.cardsData;
+            return action.payload.parameters.cardsData;
         }
     }
 });

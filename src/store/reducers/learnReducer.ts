@@ -2,6 +2,7 @@ import {AppThunk} from '../store';
 import {cardsAPI, CardsType, CardToBeGraded} from '../../api/cardsAPI';
 import {setError, setPreloaderStatus} from './appReducer';
 import {setIsLoggedIn} from './authorizationReducer';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 type StateType = {
     cards: CardsType[],
@@ -12,25 +13,23 @@ type StateType = {
 
 export type ActionsLearnType = ReturnType<typeof setPackCards>
 
-const initialState: StateType = {
-    cards: [],
+const initialState = {
+    cards: [] as CardsType[],
     cardsTotalCount: 0,
-    // packUserId: null,
-    // packName: null
 };
 
-export const learnReducer = (state = initialState, action: ActionsLearnType): StateType => {
-    switch (action.type) {
-        case 'SET-PACK-CARDS':
-            return {...action.payload};
-        default:
-            return state;
+const slice = createSlice({
+    name: 'learn',
+    initialState,
+    reducers: {
+        setPackCards(state, action: PayloadAction<{ parameter: { packs: StateType } }>) {
+            return state = {...action.payload.parameter.packs};
+        }
     }
-};
+});
 
-export const setPackCards = (packs: StateType) => (
-    {type: 'SET-PACK-CARDS', payload: {...packs}} as const
-);
+export const learnReducer = slice.reducer;
+export const {setPackCards} = slice.actions;
 
 export const getAllCardsFromPackToLearn = (packId: string): AppThunk => (dispatch) => {
     dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
@@ -38,7 +37,7 @@ export const getAllCardsFromPackToLearn = (packId: string): AppThunk => (dispatc
         .then(res => {
             const {cards, cardsTotalCount, packUserId} = res.data;
             dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
-            dispatch(setPackCards({cards, cardsTotalCount, packUserId}));
+            dispatch(setPackCards({parameter: {packs: {cards, cardsTotalCount, packUserId}}}));
         })
         .catch(e => {
             const error = e.response

@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useRef, useState} from 'react';
 import UniversalModal from '../UniversalModal';
 import {useAppDispatch, useAppSelector} from '../../../../store/store';
-import {updatePack} from '../../../../store/reducers/packs-reducer';
+import {updatePack} from '../../../../store/reducers/packsReducer';
 import {Checkbox, Input} from 'antd';
 import {CheckboxChangeEvent} from 'antd/lib/checkbox';
 import EditIcon from '@mui/icons-material/Edit';

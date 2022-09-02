@@ -3,7 +3,7 @@ import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {ActionTypeFoAuthReducer, authorizationReducer} from './reducers/authorizationReducer';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {ActionTypeForAppReducer, appReducer} from './reducers/appReducer';
-import {ActionTypeForPacksReducer, packsReducer} from './reducers/packs-reducer';
+import {ActionTypeForPacksReducer, packsReducer} from './reducers/packsReducer';
 import {ActionTypeForCards, cardsReducer} from './reducers/cardsReducer';
 import {ActionForPacksParameter, packsParameterReducer} from './reducers/packsParameterReducer';
 import {ActionForCardsParameter, cardsParametersReducer} from './reducers/cardsParametersReducer';

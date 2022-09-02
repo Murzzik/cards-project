@@ -1,5 +1,5 @@
 import {instance} from './instance';
-import {Pack} from '../store/reducers/packs-reducer';
+import {Pack} from '../store/reducers/packsReducer';
 import {GetCardsResponseType} from './cardsAPI';
 
 export const packAPI = {

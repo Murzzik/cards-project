@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../store/store';
-import {initializedPacks} from '../../store/reducers/packs-reducer';
+import {initializedPacks} from '../../store/reducers/packsReducer';
 import 'antd/dist/antd.css';
 import {Navigate} from 'react-router-dom';
 import {authorizationUser} from '../../store/reducers/authorizationReducer';

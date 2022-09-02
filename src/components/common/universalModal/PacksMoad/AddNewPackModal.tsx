@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useRef, useState} from 'react';
 import UniversalModal from '../UniversalModal';
-import {addNewPack} from '../../../../store/reducers/packs-reducer';
+import {addNewPack} from '../../../../store/reducers/packsReducer';
 import {useAppDispatch} from '../../../../store/store';
 import {Button, Checkbox, Input} from 'antd';
 import {CheckboxChangeEvent} from 'antd/lib/checkbox';

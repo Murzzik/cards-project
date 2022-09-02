@@ -17,7 +17,6 @@ const slice = createSlice({
     reducers: {
         setPacksParameter(state, action: PayloadAction<{ parameters: GetPackType }>) {
             return action.payload.parameters;
-            // return state = action.payload.parameters;
         }
     }
 });

@@ -2,36 +2,50 @@ import {GetCardsPackResponseType, GetPackType, packAPI} from '../../api/packAPI'
 import {AppThunk} from '../store';
 import {setError, setPreloaderStatus} from './appReducer';
 import {setIsLoggedIn} from './authorizationReducer';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-const initialState: initialStateType = {
-    cardPacks: [],
+const initialState = {
+    cardPacks: [] as Pack[],
     page: 1,
     pageCount: 4,
     cardPacksTotalCount: 0,
     minCardsCount: 0,
     maxCardsCount: 0,
-    isLoading: false,
+    // isLoading: false,
 };
 
-export const packsReducer = (state = initialState, action: ActionTypeForPacksReducer): initialStateType => {
-    switch (action.type) {
-        case 'packs-setPacksData': {
-            return {...action.packsData};
+const slice = createSlice({
+    name: 'packs',
+    initialState,
+    reducers: {
+        setPacksData(state, action: PayloadAction<{ parameters: { packsData: GetCardsPackResponseType } }>) {
+            return state = {...action.payload.parameters.packsData};
         }
-        default:
-            return state;
     }
-};
+});
 
-export const setPacksData = (packsData: GetCardsPackResponseType) => {
-    return {type: 'packs-setPacksData', packsData} as const;
-};
+export const packsReducer = slice.reducer;
+export const {setPacksData} = slice.actions;
+
+// export const packsReducer = (state = initialState, action: ActionTypeForPacksReducer): initialStateType => {
+//     switch (action.type) {
+//         case 'packs-setPacksData': {
+//             return {...action.packsData};
+//         }
+//         default:
+//             return state;
+//     }
+// };
+
+// export const setPacksData = (packsData: GetCardsPackResponseType) => {
+//     return {type: 'packs-setPacksData', packsData} as const;
+// };
 
 export const initializedPacks = (args: GetPackType = {}): AppThunk => (dispatch, getState) => {
     dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     packAPI.getPacks(args).then(res => {
         dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
-        dispatch(setPacksData(res.data));
+        dispatch(setPacksData({parameters: {packsData: res.data}}));
     }).catch(e => {
         const error = e.response
             ? e.response.data.error
@@ -106,17 +120,17 @@ export const updatePack = (id: string, name: string, visibility: boolean, deckCo
     });
 };
 
-type initialStateType = {
-    cardPacks: Pack[],
-    page: number,
-    pageCount: number,
-    cardPacksTotalCount: number,
-    minCardsCount: number,
-    maxCardsCount: number,
-    token?: string,
-    tokenDeathTime?: number,
-    isLoading?: boolean
-}
+// type initialStateType = {
+//     cardPacks: Pack[],
+//     page: number,
+//     pageCount: number,
+//     cardPacksTotalCount: number,
+//     minCardsCount: number,
+//     maxCardsCount: number,
+//     token?: string,
+//     tokenDeathTime?: number,
+//     isLoading?: boolean
+// }
 
 export type Pack = {
     _id: string,

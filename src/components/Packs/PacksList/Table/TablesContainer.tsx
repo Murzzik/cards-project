@@ -59,11 +59,13 @@ const TablesContainer: React.FC = () => {
         console.log(sorter.order);
         if (sorter.order) {
             dispatch(setPacksParameter({parameters: {...parameters, sortPacks, page: pagination.current}}));
-        } else {
-            dispatch(setPacksParameter({parameters: {...parameters, sortPacks: '', page: pagination.current}}));
         }
+        // else {
+        //     dispatch(setPacksParameter({parameters: {...parameters, sortPacks: '', page: pagination.current, pageCount: parameters.pageCount}}));
+        // }
     };
-    const changeCardsPaginationData = (page: number, pageCount: number) => {
+    const changePacksPaginationData = (page: number, pageCount: number) => {
+        console.log(pageCount + '   ' + page);
         dispatch(setPacksParameter({parameters: {...parameters, page, pageCount}}));
     };
 
@@ -77,11 +79,11 @@ const TablesContainer: React.FC = () => {
         packName: (pack.cardsCount !== 0) ?
             <NavLink to={'/packs/' + pack._id}>{pack.name}</NavLink> :
             pack.user_id === myId ? <NavLink to={'/packs/' + pack._id}>{pack.name}</NavLink>
-                : <p style={{color: '#1890ff'}}>{pack.name}</p>,
+                : <p style={{color: '#1890ff'}} className={'ppp'}>{pack.name}</p>,
 
         cardsCount: pack.cardsCount,
         updated: <div>
-            <p>{convertDate(pack.updated)[0]}  {convertDate(pack.updated)[1]}</p>
+            <p>{convertDate(pack.updated)[0]} {convertDate(pack.updated)[1]}</p>
             {/*<p>{convertDate(pack.updated)[1]}</p>*/}
         </div>,
         user_name: <PopoverUserInfoContainer
@@ -103,7 +105,7 @@ const TablesContainer: React.FC = () => {
                    total: totalItems,
                    current: parameters.page,
                    showTotal: showTotal,
-                   onChange: changeCardsPaginationData,
+                   onChange: changePacksPaginationData,
                    defaultPageSize: 4,
                    pageSizeOptions: [4, 10, 20, 50],
                    showQuickJumper: true,
