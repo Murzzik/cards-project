@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
-import {Authorization, FormikErrorType} from './Authorization';
+import {Authorization} from './Authorization';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {login, setIsAutoRedirect} from '../../store/reducers/authorizationReducer';
 import {Navigate} from 'react-router-dom';
+import {SignInArgs} from '../../api/userAPI';
 
 const AuthorizationContainer: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -14,7 +15,7 @@ const AuthorizationContainer: React.FC = () => {
         dispatch(setIsAutoRedirect({parameter: {isAutoRedirect: false}}));
     }, [dispatch]);
 
-    const authorization = (values: FormikErrorType) => {
+    const authorization = (values: SignInArgs) => {
         dispatch(login(values));
     };
 

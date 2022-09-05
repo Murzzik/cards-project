@@ -2,7 +2,7 @@ import React from 'react';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {Navigate} from 'react-router-dom';
 import {PassRecovery} from './PassRecovery';
-import {forgotPassword, setRecoveryEmail} from '../../store/reducers/authorizationReducer';
+import {forgotPassword} from '../../store/reducers/authorizationReducer';
 
 const PassRecoveryContainer: React.FC = () => {
     const isLoad = useAppSelector(state => state.app.status);
@@ -11,7 +11,7 @@ const PassRecoveryContainer: React.FC = () => {
 
     const repairPassword = (email: string) => {
         dispatch(forgotPassword(email));
-        dispatch(setRecoveryEmail({parameter: {email: email}}));
+        // dispatch(setRecoveryEmail({parameter: {email: email}}));
     };
 
     if (isAutoRedirect) {

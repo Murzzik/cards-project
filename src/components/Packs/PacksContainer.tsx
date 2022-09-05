@@ -14,9 +14,11 @@ const PacksContainer = () => {
         const userProfileName = useAppSelector(state => state.auth.user.name);
         let parameters = useAppSelector(state => state.packsParameter);
 
-        if (!userProfileName) {
-            dispatch(authorizationUser());
-        }
+        useEffect(() => {
+            if (!userProfileName) {
+                dispatch(authorizationUser());
+            }
+        }, [userProfileName]);
 
         useEffect(() => {
             if (isLoggedIn) {
@@ -30,7 +32,7 @@ const PacksContainer = () => {
         if (!isLoggedIn) return <Navigate to={'/authorization'}/>;
 
         return (
-           <PackContainerWithLoading/>
+            <PackContainerWithLoading/>
         );
     }
 ;

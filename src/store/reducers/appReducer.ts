@@ -21,7 +21,7 @@ const slice = createSlice({
         setError(state, action: PayloadAction<{ parameter: { error: string | null } }>) {
             state.error = action.payload.parameter.error;
         }
-    }
+    },
 });
 
 export const appReducer = slice.reducer;

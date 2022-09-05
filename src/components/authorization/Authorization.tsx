@@ -6,6 +6,7 @@ import style from '../../styles/auth/Auth.module.css';
 import {RequestStatusType} from '../../store/reducers/appReducer';
 import {SuperCheckbox} from '../SuperComponents/SuperCheckbox/SuperCheckbox';
 import {EyeInvisibleOutlined, EyeOutlined} from '@ant-design/icons';
+import {SignInArgs} from '../../api/userAPI';
 
 export type FormikErrorType = {
     email?: string
@@ -15,7 +16,7 @@ export type FormikErrorType = {
 
 type AuthorizationPropsType = {
     isLoggedIn: boolean,
-    authorization: (values: FormikErrorType) => void,
+    authorization: (values: SignInArgs) => void,
     isLoad: RequestStatusType,
     isDisabled: boolean
 }

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from './Profile.module.css';
 import editUserName from '../../assets/images/Edit.png';
 import logout from '../../assets/images/logout.png';
@@ -14,6 +14,7 @@ export const Profile = () => {
     const userProfileName = useAppSelector(state => state.auth.user.name);
     const userProfileEmail = useAppSelector(state => state.auth.user.email);
     const isInitialized = useAppSelector(state => state.app.isInitialized);
+    const isLoading = useAppSelector(state => state.app.status);
     const userProfileAvatar = useAppSelector(state => state.auth.user.avatar) as string;
 
     const dispatch = useAppDispatch();
@@ -21,9 +22,16 @@ export const Profile = () => {
     const [userName, setUserName] = useState(userProfileName);
     const [errorMessage, setErrorMessage] = useState('');
     const [submitBtnDisabled, setSubmitBtnDisabled] = useState(false);
+
+    // if (!userProfileName) {
+    //     dispatch(authorizationUser());
+    // }
+
+    useEffect(() => {
         if (!userProfileName) {
-        dispatch(authorizationUser());
-    }
+            dispatch(authorizationUser());
+        }
+    }, [userProfileName]);
     const activateEditMode = () => {
         setEditMode(true);
     };
@@ -34,16 +42,16 @@ export const Profile = () => {
 
     // Submit
     const submitUserName = () => {
-        dispatch(updateUserData(userName, userProfileAvatar));
+        dispatch(updateUserData({name: userName, avatar: userProfileAvatar}));
         setEditMode(false);
     };
 
     const changeUserName = (e: ChangeEvent<HTMLInputElement>) => {
         const userName = e.currentTarget.value;
-        if(userName.length <= 1) {
+        if (userName.length <= 1) {
             setErrorMessage('Your nickname should include at least one symbol.');
             setSubmitBtnDisabled(true);
-        } else if(userName.length > 16) {
+        } else if (userName.length > 16) {
             setErrorMessage('Your nickname must contain no more than 16 characters.');
             setSubmitBtnDisabled(true);
         } else {
@@ -56,7 +64,7 @@ export const Profile = () => {
     const editModeForm = (
         editMode ?
             <TextField className={s.textField} id="standard-basic" label="Nickname" variant="standard" autoFocus
-                       onChange={changeUserName} autoComplete="off" color="info" />
+                       onChange={changeUserName} autoComplete="off" color="info"/>
             :
             <span className={s.userProfileName}>{userProfileName}</span>
     );
@@ -66,43 +74,47 @@ export const Profile = () => {
             <button className={s.submitBtn} onClick={submitUserName} disabled={submitBtnDisabled}>Submit</button>
             :
             <div>
-                <img src={editUserName} alt="Edit user name" onClick={activateEditMode} />
+                <img src={editUserName} alt="Edit user name" onClick={activateEditMode}/>
             </div>
     );
 
-    if(!isInitialized) {
-        return <Preloader />;
+    if (!isInitialized) {
+        return <Preloader/>;
     }
 
-    if(!isLoggedIn) return <Navigate to={'/authorization'} />;
+    if (!isLoggedIn) return <Navigate to={'/authorization'}/>;
     return (
-        <div className={s.container}>
-            <div className={s.profileEdit}>
+        <div>
+            {isLoading==='loading' && <Preloader/>}
+            <div className={s.container}>
+                <div className={s.profileEdit}>
                 <span className={s.profileHeader}>
                     Personal Information
                 </span>
-                <div className={s.badgeAvatar}>
-                    <BadgeAvatars />
-                </div>
-                <div className={s.editUserName}>
-                    {editModeForm}
-                    <div className={s.editIcon}>
-                        {editModeBtn}
+                    <div className={s.badgeAvatar}>
+                        <BadgeAvatars/>
                     </div>
-                </div>
-                <span className={s.errorMessage}>{errorMessage}</span>
-                <span className={s.userEmail}>
+                    <div className={s.editUserName}>
+                        {editModeForm}
+                        <div className={s.editIcon}>
+                            {editModeBtn}
+                        </div>
+                    </div>
+                    <span className={s.errorMessage}>{errorMessage}</span>
+                    <span className={s.userEmail}>
                     {userProfileEmail}
                 </span>
-                <div className={s.logoutContainer}>
-                    <button className={s.logoutButton} onClick={logoutHandler}>
-                        <img src={logout} alt="Logout button" />
-                        <span className={s.buttonTitle}>
+                    <div className={s.logoutContainer}>
+                        <button className={s.logoutButton} onClick={logoutHandler}>
+                            <img src={logout} alt="Logout button"/>
+                            <span className={s.buttonTitle}>
                             Log out
                         </span>
-                    </button>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
+
     );
 };

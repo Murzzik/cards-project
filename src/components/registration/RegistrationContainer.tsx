@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {Registration} from './Registration';
 
 import {Navigate} from 'react-router-dom';
-import {registration, setRegisteredUser} from '../../store/reducers/authorizationReducer';
+import {registration} from '../../store/reducers/authorizationReducer';
 
 export type RegistrationData = {
     email: string,
@@ -19,9 +19,9 @@ export const RegistrationContainer: React.FC = () => {
     const onRegistrationSubmit = (values: RegistrationData) => {
         dispatch(registration(values));
     };
-    useEffect(() => {
-        dispatch(setRegisteredUser({parameter: {isRegistered: false}}));
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(setRegisteredUser({parameter: {isRegistered: false}}));
+    // }, [dispatch]);
 
     if (isRegistered) {
         return <Navigate to="/authorization"/>;
