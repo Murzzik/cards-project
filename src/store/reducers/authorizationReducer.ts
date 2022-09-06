@@ -49,7 +49,7 @@ export const authorizationUser = createAsyncThunk('auth/authorization', async (a
     try {
         const userInfo = await authAPI.getUserInfo();
         thunkAPI.dispatch(setIsLoggedIn({parameter: {value: true}}));
-        thunkAPI.dispatch(setInitialized({parameter: {isInitialized: true}}));
+        // thunkAPI.dispatch(setInitialized({parameter: {isInitialized: true}}));
         return userInfo.data;
     } catch (err) {
         const error = parsError(err as AxiosError);
@@ -58,7 +58,7 @@ export const authorizationUser = createAsyncThunk('auth/authorization', async (a
         alert(error);
     } finally {
         thunkAPI.dispatch((setPreloaderStatus({parameter: {status: 'idle'}})));
-        // thunkAPI.dispatch(setInitialized({parameter: {isInitialized: false}}));
+        thunkAPI.dispatch(setInitialized({parameter: {isInitialized: true}}));
     }
 });
 
