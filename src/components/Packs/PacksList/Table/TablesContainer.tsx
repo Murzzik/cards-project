@@ -29,7 +29,7 @@ const columns = [
         title: 'Last Update',
         dataIndex: 'updated',
         sorter: {},
-        width: '150px'
+        width: '110px'
     },
     {
         title: 'Create by',
@@ -38,12 +38,12 @@ const columns = [
             // compare: (a: any, b: any) => a.grade - b.grade,
             //  multiple: 1,
         },
-        width: '220px'
+        width: '100px'
     },
     {
         title: 'Action',
         dataIndex: 'action',
-        width: '180px',
+        width: '110px',
     },
 ];
 const TablesContainer: React.FC = () => {
@@ -83,7 +83,7 @@ const TablesContainer: React.FC = () => {
 
         cardsCount: pack.cardsCount,
         updated: <div>
-            <p>{convertDate(pack.updated)[0]} {convertDate(pack.updated)[1]}</p>
+            <p>{convertDate(pack.updated)[0]}</p>
             {/*<p>{convertDate(pack.updated)[1]}</p>*/}
         </div>,
         user_name: <PopoverUserInfoContainer

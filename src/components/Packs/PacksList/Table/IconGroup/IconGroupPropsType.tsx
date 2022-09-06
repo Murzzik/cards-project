@@ -24,19 +24,19 @@ const IconGroup: React.FC<IconGroupPropsType> = ({ownerPack, packId, packName, c
     };
 
     const isStudyIcon = (cardsCount > 0) ?
-        <IconButton onClick={onLearnButtonHandler}><SchoolIcon/></IconButton>
+        <IconButton onClick={onLearnButtonHandler} size={'small'}><SchoolIcon/></IconButton>
         :
         !isMyPacks && <p>This pack empty. Sorry</p>;
     return (
-        <div style={{display: 'flex'}}>
+        <div style={{display: 'flex',alignItems:'center'}}>
             {/*<IconButton onClick={onLearnButtonHandler}><SchoolIcon/></IconButton>*/}
             {isStudyIcon}
             {isMyPacks &&
                 <div>
-                    <IconButton>
+                    <IconButton size={'small'}>
                         <DeletePackModal packId={packId} packName={packName}/>
-                    </IconButton>
-                    <IconButton>
+                    </IconButton >
+                    <IconButton size={'small'}>
                         <EditPackModal packId={packId} packName={packName}/>
                     </IconButton>
                 </div>

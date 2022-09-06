@@ -30,7 +30,7 @@ const AddNewPackModal: React.FC = () => {
     };
 
     const newPackHandler = () => {
-        dispatch(addNewPack(name, check, packImage));
+        dispatch(addNewPack({name, private: check, deckCover: packImage}));
     };
 
     const uploadPackImage = (e: ChangeEvent<HTMLInputElement>) => {

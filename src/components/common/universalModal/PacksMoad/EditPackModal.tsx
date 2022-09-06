@@ -33,7 +33,7 @@ const EditPackModal: React.FC<EditePackModalPropsType> = ({packId, packName}) =>
         setCheck(e.target.checked);
     };
     const updatePackHandler = () => {
-        dispatch(updatePack(packId, name, check, packImage));
+        dispatch(updatePack({id: packId, name, visibility: check, deckCover: packImage}));
     };
 
     const clearData = () => {
