@@ -29,13 +29,12 @@ export const initializedPacks = createAsyncThunk('packs/initializedPacks', async
 });
 
 export const addNewPack = createAsyncThunk('packs/addNewPack', async (data: { name: string, private: boolean, deckCover?: string }, thunkAPI) => {
-    const state = thunkAPI.getState() as AppRootStateType;
-    const user_id = state.packsParameter.user_id;
-    const pageCount = state.packsParameter.pageCount;
     try {
         thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
         await packAPI.addNewPack(data.name, data.private, data.deckCover);
-        thunkAPI.dispatch(initializedPacks({user_id, pageCount}));
+        // thunkAPI.dispatch(initializedPacks({user_id, pageCount, page: 1}));
+        // packs will be loaded after changing the state in packsParameterReducer extraReducers
+        thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
     } catch (err) {
         const error = parsError(err as AxiosError);
         thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
@@ -71,7 +70,7 @@ export const updatePack = createAsyncThunk('packs/updatePack', async (data: { id
     try {
         await packAPI.updatePack(data.id, data.name, data.visibility, data.deckCover);
         thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
-        // thunkAPI.dispatch(initializedPacks({user_id, pageCount}));
+        // thunkAPI.dispatch(initializedPacks({user_id, pageCount, page: 1}));
         // packs will be loaded after changing the state in packsParameterReducer extraReducers
 
     } catch (err) {

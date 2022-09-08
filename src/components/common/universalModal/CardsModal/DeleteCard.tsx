@@ -16,7 +16,7 @@ export const DeleteCard: React.FC<DeleteCard> = ({id, packID, cardName}) => {
     const dispatch = useAppDispatch();
 
     const deleteCardHandler = () => {
-        dispatch(deleteCard(id, packID));
+        dispatch(deleteCard({cardId: id, packID}));
     };
 
     return (

@@ -30,7 +30,7 @@ export type GetCardType = {
     min?: number
     max?: number
     sortCards?: string
-    page?: number | null | undefined
+    page?: number
     pageCount?: number | null | undefined
 }
 export type CardsType = {

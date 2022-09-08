@@ -32,7 +32,7 @@ export const EditCard: React.FC<EditCard> = ({id, packID, questionValue, answerV
     };
 
     const editCardInformation = () => {
-        dispatch(updateCard(id, cardQuestion, cardAnswer, packID, questionImage));
+        dispatch(updateCard({id, question: cardQuestion, answer: cardAnswer, packID, questionImg: questionImage}));
     };
 
     const clearData = () => {

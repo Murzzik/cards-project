@@ -1,6 +1,6 @@
 import {GetPackType} from '../../api/packAPI';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {updatePack} from './packsReducer';
+import {addNewPack, updatePack} from './packsReducer';
 
 const initialState: GetPackType = {
     packName: '',
@@ -20,10 +20,13 @@ const slice = createSlice({
             return action.payload.parameters;
         }
     },
-    extraReducers(builder){
-        builder.addCase(updatePack.fulfilled, (state)=>{
-            state.page = 1
-        })
+    extraReducers(builder) {
+        builder.addCase(updatePack.fulfilled, (state) => {
+            return {...state, page: 1}
+        });
+        builder.addCase(addNewPack.fulfilled, state => {
+            return {...state, page: 1}
+        });
     }
 });
 

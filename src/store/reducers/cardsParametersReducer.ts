@@ -1,5 +1,6 @@
 import {GetCardType} from '../../api/cardsAPI';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {addNewCard, updateCard} from './cardsReducer';
 
 const initialState: GetCardType = {
     cardAnswer: '',
@@ -18,6 +19,14 @@ const slice = createSlice({
         setCardsParameter(state, action: PayloadAction<{ parameters: GetCardType }>) {
             return action.payload.parameters;
         }
+    },
+    extraReducers(builder) {
+        builder.addCase(addNewCard.fulfilled, (state) => {
+            return {...state, page: 1};
+        });
+        builder.addCase(updateCard.fulfilled, state => {
+            return {...state, page: 1};
+        });
     }
 });
 

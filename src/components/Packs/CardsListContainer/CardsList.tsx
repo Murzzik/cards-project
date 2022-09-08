@@ -101,6 +101,7 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
                    size: 'small',
                    total: totalItems,
                    showTotal: showTotal,
+                   current: parameters.page,
                    onChange: changeCardsPaginationData,
                    defaultPageSize: 4,
                    pageSizeOptions: [4, 10, 20, 50],

@@ -57,7 +57,7 @@ export const AddCard: React.FC<AddCard> = ({packID}) => {
     };
 
     const createNewCard = () => {
-        dispatch(addNewCard(packID, cardQuestion, cardAnswer, questionImage));
+        dispatch(addNewCard({packID, question: cardQuestion, answer: cardAnswer, questionImg: questionImage}));
         setCardQuestion('');
         setCardAnswer('');
         setQuestionImage('');

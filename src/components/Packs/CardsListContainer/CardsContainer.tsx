@@ -15,9 +15,11 @@ const CardsContainer = () => {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
     const isInitialized = useAppSelector(state => state.app.isInitialized);
 
-    if (!userProfileName) {
-        dispatch(authorizationUser());
-    }
+    useEffect(() => {
+        if (!userProfileName) {
+            dispatch(authorizationUser());
+        }
+    }, [userProfileName]);
 
     useEffect(() => {
         if (cardsPack_id && isLoggedIn) {
