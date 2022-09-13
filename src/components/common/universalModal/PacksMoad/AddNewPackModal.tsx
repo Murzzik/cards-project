@@ -4,9 +4,9 @@ import {addNewPack} from '../../../../store/reducers/packsReducer';
 import {useAppDispatch} from '../../../../store/store';
 import {Button, Checkbox, Input} from 'antd';
 import {CheckboxChangeEvent} from 'antd/lib/checkbox';
-import s from '../CardsModal/cards.module.css';
 import defaultPackImage from '../../../../assets/images/project-logo.png';
 import {uploadPhoto} from '../../../../utils/uploadPhoto';
+import UpLoad from '../../../Upload/Upload';
 
 const AddNewPackModal: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -46,16 +46,17 @@ const AddNewPackModal: React.FC = () => {
             modalName="Add new Pack"
             clearData={clearData}
             children={
-                <div>
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <Input placeholder="Pack name" value={name} onChange={onChangeHandler}/>
-                    <div className={s.question_image_block}>
-                        <img src={packImage} alt=""/>
-                        <label className="custom-file-upload">
-                            <input type="file" onChange={uploadPackImage} ref={uploadRef}/>
-                            Upload image
-                        </label>
-                    </div>
-                    <Checkbox checked={check} onChange={onChangeCheck}>Private</Checkbox>
+                    {/*<div className={s.question_image_block}>*/}
+                    {/*    <img src={packImage} alt=""/>*/}
+                    {/*    <label className="custom-file-upload">*/}
+                    {/*        <input type="file" onChange={uploadPackImage} ref={uploadRef}/>*/}
+                    {/*        Upload image*/}
+                    {/*    </label>*/}
+                    {/*</div>*/}
+                    <UpLoad setPackImage={setPackImage} uploadPackImage={uploadPackImage} packImage = {packImage}/>
+                    <Checkbox checked={check} onChange={onChangeCheck} >Private</Checkbox>
                 </div>
             }
         />

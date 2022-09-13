@@ -53,6 +53,7 @@ const TablesContainer: React.FC = () => {
     const showTotal = (totalItems: number) => `Total ${totalItems} items`;
     const packs = useAppSelector(state => state.packs.cardPacks);
     const myId = useAppSelector(state => state.auth.user._id);
+    const currentPage = useAppSelector(state => state.packs.page)
 
     const onChange = (pagination: any, filters: any, sorter: any) => {
         const sortPacks = `${sorter.order === 'ascend' ? '0' : '1'}${sorter.field}`;
@@ -103,7 +104,7 @@ const TablesContainer: React.FC = () => {
                pagination={{
                    size: 'small',
                    total: totalItems,
-                   current: parameters.page,
+                   current: currentPage,
                    showTotal: showTotal,
                    onChange: changePacksPaginationData,
                    defaultPageSize: 4,
