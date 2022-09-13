@@ -4,12 +4,12 @@ import {PlusOutlined} from '@ant-design/icons';
 import {Modal, Upload} from 'antd';
 
 type UpLoadPropsType = {
-    uploadPackImage?: (e: ChangeEvent<HTMLInputElement>) => void,
-    setPackImage: (base64: string) => void
-    packImage: string
+    uploadImage?: (e: ChangeEvent<HTMLInputElement>) => void,
+    setImage: (base64: string) => void
+    someImage: string
 }
 
-const UpLoad: React.FC<UpLoadPropsType> = ({setPackImage, uploadPackImage, packImage}) => {
+const UpLoad: React.FC<UpLoadPropsType> = ({setImage, uploadImage, someImage}) => {
         const [previewOpen, setPreviewOpen] = useState(false);
         const [previewImage, setPreviewImage] = useState('');
         const [previewTitle, setPreviewTitle] = useState('');
@@ -18,7 +18,7 @@ const UpLoad: React.FC<UpLoadPropsType> = ({setPackImage, uploadPackImage, packI
         const handleCancel = () => setPreviewOpen(false);
 
         const handlePreview = async (file: any) => {
-            setPreviewImage(packImage);
+            setPreviewImage(someImage);
             setPreviewOpen(true);
             setPreviewTitle(
                 file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
@@ -26,7 +26,7 @@ const UpLoad: React.FC<UpLoadPropsType> = ({setPackImage, uploadPackImage, packI
         };
 
         const clearPackImg = () => {
-            setPackImage('0');
+            setImage('0');
         };
 
         // @ts-ignore
@@ -35,7 +35,7 @@ const UpLoad: React.FC<UpLoadPropsType> = ({setPackImage, uploadPackImage, packI
         };
 
         const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-            uploadPackImage && uploadPackImage(e);
+            uploadImage && uploadImage(e);
         };
 
         const uploadButton = (

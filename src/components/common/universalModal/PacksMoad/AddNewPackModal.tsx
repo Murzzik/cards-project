@@ -55,7 +55,7 @@ const AddNewPackModal: React.FC = () => {
                     {/*        Upload image*/}
                     {/*    </label>*/}
                     {/*</div>*/}
-                    <UpLoad setPackImage={setPackImage} uploadPackImage={uploadPackImage} packImage = {packImage}/>
+                    <UpLoad setImage={setPackImage} uploadImage={uploadPackImage} someImage= {packImage}/>
                     <Checkbox checked={check} onChange={onChangeCheck} >Private</Checkbox>
                 </div>
             }

@@ -8,6 +8,7 @@ import {Button, Input, Select} from 'antd';
 import s from './cards.module.css';
 
 import defaultImage from '../../../../assets/images/project-logo.png';
+import Upload from '../../../Upload/Upload';
 
 type AddCard = {
     packID: string
@@ -50,6 +51,7 @@ export const AddCard: React.FC<AddCard> = ({packID}) => {
     const clearData = () => {
         setCardQuestion('');
         setCardAnswer('');
+        setQuestionVariant(true);
         setQuestionImage(defaultImage);
         if (uploadRef.current) {
             uploadRef.current.value = '';
@@ -82,15 +84,17 @@ export const AddCard: React.FC<AddCard> = ({packID}) => {
                 </div>
                 :
                 <div className={s.question_image_block}>
-                    <img src={questionImage} alt=""/>
-                    <label className="custom-file-upload">
-                        <input type="file" onChange={uploadQuestionImage}/>
-                    </label>
-                    <Input className={s.cards_modal_input} placeholder="Write card question" onChange={onChangeCardQuestion}
-                           value={cardQuestion}/>
+                    {/*<img src={questionImage} alt=""/>*/}
+                    {/*<label className="custom-file-upload">*/}
+                    {/*    <input type="file" onChange={uploadQuestionImage}/>*/}
+                    {/*</label>*/}
+                    {/*<Input className={s.cards_modal_input} placeholder="Write card question" onChange={onChangeCardQuestion}*/}
+                    {/*       value={cardQuestion}/>*/}
+                    <Upload setImage={setQuestionImage} someImage={questionImage} uploadImage={uploadQuestionImage}/>
                     <Input className={s.cards_modal_input} placeholder="Write card answer" onChange={onChangeCardAnswer}
                            value={cardAnswer}/>
                 </div>
+
             }
         </UniversalModal>
     );
