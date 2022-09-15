@@ -6,6 +6,7 @@ import {NavLink} from 'react-router-dom';
 import logout from '../../assets/images/logout.png';
 import {logOut} from '../../store/reducers/authorizationReducer';
 import {setPacksParameter} from '../../store/reducers/packsParameterReducer';
+import {Dropdown} from 'antd';
 
 export const Header = () => {
     const userName = useAppSelector(state => state.auth.user.name);
@@ -26,18 +27,28 @@ export const Header = () => {
         setIsActiveNavigate(!isActiveNavigate);
     };
 
-    const dropdownProfileHandler = () => {
-        setIsActiveProfile(!isActiveProfile);
-    };
+    // const dropdownProfileHandler = () => {
+    //     setIsActiveProfile(!isActiveProfile);
+    // };
 
     const dropdownMenu = isActiveNavigate ? s.dropdownMenu : s.dropdownMenuActive;
-    const dropdownProfile = isActiveProfile ? s.dropdownProfile : s.dropdownProfileActive;
-
+    // const dropdownProfile = isActiveProfile ? s.dropdownProfile : s.dropdownProfileActive;
+    const Menu = <div>
+        <NavLink to="/profile" className={s.navProfileElement}>Profile page</NavLink>
+        <div className={s.navProfileElement} onClick={logoutHandler}>
+            <img src={logout} alt="Logout button" className={s.logoutIcon}/>
+            <span>Log out</span>
+        </div>
+    </div>;
     const UserAuthStatus = isLoggedIn
         ?
         <div>
             <span className={s.userName}>{userName}</span>
-            <img src={userProfileAvatar} alt="USER PHOTO" className={s.userPhoto} onClick={dropdownProfileHandler}/>
+            <Dropdown overlay={Menu} placement="top"
+                      overlayStyle={{backgroundColor: 'aliceblue', borderRadius: '5px'}}
+                      arrow>
+                <img src={userProfileAvatar} alt="USER PHOTO" className={s.userPhoto}/>
+            </Dropdown>
         </div>
         :
         <a href="#/authorization">
@@ -63,13 +74,6 @@ export const Header = () => {
             <div className={s.dropdown}>
                 <div className={s.userInfo}>
                     {UserAuthStatus}
-                    <div className={dropdownProfile}>
-                        <NavLink to="/profile" className={s.navProfileElement}>Profile page</NavLink>
-                        <div className={s.navProfileElement} onClick={logoutHandler}>
-                            <img src={logout} alt="Logout button" className={s.logoutIcon}/>
-                            <span>Log out</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
