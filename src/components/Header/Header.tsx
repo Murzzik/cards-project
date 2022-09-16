@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from '../Header/Header.module.css';
 import projectLogo from '../../assets/images/project-logo.png';
 import {useAppDispatch, useAppSelector} from '../../store/store';
@@ -6,7 +6,7 @@ import {NavLink} from 'react-router-dom';
 import logout from '../../assets/images/logout.png';
 import {logOut} from '../../store/reducers/authorizationReducer';
 import {setPacksParameter} from '../../store/reducers/packsParameterReducer';
-import {Dropdown} from 'antd';
+import {Dropdown, notification} from 'antd';
 
 export const Header = () => {
     const userName = useAppSelector(state => state.auth.user.name);
@@ -14,6 +14,7 @@ export const Header = () => {
     const userProfileAvatar = useAppSelector(state => state.auth.user.avatar);
     let parameters = useAppSelector(state => state.packsParameter);
     const dispatch = useAppDispatch();
+    const errors = useAppSelector(state => state.app.error);
 
     const [isActiveNavigate, setIsActiveNavigate] = useState(true);
     const [isActiveProfile, setIsActiveProfile] = useState(true);
@@ -26,6 +27,19 @@ export const Header = () => {
     const dropdownNavigateHandler = () => {
         setIsActiveNavigate(!isActiveNavigate);
     };
+
+    const openNotification = () => {
+        notification.error({
+            message: `Oops, something went wrong`,
+            description: errors[errors.length - 1],
+            placement: 'bottomRight',
+            duration: 3.3
+        });
+    };
+
+    useEffect(() => {
+        errors.length && openNotification();
+    }, [errors]);
 
     // const dropdownProfileHandler = () => {
     //     setIsActiveProfile(!isActiveProfile);
@@ -57,6 +71,7 @@ export const Header = () => {
 
     return (
         <div className={s.header}>
+
             <div className={s.dropdown}>
                 <button className={s.navigationContainer} onClick={dropdownNavigateHandler}>
                     <img src={projectLogo} alt="IT-INCUBATOR"/>

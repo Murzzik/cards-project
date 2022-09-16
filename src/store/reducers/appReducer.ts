@@ -4,7 +4,7 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const initialState = {
     status: 'idle' as RequestStatusType,
-    error: null as string | null,
+    error: [] as Array<string>,
     isInitialized: false,
 };
 
@@ -18,8 +18,8 @@ const slice = createSlice({
         setInitialized(state, action: PayloadAction<{ parameter: { isInitialized: boolean } }>) {
             state.isInitialized = action.payload.parameter.isInitialized;
         },
-        setError(state, action: PayloadAction<{ parameter: { error: string | null } }>) {
-            state.error = action.payload.parameter.error;
+        setError(state, action: PayloadAction<{ parameter: { error: string } }>) {
+            state.error.push(action.payload.parameter.error);
         }
     },
 });
