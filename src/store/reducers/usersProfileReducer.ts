@@ -1,7 +1,8 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {profileAPI} from '../../api/profileAPI';
-import {RequestStatusType, setError} from './appReducer';
+import {RequestStatusType} from './appReducer';
 import {AxiosError} from 'axios';
+import {errorUtils} from '../../utils/error-utils';
 
 const initialState = {
     users: [] as UserInfo[],
@@ -19,9 +20,10 @@ export const getUserProfile = createAsyncThunk('user/info', async (user_id: stri
         thunkAPI.dispatch(setLoadStatus({status: 'succeeded'}));
         return user.data;
     } catch (err) {
-        const error = err as AxiosError<{ error: string }>;
-        thunkAPI.dispatch(setLoadStatus({status: 'failed'}));
-        thunkAPI.dispatch(setError({parameter: {error: error?.response?.data?.error as string}}));
+        // const error = err as AxiosError<{ error: string }>;
+        // thunkAPI.dispatch(setLoadStatus({status: 'failed'}));
+        // thunkAPI.dispatch(setError({parameter: {error: error?.response?.data?.error as string}}));
+        errorUtils(err as AxiosError, thunkAPI.dispatch);
     }
 
 });

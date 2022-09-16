@@ -1,9 +1,9 @@
 import {authAPI, SignInArgs} from '../../api/userAPI';
-import {setError, setInitialized, setPreloaderStatus} from './appReducer';
+import {setInitialized, setPreloaderStatus} from './appReducer';
 import {RegistrationData} from '../../components/registration/RegistrationContainer';
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AxiosError} from 'axios';
-import {parsError} from '../../utils/parsError';
+import {errorUtils} from '../../utils/error-utils';
 
 const initialState = {
     isLoggedIn: false,
@@ -23,24 +23,27 @@ export const login = createAsyncThunk('auth/login', async (data: SignInArgs, thu
         return user;
 
     } catch (err) {
-        const error = parsError(err as AxiosError);
-        thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
-        thunkAPI.dispatch(setError({parameter: {error: error}}));
-        alert(error);
+        // const error = parsError(err as AxiosError);
+        // thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
+        // thunkAPI.dispatch(setError({parameter: {error: error}}));
+        // alert(error);
+        errorUtils(err as AxiosError, thunkAPI.dispatch);
     }
 });
 
 export const logOut = createAsyncThunk('auth/logOut', async (arg, thunkAPI) => {
     thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     try {
-        await authAPI.logout();
-        thunkAPI.dispatch(setIsLoggedIn({parameter: {value: false}}));
+      const logOut =  await authAPI.logout();
+        // thunkAPI.dispatch(setIsLoggedIn({parameter: {value: false}}));
         thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
+        return  logOut
     } catch (err) {
-        const error = parsError(err as AxiosError);
-        thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
-        thunkAPI.dispatch(setError({parameter: {error: error}}));
-        alert(error);
+        // const error = parsError(err as AxiosError);
+        // thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
+        // thunkAPI.dispatch(setError({parameter: {error: error}}));
+        // alert(error);
+        errorUtils(err as AxiosError, thunkAPI.dispatch);
     }
 });
 
@@ -52,10 +55,11 @@ export const authorizationUser = createAsyncThunk('auth/authorization', async (a
         // thunkAPI.dispatch(setInitialized({parameter: {isInitialized: true}}));
         return userInfo.data;
     } catch (err) {
-        const error = parsError(err as AxiosError);
-        thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
-        thunkAPI.dispatch(setError({parameter: {error: error}}));
-        alert(error);
+        // const error = parsError(err as AxiosError);
+        // thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
+        // thunkAPI.dispatch(setError({parameter: {error: error}}));
+        // alert(error);
+        errorUtils(err as AxiosError, thunkAPI.dispatch);
     } finally {
         thunkAPI.dispatch((setPreloaderStatus({parameter: {status: 'idle'}})));
         thunkAPI.dispatch(setInitialized({parameter: {isInitialized: true}}));
@@ -69,10 +73,11 @@ export const updateUserData = createAsyncThunk('auth/updateUserData', async (dat
         thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
         return updateUser.data;
     } catch (err) {
-        const error = parsError(err as AxiosError);
-        thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
-        thunkAPI.dispatch(setError({parameter: {error: error}}));
-        alert(error);
+        // const error = parsError(err as AxiosError);
+        // thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
+        // thunkAPI.dispatch(setError({parameter: {error: error}}));
+        // alert(error);
+        errorUtils(err as AxiosError, thunkAPI.dispatch);
     }
 });
 
@@ -84,10 +89,11 @@ export const registration = createAsyncThunk('auth/registration', async (newUser
         alert(' You are autorized');
         return user.data.addedUser;
     } catch (err) {
-        const error = parsError(err as AxiosError);
-        thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
-        thunkAPI.dispatch(setError({parameter: {error: error}}));
-        alert(error);
+        // const error = parsError(err as AxiosError);
+        // thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
+        // thunkAPI.dispatch(setError({parameter: {error: error}}));
+        // alert(error);
+        errorUtils(err as AxiosError, thunkAPI.dispatch);
     }
 });
 
@@ -102,10 +108,11 @@ export const forgotPassword = createAsyncThunk('auth/forgotPassword', async (ema
         thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
         return email;
     } catch (err) {
-        const error = parsError(err as AxiosError);
-        thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
-        thunkAPI.dispatch(setError({parameter: {error: error}}));
-        alert(error);
+        // const error = parsError(err as AxiosError);
+        // thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
+        // thunkAPI.dispatch(setError({parameter: {error: error}}));
+        // alert(error);
+        errorUtils(err as AxiosError, thunkAPI.dispatch);
     }
 });
 
@@ -114,11 +121,13 @@ export const createNewPassword = createAsyncThunk('auth/createNewPassword', asyn
     try {
         await authAPI.setNewPassword(data.password, data.resetPasswordToken);
         thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
+        return null
     } catch (err) {
-        const error = parsError(err as AxiosError);
-        thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
-        thunkAPI.dispatch(setError({parameter: {error: error}}));
-        alert(error);
+        // const error = parsError(err as AxiosError);
+        // thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
+        // thunkAPI.dispatch(setError({parameter: {error: error}}));
+        // alert(error);
+        errorUtils(err as AxiosError, thunkAPI.dispatch);
     }
 });
 
@@ -153,9 +162,11 @@ const slice = createSlice({
                     state.isRegistered = true;
                 }
             });
-            builder.addCase(logOut.fulfilled, (state) => {
-                state.isRegistered = false;
-                state.isLoggedIn = false;
+            builder.addCase(logOut.fulfilled, (state, action) => {
+                if (action.payload){
+                    state.isRegistered = false;
+                    state.isLoggedIn = false;
+                }
             });
             builder.addCase(authorizationUser.fulfilled, (state, action) => {
                 if (action.payload) {

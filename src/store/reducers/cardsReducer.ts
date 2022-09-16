@@ -4,6 +4,7 @@ import {setError, setPreloaderStatus} from './appReducer';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {parsError} from '../../utils/parsError';
 import {AxiosError} from 'axios';
+import {errorUtils} from '../../utils/error-utils';
 
 const initialState = {
     cards: [] as CardsType[],
@@ -59,25 +60,27 @@ export const deleteCard = createAsyncThunk('cards/deleteCard', async (data: { ca
         await thunkAPI.dispatch(initializedCards({cardsPack_id: data.packID, page, pageCount}));
          thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
     } catch (err) {
-        const error = parsError(err as AxiosError);
-        thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
-        thunkAPI.dispatch(setError({parameter: {error: error}}));
-        alert(error);
+        // const error = parsError(err as AxiosError);
+        // thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
+        // thunkAPI.dispatch(setError({parameter: {error: error}}));
+        // alert(error);
+        errorUtils(err as AxiosError, thunkAPI.dispatch);
     }
 });
 
 export const updateCard = createAsyncThunk('cards/updateCard', async (data: { id: string, question: string, answer: string, packID: string, questionImg?: string }, thunkAPI) => {
-    const state = thunkAPI.getState() as AppRootStateType;
+    // const state = thunkAPI.getState() as AppRootStateType;
     thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'loading'}}));
     try {
         await cardsAPI.updateCard(data.id, data.question, data.answer, data.questionImg);
         thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
 
     } catch (err) {
-        const error = parsError(err as AxiosError);
-        thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
-        thunkAPI.dispatch(setError({parameter: {error: error}}));
-        alert(error);
+        // const error = parsError(err as AxiosError);
+        // thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
+        // thunkAPI.dispatch(setError({parameter: {error: error}}));
+        // alert(error);
+        errorUtils(err as AxiosError, thunkAPI.dispatch);
     }
 });
 

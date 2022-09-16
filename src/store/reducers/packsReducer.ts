@@ -1,9 +1,9 @@
 import {GetPackType, packAPI} from '../../api/packAPI';
 import {AppRootStateType} from '../store';
-import {setError, setPreloaderStatus} from './appReducer';
+import {setPreloaderStatus} from './appReducer';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {parsError} from '../../utils/parsError';
 import {AxiosError} from 'axios';
+import {errorUtils} from '../../utils/error-utils';
 
 const initialState = {
     cardPacks: [] as Pack[],
@@ -21,10 +21,11 @@ export const initializedPacks = createAsyncThunk('packs/initializedPacks', async
         thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
         return packs;
     } catch (err) {
-        const error = parsError(err as AxiosError);
-        thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
-        thunkAPI.dispatch(setError({parameter: {error: error}}));
-        alert(error);
+        // const error = parsError(err as AxiosError);
+        // thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
+        // thunkAPI.dispatch(setError({parameter: {error: error}}));
+        // alert(error);
+        errorUtils(err as AxiosError, thunkAPI.dispatch);
     }
 });
 
@@ -36,10 +37,11 @@ export const addNewPack = createAsyncThunk('packs/addNewPack', async (data: { na
         // packs will be loaded after changing the state in packsParameterReducer extraReducers
         thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
     } catch (err) {
-        const error = parsError(err as AxiosError);
-        thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
-        thunkAPI.dispatch(setError({parameter: {error: error}}));
-        alert(error);
+        // const error = parsError(err as AxiosError);
+        // thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
+        // thunkAPI.dispatch(setError({parameter: {error: error}}));
+        // alert(error);
+        errorUtils(err as AxiosError, thunkAPI.dispatch);
     }
 });
 
@@ -58,10 +60,11 @@ export const deletePack = createAsyncThunk('packs/deletePack', async (id: string
         thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'succeeded'}}));
         thunkAPI.dispatch(initializedPacks({user_id, page, pageCount}));
     } catch (err) {
-        const error = parsError(err as AxiosError);
-        thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
-        thunkAPI.dispatch(setError({parameter: {error: error}}));
-        alert(error);
+        // const error = parsError(err as AxiosError);
+        // thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
+        // thunkAPI.dispatch(setError({parameter: {error: error}}));
+        // alert(error);
+        errorUtils(err as AxiosError, thunkAPI.dispatch);
     }
 });
 
@@ -74,10 +77,11 @@ export const updatePack = createAsyncThunk('packs/updatePack', async (data: { id
         // packs will be loaded after changing the state in packsParameterReducer extraReducers
 
     } catch (err) {
-        const error = parsError(err as AxiosError);
-        thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
-        thunkAPI.dispatch(setError({parameter: {error: error}}));
-        alert(error);
+        // const error = parsError(err as AxiosError);
+        // thunkAPI.dispatch(setPreloaderStatus({parameter: {status: 'failed'}}));
+        // thunkAPI.dispatch(setError({parameter: {error: error}}));
+        // alert(error);
+        errorUtils(err as AxiosError, thunkAPI.dispatch);
     }
 });
 
