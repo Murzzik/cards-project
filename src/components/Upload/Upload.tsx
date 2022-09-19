@@ -6,23 +6,28 @@ import {Modal, Upload} from 'antd';
 type UpLoadPropsType = {
     uploadImage?: (e: ChangeEvent<HTMLInputElement>) => void,
     setImage: (base64: string) => void
-    someImage: string
+    someImage?: string
 }
 
 const UpLoad: React.FC<UpLoadPropsType> = ({setImage, uploadImage, someImage}) => {
         const [previewOpen, setPreviewOpen] = useState(false);
         const [previewImage, setPreviewImage] = useState('');
-        const [previewTitle, setPreviewTitle] = useState('');
-        const [fileList, setFileList] = useState<any []>([]);
+        // const [previewTitle, setPreviewTitle] = useState('');
+        const [fileList, setFileList] = useState([{
+            // uid: '-1',
+            // name: 'image.png',
+            status: 'done',
+            url: someImage,
+        }]);
 
         const handleCancel = () => setPreviewOpen(false);
 
         const handlePreview = async (file: any) => {
-            setPreviewImage(someImage);
+            someImage && setPreviewImage(someImage);
             setPreviewOpen(true);
-            setPreviewTitle(
-                file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
-            );
+            // setPreviewTitle(
+            //     file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
+            // );
         };
 
         const clearPackImg = () => {
@@ -57,6 +62,8 @@ const UpLoad: React.FC<UpLoadPropsType> = ({setImage, uploadImage, someImage}) =
                     onPreview={handlePreview}
                     onChange={handleChange}
                     onRemove={clearPackImg}
+                    // @ts-ignore
+                    fileList={fileList}
                     beforeUpload={() => {
                         /* update state here */
                         return false;
@@ -67,7 +74,7 @@ const UpLoad: React.FC<UpLoadPropsType> = ({setImage, uploadImage, someImage}) =
                 </Upload>
                 <Modal
                     visible={previewOpen}
-                    title={previewTitle}
+                    // title={previewTitle}
                     footer={null}
                     onCancel={handleCancel}
                 >

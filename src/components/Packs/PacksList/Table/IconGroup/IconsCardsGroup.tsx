@@ -10,6 +10,7 @@ type IconsCardsGroup = {
     ownerPack: string
     id: string
     question: string
+    questionImg?: string
     answer: string
     cardsPack_id: string
     grade: number
@@ -23,7 +24,7 @@ const customIcons: any = {
     5: <SmileOutlined/>,
 };
 
-export const IconsCardsGroup: React.FC<IconsCardsGroup> = ({ownerPack, cardsPack_id, id, answer, question, grade}) => {
+export const IconsCardsGroup: React.FC<IconsCardsGroup> = ({ownerPack, cardsPack_id, id, answer, question, grade, questionImg}) => {
     const myId = useAppSelector(state => state.auth.user._id);
 
     const isMyPacks = myId === ownerPack;
@@ -36,6 +37,7 @@ export const IconsCardsGroup: React.FC<IconsCardsGroup> = ({ownerPack, cardsPack
                     <EditCard id={id}
                               packID={cardsPack_id}
                               questionValue={question}
+                              questionImg={questionImg}
                               answerValue={answer}/>
                     <DeleteCard id={id}
                                 packID={cardsPack_id}

@@ -4,23 +4,24 @@ import {useAppDispatch} from '../../../../store/store';
 import {Button, Input} from 'antd';
 import s from './cards.module.css';
 import {updateCard} from '../../../../store/reducers/cardsReducer';
-import defaultImage from '../../../../assets/images/project-logo.png';
 import {uploadPhoto} from '../../../../utils/uploadPhoto';
 import {EditOutlined} from '@ant-design/icons';
+import UpLoad from '../../../Upload/Upload';
 
 type EditCard = {
     id: string
     packID: string
     questionValue: string
     answerValue: string
+    questionImg?: string
 }
 
-export const EditCard: React.FC<EditCard> = ({id, packID, questionValue, answerValue}) => {
+export const EditCard: React.FC<EditCard> = ({id, packID, questionValue, answerValue, questionImg}) => {
     const dispatch = useAppDispatch();
 
     const [cardQuestion, setCardQuestion] = useState(questionValue);
     const [cardAnswer, setCardAnswer] = useState(answerValue);
-    const [questionImage, setQuestionImage] = useState(defaultImage);
+    const [questionImage, setQuestionImage] = useState(questionImg);
     const uploadRef = useRef<HTMLInputElement>(null);
 
     const onChangeCardQuestion = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +39,7 @@ export const EditCard: React.FC<EditCard> = ({id, packID, questionValue, answerV
     const clearData = () => {
         setCardQuestion(questionValue);
         setCardAnswer(cardAnswer);
-        setQuestionImage(defaultImage);
+        setQuestionImage(questionImg);
         if (uploadRef.current) {
             uploadRef.current.value = '';
         }
@@ -57,12 +58,13 @@ export const EditCard: React.FC<EditCard> = ({id, packID, questionValue, answerV
                             <Button shape="circle" icon={<EditOutlined style={{fontSize: '20px', color: 'green'}}/>}/>
                         }
                         clearData={clearData}>
-            <div className={s.question_image_block}>
-                <img src={questionImage} alt=""/>
-                <label className="custom-file-upload">
-                    <input type="file" onChange={uploadPackImage}/>
-                </label>
-            </div>
+            {/*<div className={s.question_image_block}>*/}
+            {/*    <img src={questionImage} alt=""/>*/}
+            {/*    <label className="custom-file-upload">*/}
+            {/*        <input type="file" onChange={uploadPackImage}/>*/}
+            {/*    </label>*/}
+            {/*</div>*/}
+            <UpLoad setImage={setQuestionImage} someImage={questionImage} uploadImage={uploadPackImage}/>
             <Input className={s.cards_modal_input} placeholder="Change card question" onChange={onChangeCardQuestion}
                    name={cardQuestion} value={cardQuestion}/>
             <Input className={s.cards_modal_input} placeholder="Change card answer" onChange={onChangeCardAnswer}

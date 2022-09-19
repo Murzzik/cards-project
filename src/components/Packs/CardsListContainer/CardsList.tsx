@@ -23,13 +23,13 @@ const columns = [
         title: 'Answer',
         dataIndex: 'answer',
         sorter: {},
-        width:'30px'
+        width: '30px'
     },
     {
         title: 'Last Update',
         dataIndex: 'updated',
         sorter: {},
-        width:'150px'
+        width: '150px'
     },
     {
         title: 'Grade',
@@ -38,7 +38,7 @@ const columns = [
             // compare: (a: any, b: any) => a.grade - b.grade,
             // multiple: 1,
         },
-        width:'250px'
+        width: '250px'
     },
 ];
 
@@ -62,13 +62,14 @@ const CardsList: React.FC<CardsListPropsType> = ({cards}) => {
         question: card.question,
         answer: card.answer,
         updated: <div>
-            <p>{convertDate(card.updated)[0]}  {convertDate(card.updated)[1]}</p>
+            <p>{convertDate(card.updated)[0]} {convertDate(card.updated)[1]}</p>
             {/*<p>{convertDate(pack.updated)[1]}</p>*/}
         </div>,
         grade: <IconsCardsGroup
             grade={card.grade}
             cardsPack_id={card.cardsPack_id}
             question={card.question}
+            questionImg={card.questionImg}
             answer={card.answer}
             ownerPack={card.user_id}
             id={card._id}

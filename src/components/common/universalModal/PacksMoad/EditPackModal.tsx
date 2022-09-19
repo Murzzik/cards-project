@@ -6,8 +6,8 @@ import {Checkbox, Input} from 'antd';
 import {CheckboxChangeEvent} from 'antd/lib/checkbox';
 import EditIcon from '@mui/icons-material/Edit';
 import baseQuestionImage from '../../../../assets/images/project-logo.png';
-import s from '../CardsModal/cards.module.css';
 import {uploadPhoto} from '../../../../utils/uploadPhoto';
+import UpLoad from '../../../Upload/Upload';
 
 type EditePackModalPropsType = {
     packId: string,
@@ -17,7 +17,7 @@ const EditPackModal: React.FC<EditePackModalPropsType> = ({packId, packName}) =>
     const pack = useAppSelector(state => state.packs.cardPacks.find(p => p._id === packId));
     let packImg = baseQuestionImage;
     if (pack) {
-        if (pack.deckCover) {
+        if (pack.deckCover.includes('data:image')) {
             packImg = pack.deckCover;
         }
     }
@@ -58,12 +58,13 @@ const EditPackModal: React.FC<EditePackModalPropsType> = ({packId, packName}) =>
             children={
                 <div>
                     <Input placeholder="Pack name" value={name} onChange={onChangeHandler}/>
-                    <div className={s.question_image_block}>
-                        <img src={packImage} alt=""/>
-                        <label className="custom-file-upload">
-                            <input type="file" onChange={uploadPackImage} ref={uploadRef}/>
-                        </label>
-                    </div>
+                    {/*<div className={s.question_image_block}>*/}
+                    {/*    <img src={packImage} alt=""/>*/}
+                    {/*    <label className="custom-file-upload">*/}
+                    {/*        <input type="file" onChange={uploadPackImage} ref={uploadRef}/>*/}
+                    {/*    </label>*/}
+                    {/*</div>*/}
+                    <UpLoad setImage={setPackImage} someImage={packImage} uploadImage={uploadPackImage}/>
                     <Checkbox checked={check} onChange={onChangeCheck}>Private</Checkbox>
                 </div>
             }
